@@ -1,0 +1,222 @@
+{% if customer and customer.tags contains "dealer" %}
+  <section class="dealer-portal" data-section-id="{{ section.id }}">
+    {% if section.settings.heading != blank %}
+      <h1 class="dealer-portal__heading">{{ section.settings.heading }}</h1>
+    {% endif %}
+
+    {% if section.settings.intro != blank %}
+      <div class="dealer-portal__intro">{{ section.settings.intro }}</div>
+    {% endif %}
+
+    {% if section.blocks.size == 0 %}
+      <p class="dealer-portal__empty">Add blocks in the theme editor to populate this portal.</p>
+    {% endif %}
+
+    <div class="dealer-portal__blocks">
+      {% for block in section.blocks %}
+        <div class="dealer-portal__block dealer-portal__block--{{ block.type }}" {{ block.shopify_attributes }}>
+          {% case block.type %}
+            {% when "richtext" %}
+              {% if block.settings.heading != blank %}
+                <h2 class="dealer-portal__subheading">{{ block.settings.heading }}</h2>
+              {% endif %}
+              <div class="dealer-portal__richtext">{{ block.settings.content }}</div>
+
+            {% when "collection" %}
+              {% assign dealer_collection = block.settings.collection %}
+              {% if dealer_collection %}
+                {% if block.settings.heading != blank %}
+                  <h2 class="dealer-portal__subheading">{{ block.settings.heading }}</h2>
+                {% endif %}
+                <div class="dealer-portal__product-grid">
+                  {% for product in dealer_collection.products limit: block.settings.product_limit %}
+                    <article class="dealer-portal__product-card">
+                      <a href="{{ product.url }}" class="dealer-portal__product-image">
+                        {% if product.featured_image %}
+                          <img src="{{ product.featured_image | image_url: width: 360 }}" alt="{{ product.featured_image.alt | escape }}">
+                        {% endif %}
+                      </a>
+                      <div class="dealer-portal__product-meta">
+                        <h3 class="dealer-portal__product-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                        <p class="dealer-portal__product-price">{{ product.price | money }}</p>
+                      </div>
+                    </article>
+                  {% else %}
+                    <p>No products in this collection yet.</p>
+                  {% endfor %}
+                </div>
+                {% if block.settings.show_view_all and dealer_collection.url %}
+                  <p class="dealer-portal__view-all"><a href="{{ dealer_collection.url }}">View all</a></p>
+                {% endif %}
+              {% else %}
+                <p>Select a collection in this block to display products.</p>
+              {% endif %}
+
+            {% when "link_list" %}
+              {% assign menu = block.settings.menu %}
+              {% if menu %}
+                {% if block.settings.heading != blank %}
+                  <h2 class="dealer-portal__subheading">{{ block.settings.heading }}</h2>
+                {% endif %}
+                <ul class="dealer-portal__links">
+                  {% for link in menu.links %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {% else %}
+                    <li>No links in this menu.</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>Select a navigation menu for this block.</p>
+              {% endif %}
+
+            {% when "contact" %}
+              {% if block.settings.heading != blank %}
+                <h2 class="dealer-portal__subheading">{{ block.settings.heading }}</h2>
+              {% endif %}
+              <div class="dealer-portal__contact">
+                {% if block.settings.contact_email != blank %}
+                  <p>Email: <a href="mailto:{{ block.settings.contact_email }}">{{ block.settings.contact_email }}</a></p>
+                {% endif %}
+                {% if block.settings.contact_phone != blank %}
+                  <p>Phone: <a href="tel:{{ block.settings.contact_phone | remove: ' ' }}">{{ block.settings.contact_phone }}</a></p>
+                {% endif %}
+                {% if block.settings.extra_info != blank %}
+                  <div class="dealer-portal__extra-info">{{ block.settings.extra_info }}</div>
+                {% endif %}
+              </div>
+
+          {% endcase %}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% else %}
+  <script>
+    window.location.href = '/account/login?return_url={{ request.path | url_encode }}';
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/account/login?return_url={{ request.path | url_encode }}">
+    <p>This area is for approved dealers only. <a href="/account/login?return_url={{ request.path | url_encode }}">Sign in</a>.</p>
+  </noscript>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Dealer portal",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Dealer Portal"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro text",
+      "default": "<p>Welcome back. Manage your dealer resources below.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "richtext",
+      "name": "Rich text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add your dealer-only announcement here.</p>"
+        }
+      ]
+    },
+    {
+      "type": "collection",
+      "name": "Collection products",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Featured dealer products"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "product_limit",
+          "label": "Number of products",
+          "min": 2,
+          "max": 16,
+          "step": 2,
+          "default": 8
+        },
+        {
+          "type": "checkbox",
+          "id": "show_view_all",
+          "label": "Show View all link",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "link_list",
+      "name": "Navigation links",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Quick links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact info",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Need help?"
+        },
+        {
+          "type": "text",
+          "id": "contact_email",
+          "label": "Email"
+        },
+        {
+          "type": "text",
+          "id": "contact_phone",
+          "label": "Phone"
+        },
+        {
+          "type": "richtext",
+          "id": "extra_info",
+          "label": "Extra info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dealer portal",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

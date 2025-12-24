@@ -1,0 +1,1130 @@
+{% comment %}
+  Dealer map section powered by Leaflet. Supports search, geolocation, popups, and Google Maps links.
+{% endcomment %}
+{% assign section_id = section.id %}
+{% assign map_height = section.settings.map_height | default: 480 %}
+{% assign header_offset = section.settings.header_offset | default: 134 %}
+{% assign dealers_count = section.blocks | size %}
+
+{{ 'leaflet.css' | asset_url | stylesheet_tag }}
+{{ 'leaflet.js' | asset_url | script_tag }}
+
+<section id="dealer-map-{{ section_id }}" class="dealer-map" data-dealer-map="{{ section_id }}">
+  <style>
+    #dealer-map-{{ section_id }} {
+      padding: 0;
+      background: #000000;
+      color: #ffffff;
+      --dealer-map-header-offset: {{ header_offset }}px;
+      --dealer-map-heading-size: {{ section.settings.heading_size | default: 1.5 }}rem;
+      --dealer-map-heading-weight: {{ section.settings.heading_weight | default: 500 }};
+      --dealer-map-heading-color: {{ section.settings.heading_color | default: '#f5f5f5' }};
+      --dealer-map-subtitle-size: {{ section.settings.subtitle_size | default: 1.0 }}rem;
+      --dealer-map-subtitle-color: {{ section.settings.subtitle_color | default: '#bcbcbc' }};
+    }
+    #dealer-map-{{ section_id }} .dealer-map__inner {
+      position: relative;
+      max-width: none;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__layout {
+      position: relative;
+      min-height: max(calc(100vh - var(--dealer-map-header-offset, 0px)), {{ map_height }}px);
+      height: max(calc(100vh - var(--dealer-map-header-offset, 0px)), {{ map_height }}px);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-wrap {
+      position: relative;
+      width: calc(100% - clamp(320px, 30vw, 400px));
+      margin-right: clamp(320px, 30vw, 400px);
+      height: max(calc(100vh - var(--dealer-map-header-offset, 0px)), {{ map_height }}px);
+      min-height: max(calc(100vh - var(--dealer-map-header-offset, 0px)), {{ map_height }}px);
+      border-radius: 0;
+      overflow: hidden;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map {
+      width: 100%;
+      height: 100%;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-controls {
+      position: absolute;
+      top: 32px;
+      left: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: nowrap;
+      z-index: 1200;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-search {
+      margin: 0;
+      width: clamp(260px, 28vw, 360px);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      background: rgba(17, 17, 17, 0.9);
+      backdrop-filter: blur(6px);
+      padding: 12px 14px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-search input[type="search"] {
+      flex: 1 1 auto;
+      min-width: 160px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      color: #ffffff;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-search button {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      background: {{ section.settings.button_background | default: '#ffffff' }};
+      color: {{ section.settings.button_text | default: '#000000' }};
+      font-weight: 600;
+      cursor: pointer;
+      transition: filter 150ms ease;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-search button:hover:not([disabled]) {
+      filter: brightness(0.9);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-search button[disabled] {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__locate-control {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(17, 17, 17, 0.92);
+      color: #ffffff;
+      font-weight: 600;
+      line-height: 1;
+      min-height: 36px;
+      white-space: nowrap;
+      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, opacity 150ms ease;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__locate-control:hover:not([disabled]) {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 38px rgba(0, 0, 0, 0.45);
+      background: rgba(17, 17, 17, 0.98);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__locate-control:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__locate-control[data-state="loading"] {
+      animation: dealer-map__locate-pulse 1s ease-in-out infinite alternate;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__locate-control[data-state="success"] {
+      background: rgba(24, 108, 66, 0.9);
+      border-color: rgba(126, 255, 195, 0.35);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__locate-control[data-state="error"] {
+      background: rgba(108, 33, 33, 0.9);
+      border-color: rgba(255, 134, 134, 0.4);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__locate-control[data-state="unsupported"] {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    @keyframes dealer-map__locate-pulse {
+      from { box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35); transform: scale(1); }
+      to { box-shadow: 0 26px 42px rgba(0, 0, 0, 0.45); transform: scale(1.06); }
+    }
+    #dealer-map-{{ section_id }} .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__search-result-icon {
+      background: none;
+      border: none;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__search-result {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateY(-6px);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__search-result-label {
+      background: rgba(17, 17, 17, 0.9);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      white-space: nowrap;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__search-result-pin {
+      display: block;
+      width: 34px;
+      height: 50px;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__nearest-tooltip {
+      background: rgba(17, 17, 17, 0.95);
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      white-space: nowrap;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__nearest-tooltip::before {
+      display: none;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-search-status {
+      flex-basis: 100%;
+      margin: 4px 0 0;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.8);
+      min-height: 1em;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-search-status[data-state="error"] {
+      color: #ffd6d6;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__map-search-status[data-state="success"] {
+      color: #d6ffe0;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__panel {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      transform: none;
+      width: clamp(320px, 30vw, 400px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 32px 28px;
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.92);
+      color: {{ section.settings.panel_text | default: '#ffffff' }};
+      box-shadow: none;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      z-index: 1300;
+    }
+
+    #dealer-map-{{ section_id }} .dealer-map__panel-title {
+      margin: 0;
+      font-size: var(--dealer-map-heading-size, 1.5rem);
+      font-weight: var(--dealer-map-heading-weight, 500);
+      letter-spacing: 0.01em;
+      color: var(--dealer-map-heading-color, rgba(255, 255, 255, 0.9));
+    }
+
+    #dealer-map-{{ section_id }} .dealer-map__panel-subtitle p {
+      margin: 0;
+    }
+    #dealer-map-{{ section_id }} .leaflet-control-container .leaflet-top.leaflet-left {
+      top: auto;
+      bottom: 32px;
+      left: 32px;
+      right: auto;
+      transform: none;
+    }
+    #dealer-map-{{ section_id }} .leaflet-control-zoom {
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    #dealer-map-{{ section_id }} .leaflet-control-zoom a {
+      background: rgba(0, 0, 0, 0.92);
+      color: #ffffff;
+      border: none;
+      transition: background 150ms ease;
+    }
+    #dealer-map-{{ section_id }} .leaflet-control-zoom a:hover {
+      background: rgba(40, 40, 40, 0.98);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__panel-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__panel-subtitle {
+      color: var(--dealer-map-subtitle-color, rgba(255, 255, 255, 0.75));
+      font-size: var(--dealer-map-subtitle-size, 0.95rem);
+      line-height: 1.5;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__panel-subtitle p {
+      margin: 0;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__list {
+      margin: 0;
+      padding: 8px 0;
+      list-style: none;
+      flex: 1 1 auto;
+      max-height: none;
+      overflow-y: auto;
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__list-item {
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 150ms ease;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__list-item:last-child {
+      border-bottom: none;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__list-item:hover,
+    #dealer-map-{{ section_id }} .dealer-map__list-item.is-active {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    #dealer-map-{{ section_id }} .dealer-map__list-item h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__list-item address {
+      font-style: normal;
+      line-height: 1.4;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__list-item a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    #dealer-map-{{ section_id }} .dealer-map__empty {
+      padding: 14px 18px;
+      text-align: center;
+      opacity: 0.75;
+    }
+    @media (max-width: 900px) {
+      #dealer-map-{{ section_id }} .dealer-map__layout {
+        position: static;
+      }
+      #dealer-map-{{ section_id }} .dealer-map__map-controls {
+        position: static;
+        margin: 16px 24px 0;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      #dealer-map-{{ section_id }} .dealer-map__map-wrap {
+        width: 100%;
+        margin-right: 0;
+        height: max(calc(100vh - var(--dealer-map-header-offset, 0px)), {{ map_height }}px);
+        min-height: max(calc(100vh - var(--dealer-map-header-offset, 0px)), {{ map_height }}px);
+      }
+      #dealer-map-{{ section_id }} .dealer-map__map-search {
+        width: 100%;
+      }
+      #dealer-map-{{ section_id }} .dealer-map__panel {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-height: none;
+        margin: 24px 0 0;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+        border-left: none;
+      }
+      #dealer-map-{{ section_id }} .leaflet-control-container .leaflet-top.leaflet-left {
+        top: auto;
+        bottom: 24px;
+        left: 24px;
+        right: auto;
+        transform: none;
+      }
+      #dealer-map-{{ section_id }} .leaflet-control-container .leaflet-top.leaflet-left {
+        bottom: 24px;
+        left: 24px;
+        right: auto;
+      }
+    }
+  </style>
+
+  <div class="dealer-map__inner">
+    <div class="dealer-map__layout">
+      <div class="dealer-map__map-wrap">
+        <div class="dealer-map__map-controls">
+          <form class="dealer-map__map-search" data-role="map-search-form">
+            <input type="search" data-role="map-search-input" placeholder="Enter an address or city" autocomplete="off">
+            <button type="submit">Search</button>
+            <p class="dealer-map__map-search-status" data-role="map-search-status" aria-live="polite" aria-atomic="true"></p>
+          </form>
+          <button type="button" class="dealer-map__locate-control" data-action="locate" aria-label="Use my Location">
+            Use my Location
+          </button>
+        </div>
+        <div id="dealer-map-canvas-{{ section_id }}" class="dealer-map__map" role="region" aria-label="Dealer locations map"></div>
+      </div>
+
+      <div class="dealer-map__panel">
+        {% if section.settings.heading != blank or section.settings.text != blank %}
+          <div class="dealer-map__panel-heading">
+            {% if section.settings.heading != blank %}
+              <h2 class="dealer-map__panel-title">{{ section.settings.heading }}</h2>
+            {% endif %}
+            {% if section.settings.text != blank %}
+              <div class="dealer-map__panel-subtitle">{{ section.settings.text }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+        <ul class="dealer-map__list" data-role="dealer-list">
+          {% if dealers_count > 0 %}
+            {% for block in section.blocks %}
+              {% assign lat = block.settings.latitude | strip %}
+              {% assign lng = block.settings.longitude | strip %}
+              {% if block.settings.directions_url != blank %}
+                {% assign directions_link = block.settings.directions_url %}
+              {% elsif lat != blank and lng != blank %}
+                {% capture directions_link %}https://www.google.com/maps/dir/?api=1&destination={{ lat | replace: ' ', '' | url_encode }},{{ lng | replace: ' ', '' | url_encode }}{% endcapture %}
+                {% assign directions_link = directions_link | strip %}
+              {% else %}
+                {% assign directions_link = '' %}
+              {% endif %}
+              <li class="dealer-map__list-item" data-dealer-id="{{ block.id }}" {{ block.shopify_attributes }}>
+                <h3 class="dealer-map__name">{{ block.settings.name }}</h3>
+                <address class="dealer-map__address">
+                  {{ block.settings.address_line1 }}{% if block.settings.address_line1 != blank and block.settings.address_line2 != blank %}<br>{% endif %}
+                  {% if block.settings.address_line2 != blank %}
+                    {{ block.settings.address_line2 }}<br>
+                  {% endif %}
+                  {% if block.settings.city != blank or block.settings.state != blank or block.settings.postal_code != blank %}
+                    {{ block.settings.city }}{% if block.settings.state != blank %}, {{ block.settings.state }}{% endif %}{% if block.settings.postal_code != blank %} {{ block.settings.postal_code }}{% endif %}<br>
+                  {% endif %}
+                  {% if block.settings.country != blank %}{{ block.settings.country }}{% endif %}
+                </address>
+                {% if block.settings.phone != blank %}
+                  <span class="dealer-map__phone">{{ block.settings.phone }}</span>
+                {% endif %}
+                {% if block.settings.website_url != blank %}
+                  <a class="dealer-map__website" href="{{ block.settings.website_url }}" target="_blank" rel="noopener">Visit website</a>
+                {% endif %}
+                {% if block.settings.email != blank %}
+                  <a class="dealer-map__email" href="mailto:{{ block.settings.email }}">Email</a>
+                {% endif %}
+                {% if directions_link != blank %}
+                  <a class="dealer-map__directions" href="{{ directions_link }}" target="_blank" rel="noopener">Open in Google Maps</a>
+                {% endif %}
+                {% if block.settings.notes != blank %}
+                  <p class="dealer-map__notes">{{ block.settings.notes }}</p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          {% endif %}
+          <li class="dealer-map__empty" data-role="empty-state"{% if dealers_count > 0 %} hidden{% endif %}>No dealers to show yet.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" id="dealer-map-data-{{ section_id }}">
+    {
+      "defaultZoom": {{ section.settings.default_zoom | default: 6 | json }},
+      "dealers": [
+        {% for block in section.blocks %}
+          {
+            "id": {{ block.id | json }},
+            "name": {{ block.settings.name | json }},
+            "addressLine1": {{ block.settings.address_line1 | json }},
+            "addressLine2": {{ block.settings.address_line2 | json }},
+            "city": {{ block.settings.city | json }},
+            "state": {{ block.settings.state | json }},
+            "postalCode": {{ block.settings.postal_code | json }},
+            "country": {{ block.settings.country | json }},
+            "phone": {{ block.settings.phone | json }},
+            "email": {{ block.settings.email | json }},
+            "websiteUrl": {{ block.settings.website_url | json }},
+            "latitude": {{ block.settings.latitude | json }},
+            "longitude": {{ block.settings.longitude | json }},
+            "directionsUrl": {{ block.settings.directions_url | json }},
+            "notes": {{ block.settings.notes | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  </script>
+</section>
+
+<script>
+  (function() {
+    var sectionId = '{{ section_id }}';
+    var sectionEl = document.getElementById('dealer-map-' + sectionId);
+    if (!sectionEl) return;
+
+    function ready(fn) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fn);
+      } else {
+        fn();
+      }
+    }
+
+    function initDealerMap() {
+      if (!sectionEl || sectionEl.dataset.mapInitialized === 'true') return;
+      if (typeof window.L === 'undefined') {
+        console.error('Leaflet library not available.');
+        return;
+      }
+
+      var dataEl = document.getElementById('dealer-map-data-' + sectionId);
+      if (!dataEl) return;
+
+      var config;
+      try {
+        config = JSON.parse(dataEl.textContent);
+      } catch (err) {
+        console.error('Dealer map JSON parse error', err);
+        return;
+      }
+
+      var mapContainer = document.getElementById('dealer-map-canvas-' + sectionId);
+      var listEl = sectionEl.querySelector('[data-role="dealer-list"]');
+      var searchInput = sectionEl.querySelector('[data-role="dealer-search"]');
+      var locateBtn = sectionEl.querySelector('[data-action="locate"]');
+      var mapSearchForm = sectionEl.querySelector('[data-role="map-search-form"]');
+      var mapSearchInput = mapSearchForm ? mapSearchForm.querySelector('[data-role="map-search-input"]') : null;
+      var mapSearchStatus = mapSearchForm ? mapSearchForm.querySelector('[data-role="map-search-status"]') : null;
+      var mapSearchButton = mapSearchForm ? mapSearchForm.querySelector('button[type="submit"]') : null;
+      var mapSearchStatusTimer = null;
+      var emptyState = listEl ? listEl.querySelector('[data-role="empty-state"]') : null;
+      var routeLine = sectionEl.__routeLine || null;
+      var nearestDealerMarker = sectionEl.__nearestDealerMarker || null;
+      var locatePending = false;
+      var locateResetTimer = null;
+      var locateButtonLabels = {
+        idle: 'Use my Location',
+        loading: 'Locating...',
+        success: 'Location found',
+        error: 'Location unavailable',
+        unsupported: 'Geolocation not supported'
+      };
+
+      function setLocateButtonState(state) {
+        if (!locateBtn) return;
+        var key = state || 'idle';
+        locateBtn.dataset.state = key;
+        var label = locateButtonLabels[key] || locateButtonLabels.idle;
+        locateBtn.textContent = label;
+        locateBtn.setAttribute('aria-label', label);
+        locateBtn.setAttribute('title', label);
+        var srText = locateBtn.querySelector('.visually-hidden');
+        if (srText) srText.textContent = label;
+      }
+
+
+      if (!mapContainer || !listEl) return;
+
+      setLocateButtonState('idle');
+
+      var map = L.map(mapContainer, { scrollWheelZoom: true });
+      var canUseMapLocate = typeof map.locate === 'function';
+
+      map.on('locationfound', function(event) {
+        if (!event || !event.latlng) return;
+        locatePending = false;
+        if (locateResetTimer) {
+          clearTimeout(locateResetTimer);
+          locateResetTimer = null;
+        }
+        var latlng = event.latlng;
+        var popupContent = 'Your Location';
+        var userMarker = sectionEl.__userMarker;
+        if (!userMarker) {
+          userMarker = L.marker(latlng, { icon: searchResultIcon }).addTo(map);
+          sectionEl.__userMarker = userMarker;
+          if (typeof userMarker.bindPopup === 'function') {
+            userMarker.bindPopup(popupContent);
+          }
+        } else {
+          if (typeof userMarker.setIcon === 'function') {
+            userMarker.setIcon(searchResultIcon);
+          }
+          userMarker.setLatLng(latlng);
+          if (!map.hasLayer(userMarker)) {
+            userMarker.addTo(map);
+          }
+          if (typeof userMarker.getPopup === 'function') {
+            var existingPopup = userMarker.getPopup();
+            if (existingPopup && typeof existingPopup.setContent === 'function') {
+              existingPopup.setContent(popupContent);
+            } else if (!existingPopup && typeof userMarker.bindPopup === 'function') {
+              userMarker.bindPopup(popupContent);
+            }
+          } else if (typeof userMarker.bindPopup === 'function') {
+            userMarker.bindPopup(popupContent);
+          }
+        }
+        sectionEl.__userMarker = userMarker;
+        if (typeof userMarker.openPopup === 'function') {
+          userMarker.openPopup();
+        }
+        var targetZoom = Math.max(map.getZoom(), 12);
+        map.flyTo(latlng, targetZoom, { duration: 0.8 });
+        updateRouteFromLatLng(latlng);
+        if (locateBtn) {
+          setLocateButtonState('success');
+          locateBtn.disabled = true;
+          locateResetTimer = window.setTimeout(function() {
+            setLocateButtonState('idle');
+            locateBtn.disabled = false;
+            locateResetTimer = null;
+          }, 2500);
+        }
+      });
+
+      map.on('locationerror', function() {
+        locatePending = false;
+        if (locateResetTimer) {
+          clearTimeout(locateResetTimer);
+          locateResetTimer = null;
+        }
+        if (locateBtn) {
+          setLocateButtonState('error');
+          locateBtn.disabled = true;
+          locateResetTimer = window.setTimeout(function() {
+            setLocateButtonState('idle');
+            locateBtn.disabled = false;
+            locateResetTimer = null;
+          }, 2000);
+        }
+        clearRouteLine();
+      });
+
+      map.whenReady(function() {
+        setTimeout(function() { map.invalidateSize(); }, 0);
+      });
+
+      if (!mapContainer.offsetWidth || !mapContainer.offsetHeight) {
+        map.invalidateSize();
+      }
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '� OpenStreetMap contributors'
+      }).addTo(map);
+
+      var defaultIcon = L.icon({
+        iconUrl: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 48"%3E%3Cpath fill="%23666668" stroke="%23ffffff" stroke-width="2" d="M16 1.5c-7.7 0-14 6.3-14 14.1 0 9.7 11.7 29.4 13.1 31.8a1 1 0 0 0 1.7 0c1.4-2.4 13.1-22.1 13.1-31.8 0-7.8-6.3-14.1-14-14.1zm0 20.6a7 7 0 1 1 0-14 7 7 0 0 1 0 14z"/%3E%3C/svg%3E',
+        iconSize: [32, 48],
+        iconAnchor: [16, 47],
+        popupAnchor: [0, -44]
+      });
+
+      var searchResultIcon = L.divIcon({
+        className: 'dealer-map__search-result-icon',
+        html: [
+          '<div class="dealer-map__search-result">',
+            '<span class="dealer-map__search-result-label">Your Location</span>',
+            '<svg class="dealer-map__search-result-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 48" aria-hidden="true">',
+              '<path fill="#e03131" stroke="#ffffff" stroke-width="2" d="M16 1.5c-7.7 0-14 6.3-14 14.1 0 9.7 11.7 29.4 13.1 31.8a1 1 0 0 0 1.7 0c1.4-2.4 13.1-22.1 13.1-31.8 0-7.8-6.3-14.1-14-14.1zm0 20.6a7 7 0 1 1 0-14 7 7 0 0 1 0 14z"/>',
+            '</svg>',
+          '</div>'
+        ].join(''),
+        iconSize: [36, 56],
+        iconAnchor: [18, 52],
+        popupAnchor: [0, -52]
+      });
+
+      var listItems = Array.prototype.slice.call(listEl.querySelectorAll('.dealer-map__list-item[data-dealer-id]'));
+      var entries = [];
+      var bounds = L.latLngBounds();
+
+      config.dealers.forEach(function(dealer) {
+        var listItem = listItems.find(function(item) { return item.dataset.dealerId === dealer.id; }) || null;
+        var entry = {
+          dealer: dealer,
+          listItem: listItem,
+          marker: null,
+          searchBlob: [
+            dealer.name,
+            dealer.addressLine1,
+            dealer.addressLine2,
+            dealer.city,
+            dealer.state,
+            dealer.postalCode,
+            dealer.country,
+            dealer.phone,
+            dealer.email,
+            dealer.notes
+          ].filter(Boolean).join(' ').toLowerCase()
+        };
+
+        var lat = parseFloat(dealer.latitude);
+        var lng = parseFloat(dealer.longitude);
+        if (!Number.isNaN(lat) && !Number.isNaN(lng)) {
+          var popupParts = [];
+          if (dealer.name) popupParts.push('<strong>' + dealer.name + '</strong>');
+          var addressLines = [];
+          if (dealer.addressLine1) addressLines.push(dealer.addressLine1);
+          if (dealer.addressLine2) addressLines.push(dealer.addressLine2);
+          var cityLine = [dealer.city, dealer.state].filter(Boolean).join(', ');
+          var postalLine = [cityLine, dealer.postalCode].filter(Boolean).join(' ');
+          if (postalLine.trim().length) addressLines.push(postalLine.trim());
+          if (dealer.country) addressLines.push(dealer.country);
+          if (addressLines.length) popupParts.push(addressLines.join('<br>'));
+          if (dealer.phone) popupParts.push('<a href="tel:' + dealer.phone.replace(/[^0-9+]/g, '') + '">' + dealer.phone + '</a>');
+          if (dealer.websiteUrl) popupParts.push('<a href="' + dealer.websiteUrl + '" target="_blank" rel="noopener">Visit website</a>');
+          if (dealer.email) popupParts.push('<a href="mailto:' + dealer.email + '">Email dealer</a>');
+          var directionsUrl = dealer.directionsUrl && dealer.directionsUrl.trim().length
+            ? dealer.directionsUrl
+            : 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(lat + ',' + lng);
+          popupParts.push('<a href="' + directionsUrl + '" target="_blank" rel="noopener">Open in Google Maps</a>');
+          if (dealer.notes) popupParts.push('<p>' + dealer.notes + '</p>');
+
+          entry.marker = L.marker([lat, lng], { icon: defaultIcon })
+            .addTo(map)
+            .bindPopup(popupParts.join('<br>'));
+          entry.marker.dealerId = dealer.id;
+          entry.marker.on('click', function() { highlightEntry(dealer.id); });
+          bounds.extend([lat, lng]);
+        }
+
+        entries.push(entry);
+      });
+
+      function getNearestDealerEntry(sourceLatLng) {
+        if (!sourceLatLng) return null;
+        var shortestDistance = Infinity;
+        var nearestEntry = null;
+        entries.forEach(function(entry) {
+          if (!entry.marker) return;
+          var dealerLatLng = entry.marker.getLatLng();
+          if (!dealerLatLng) return;
+          var distance = map.distance(sourceLatLng, dealerLatLng);
+          if (distance < shortestDistance) {
+            shortestDistance = distance;
+            nearestEntry = entry;
+          }
+        });
+        return nearestEntry;
+      }
+
+      function clearNearestDealerMarker() {
+        if (nearestDealerMarker) {
+          if (typeof nearestDealerMarker.closeTooltip === 'function') {
+            nearestDealerMarker.closeTooltip();
+          }
+          if (typeof nearestDealerMarker.unbindTooltip === 'function') {
+            nearestDealerMarker.unbindTooltip();
+          }
+        }
+        nearestDealerMarker = sectionEl.__nearestDealerMarker = null;
+      }
+
+      function markNearestDealer(marker) {
+        if (!marker) return;
+        if (marker === nearestDealerMarker && typeof marker.getTooltip === 'function' && marker.getTooltip()) {
+          marker.openTooltip();
+          return;
+        }
+        clearNearestDealerMarker();
+        nearestDealerMarker = sectionEl.__nearestDealerMarker = marker;
+        if (typeof marker.bindTooltip === 'function') {
+          marker.bindTooltip('Nearest Dealer', {
+            permanent: true,
+            direction: 'top',
+            offset: [0, -48],
+            className: 'dealer-map__nearest-tooltip'
+          }).openTooltip();
+        }
+      }
+
+      function clearRouteLine() {
+        if (routeLine && map.hasLayer(routeLine)) {
+          map.removeLayer(routeLine);
+        }
+        routeLine = sectionEl.__routeLine = null;
+        clearNearestDealerMarker();
+      }
+
+      function updateRouteFromLatLng(rawLatLng) {
+        if (!rawLatLng) {
+          clearRouteLine();
+          return;
+        }
+        var sourceLatLng = rawLatLng instanceof L.LatLng ? rawLatLng : L.latLng(rawLatLng);
+        var nearestEntry = getNearestDealerEntry(sourceLatLng);
+        if (!nearestEntry || !nearestEntry.marker) {
+          clearRouteLine();
+          return;
+        }
+        var dealerLatLng = nearestEntry.marker.getLatLng();
+        if (!dealerLatLng) {
+          clearRouteLine();
+          return;
+        }
+        var points = [sourceLatLng, dealerLatLng];
+        if (!routeLine) {
+          routeLine = sectionEl.__routeLine = L.polyline(points, {
+            color: '#e03131',
+            weight: 3,
+            opacity: 0.75,
+            dashArray: '6 8',
+            lineCap: 'round'
+          }).addTo(map);
+        } else {
+          routeLine.setLatLngs(points);
+          if (!map.hasLayer(routeLine)) {
+            routeLine.addTo(map);
+          }
+        }
+        markNearestDealer(nearestEntry.marker);
+        var routeBounds = L.latLngBounds(points);
+        if (routeBounds.isValid() && !map.getBounds().contains(routeBounds)) {
+          map.fitBounds(routeBounds.pad(0.1));
+        }
+      }
+
+      if (bounds.isValid()) {
+        map.fitBounds(bounds.pad(0.1));
+      } else {
+        map.setView([37.0902, -95.7129], config.defaultZoom || 4);
+      }
+
+      if (emptyState) {
+        emptyState.hidden = entries.some(function(entry) { return entry.listItem; });
+      }
+
+      function highlightEntry(id) {
+        entries.forEach(function(entry) {
+          var isActive = entry.dealer.id === id;
+          if (entry.listItem) entry.listItem.classList.toggle('is-active', isActive);
+          if (isActive && entry.marker) {
+            map.setView(entry.marker.getLatLng(), Math.max(map.getZoom(), 12));
+            entry.marker.openPopup();
+          }
+        });
+      }
+
+      function setMapSearchStatus(message, state) {
+        if (!mapSearchStatus) return;
+        if (mapSearchStatusTimer) {
+          clearTimeout(mapSearchStatusTimer);
+          mapSearchStatusTimer = null;
+        }
+        if (!message) {
+          mapSearchStatus.textContent = '';
+          delete mapSearchStatus.dataset.state;
+          return;
+        }
+        mapSearchStatus.textContent = message;
+        if (state) mapSearchStatus.dataset.state = state;
+        else delete mapSearchStatus.dataset.state;
+        mapSearchStatusTimer = window.setTimeout(function() {
+          if (!mapSearchStatus) return;
+          mapSearchStatus.textContent = '';
+          delete mapSearchStatus.dataset.state;
+          mapSearchStatusTimer = null;
+        }, state === 'error' ? 6000 : 4000);
+      }
+
+      function toggleMapSearchLoading(isLoading) {
+        if (!mapSearchButton) return;
+        if (isLoading) {
+          if (!mapSearchButton.dataset.originalLabel) {
+            mapSearchButton.dataset.originalLabel = mapSearchButton.textContent;
+          }
+          mapSearchButton.textContent = 'Searching�';
+        } else if (mapSearchButton.dataset.originalLabel) {
+          mapSearchButton.textContent = mapSearchButton.dataset.originalLabel;
+        }
+        mapSearchButton.disabled = !!isLoading;
+      }
+
+      function applyFilter(term) {
+        var query = term.trim().toLowerCase();
+        var visibleLatLngs = [];
+        var visibleCount = 0;
+
+        entries.forEach(function(entry) {
+          var matches = !query || entry.searchBlob.includes(query);
+          if (entry.listItem) {
+            entry.listItem.style.display = matches ? '' : 'none';
+            if (!matches) entry.listItem.classList.remove('is-active');
+          }
+          if (entry.marker) {
+            var hasLayer = map.hasLayer(entry.marker);
+            if (matches && !hasLayer) entry.marker.addTo(map);
+            else if (!matches && hasLayer) map.removeLayer(entry.marker);
+            if (matches) visibleLatLngs.push(entry.marker.getLatLng());
+          }
+          if (matches) visibleCount += 1;
+        });
+
+        if (emptyState) {
+          emptyState.hidden = visibleCount > 0;
+        }
+
+        if (visibleLatLngs.length === 1) {
+          map.setView(visibleLatLngs[0], Math.max(map.getZoom(), 12));
+        } else if (visibleLatLngs.length > 1) {
+          var filteredBounds = L.latLngBounds(visibleLatLngs);
+          if (filteredBounds.isValid()) {
+            map.fitBounds(filteredBounds.pad(0.1));
+          }
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function(event) {
+          applyFilter(event.target.value);
+        });
+      }
+
+      if (mapSearchForm && mapSearchInput) {
+        mapSearchForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+          var query = mapSearchInput.value.trim();
+          if (!query) {
+            setMapSearchStatus('Enter an address to search.', 'error');
+            if (typeof mapSearchInput.focus === 'function') mapSearchInput.focus();
+            return;
+          }
+          toggleMapSearchLoading(true);
+          setMapSearchStatus('Searching.');
+          clearRouteLine();
+
+          fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(query), {
+            headers: { 'Accept': 'application/json' }
+          })
+            .then(function(response) {
+              if (!response.ok) throw new Error('Search request failed');
+              return response.json();
+            })
+            .then(function(results) {
+              if (Array.isArray(results) && results.length > 0) {
+                var result = results[0];
+                var lat = parseFloat(result.lat);
+                var lon = parseFloat(result.lon);
+                if (!Number.isNaN(lat) && !Number.isNaN(lon)) {
+                  var searchLatLng = [lat, lon];
+                  var searchMarker = sectionEl.__searchResultMarker;
+                  if (!searchMarker) {
+                    searchMarker = sectionEl.__searchResultMarker = L.marker(searchLatLng, { icon: searchResultIcon }).addTo(map);
+                  } else {
+                    searchMarker.setLatLng(searchLatLng).addTo(map);
+                  }
+                  var labelText = result.display_name || 'Search result';
+                  var label = (L.Util && typeof L.Util.escapeHTML === 'function') ? L.Util.escapeHTML(labelText) : labelText;
+                  searchMarker.bindPopup(label).openPopup();
+                  map.flyTo(searchLatLng, Math.max(map.getZoom(), 12), { duration: 0.8 });
+                  updateRouteFromLatLng(searchLatLng);
+                  setMapSearchStatus('Showing results for "' + query + '"', 'success');
+                  if (typeof mapSearchInput.blur === 'function') mapSearchInput.blur();
+                  return;
+                }
+              }
+              setMapSearchStatus('No results found for that location.', 'error');
+            })
+            .catch(function(error) {
+              console.error('Map search error', error);
+              setMapSearchStatus('Search failed. Please try again.', 'error');
+            })
+            .finally(function() {
+              toggleMapSearchLoading(false);
+            });
+        });
+      }
+
+      if (listEl) {
+        listEl.addEventListener('click', function(event) {
+          var item = event.target.closest('.dealer-map__list-item[data-dealer-id]');
+          if (!item) return;
+          highlightEntry(item.dataset.dealerId);
+        });
+      }
+
+      if (locateBtn && 'geolocation' in navigator) {
+        locateBtn.addEventListener('click', function() {
+          if (locateResetTimer) {
+            clearTimeout(locateResetTimer);
+            locateResetTimer = null;
+          }
+          locatePending = true;
+          locateBtn.disabled = true;
+          setLocateButtonState('loading');
+          clearRouteLine();
+          if (canUseMapLocate) {
+            map.locate({
+              enableHighAccuracy: true,
+              maximumAge: 0,
+              timeout: 10000
+            });
+          } else {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var coords = position && position.coords;
+              if (!coords) {
+                map.fire('locationerror');
+                return;
+              }
+              var manualLatLng = L.latLng(coords.latitude, coords.longitude);
+              map.fire('locationfound', {
+                latlng: manualLatLng,
+                accuracy: typeof coords.accuracy === 'number' ? coords.accuracy : undefined,
+                timestamp: position && position.timestamp
+              });
+            }, function() {
+              map.fire('locationerror');
+            }, {
+              enableHighAccuracy: true,
+              timeout: 10000,
+              maximumAge: 0
+            });
+          }
+        });
+      } else if (locateBtn) {
+        locateBtn.disabled = true;
+        setLocateButtonState('unsupported');
+      }
+
+      sectionEl.dataset.mapInitialized = 'true';
+    }
+
+    ready(function() {
+      if (typeof window.L === 'undefined') {
+        console.error('Leaflet library not available.');
+        return;
+      }
+      initDealerMap();
+    });
+
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail && event.detail.sectionId === sectionId) {
+        sectionEl = document.getElementById('dealer-map-' + sectionId);
+        if (sectionEl) {
+          sectionEl.dataset.mapInitialized = '';
+          if (typeof window.L !== 'undefined') {
+            initDealerMap();
+          }
+        }
+      }
+    });
+
+    document.addEventListener('shopify:section:unload', function(event) {
+      if (event.detail && event.detail.sectionId === sectionId) {
+        sectionEl = document.getElementById('dealer-map-' + sectionId);
+        if (sectionEl) {
+          sectionEl.dataset.mapInitialized = '';
+        }
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Dealer map",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find a dealer near you" },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "default": 1.5, "min": 1.1, "max": 2.4, "step": 0.1 },
+    { "type": "range", "id": "heading_weight", "label": "Heading weight", "default": 500, "min": 300, "max": 700, "step": 50 },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#f5f5f5" },
+    { "type": "richtext", "id": "text", "label": "Intro text", "default": "<p>Search by name or location to find your nearest dealer.</p>" },
+    { "type": "range", "id": "subtitle_size", "label": "Subtitle size", "default": 1.0, "min": 0.8, "max": 1.3, "step": 0.1 },
+    { "type": "color", "id": "subtitle_color", "label": "Subtitle color", "default": "#bcbcbc" },
+    { "type": "select", "id": "heading_alignment", "label": "Heading alignment", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ], "default": "center" },
+    { "type": "range", "id": "map_height", "label": "Map height", "min": 300, "max": 700, "step": 20, "unit": "px", "default": 480 },
+    { "type": "range", "id": "header_offset", "label": "Header height offset", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 136, "info": "Subtract this from the viewport height so the map fits under the header." },
+    { "type": "range", "id": "default_zoom", "label": "Default zoom", "min": 3, "max": 12, "step": 1, "default": 6 },
+    { "type": "range", "id": "list_max_height", "label": "List panel height", "min": 200, "max": 800, "step": 20, "unit": "px", "default": 480 },
+    { "type": "text", "id": "section_padding", "label": "Section padding", "default": "48px 0" },
+    { "type": "text", "id": "content_max_width", "label": "Max width", "default": "1200px" },
+    { "type": "color", "id": "panel_background", "label": "Panel background", "default": "#111111" },
+    { "type": "color", "id": "panel_text", "label": "Panel text color", "default": "#ffffff" },
+    { "type": "color", "id": "button_background", "label": "Button background", "default": "#ffffff" },
+    { "type": "color", "id": "button_text", "label": "Button text color", "default": "#000000" }
+  ],
+  "blocks": [
+    {
+      "type": "dealer",
+      "name": "Dealer",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Dealer name", "default": "Dealer name" },
+        { "type": "text", "id": "address_line1", "label": "Address line 1", "default": "123 Main Street" },
+        { "type": "text", "id": "address_line2", "label": "Address line 2" },
+        { "type": "text", "id": "city", "label": "City", "default": "City" },
+        { "type": "text", "id": "state", "label": "State / Region" },
+        { "type": "text", "id": "postal_code", "label": "Postal code" },
+        { "type": "text", "id": "country", "label": "Country" },
+        { "type": "text", "id": "phone", "label": "Phone number" },
+        { "type": "text", "id": "email", "label": "Email" },
+        { "type": "url", "id": "website_url", "label": "Website URL" },
+        { "type": "text", "id": "latitude", "label": "Latitude", "info": "Decimal degrees (e.g. 40.7128)" },
+        { "type": "text", "id": "longitude", "label": "Longitude", "info": "Decimal degrees (e.g. -74.0060)" },
+        { "type": "url", "id": "directions_url", "label": "Custom Google Maps URL", "info": "Optional. Overrides the automatic link from coordinates." },
+        { "type": "textarea", "id": "notes", "label": "Notes" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dealer map",
+      "blocks": [
+        { "type": "dealer" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

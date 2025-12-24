@@ -1,0 +1,303 @@
+{% doc %}
+  @prompt
+    A footer section with 3 links on the left hand side: Contact Us, About Us, and Dealer Application. These links should be white and when hovered over the link becomes underlined. 
+    On the left hand side, add in a photo for a logo., add in text at the bottom that says "© 2025 KICKIN BIKES LLC", Keep everything on the left the same. it's good. On the right, remove the blank image and add in an image for me to upload my logo to.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-footer-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-footer-container-{{ ai_gen_id }} {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-footer-top-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: {{ block.settings.copyright_spacing }}px;
+  }
+
+  .ai-footer-links-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.link_spacing }}px;
+    flex-wrap: wrap;
+  }
+
+  .ai-footer-link-{{ ai_gen_id }} {
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.link_font_size }}px;
+    transition: text-decoration 0.2s ease;
+  }
+
+  .ai-footer-link-{{ ai_gen_id }}:hover {
+    text-decoration: underline;
+  }
+
+  .ai-footer-logo-{{ ai_gen_id }} {
+    flex-shrink: 0;
+  }
+
+  .ai-footer-logo-{{ ai_gen_id }} img {
+    max-width: {{ block.settings.logo_width }}px;
+    height: auto;
+    display: block;
+  }
+
+  .ai-footer-copyright-{{ ai_gen_id }} {
+    color: {{ block.settings.copyright_color }};
+    font-size: {{ block.settings.copyright_font_size }}px;
+    text-align: {{ block.settings.copyright_alignment }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-footer-top-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .ai-footer-links-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ai-footer-logo-{{ ai_gen_id }} {
+      order: -1;
+    }
+
+    .ai-footer-copyright-{{ ai_gen_id }} {
+      text-align: left;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-footer-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-footer-container-{{ ai_gen_id }}">
+    <div class="ai-footer-top-{{ ai_gen_id }}">
+      <nav class="ai-footer-links-{{ ai_gen_id }}" aria-label="Footer navigation">
+        {% if block.settings.link_1_text != blank %}
+          <a href="{{ block.settings.link_1_url }}" class="ai-footer-link-{{ ai_gen_id }}">
+            {{ block.settings.link_1_text }}
+          </a>
+        {% endif %}
+        {% if block.settings.link_2_text != blank %}
+          <a href="{{ block.settings.link_2_url }}" class="ai-footer-link-{{ ai_gen_id }}">
+            {{ block.settings.link_2_text }}
+          </a>
+        {% endif %}
+        {% if block.settings.link_3_text != blank %}
+          <a href="{{ block.settings.link_3_url }}" class="ai-footer-link-{{ ai_gen_id }}">
+            {{ block.settings.link_3_text }}
+          </a>
+        {% endif %}
+      </nav>
+
+      {% if block.settings.logo %}
+        <div class="ai-footer-logo-{{ ai_gen_id }}">
+          <img
+            src="{{ block.settings.logo | image_url: width: 400 }}"
+            alt="{{ block.settings.logo.alt | default: shop.name | escape }}"
+            width="{{ block.settings.logo.width }}"
+            height="{{ block.settings.logo.height }}"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-footer-copyright-{{ ai_gen_id }}">
+      {{ block.settings.copyright_text }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Footer links",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Links"
+    },
+    {
+      "type": "text",
+      "id": "link_1_text",
+      "label": "Link 1 text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_2_text",
+      "label": "Link 2 text",
+      "default": "About Us"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_3_text",
+      "label": "Link 3 text",
+      "default": "Dealer Application"
+    },
+    {
+      "type": "url",
+      "id": "link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "link_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Link font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "link_spacing",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Link spacing",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 150
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2025 KICKIN BIKES LLC"
+    },
+    {
+      "type": "color",
+      "id": "copyright_color",
+      "label": "Copyright color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "copyright_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Copyright font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "copyright_alignment",
+      "label": "Copyright alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "copyright_spacing",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Space above copyright",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#1f1f21"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer links"
+    }
+  ]
+}
+{% endschema %}

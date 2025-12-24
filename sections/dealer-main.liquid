@@ -1,0 +1,15 @@
+{% comment %}Dealer-only page template. Assign this to your dealer page in Online Store -> Pages.{% endcomment %}
+{% if customer and customer.tags contains 'dealer' %}
+  {{ page.content }}
+{% else %}
+  <script>
+    if (typeof window !== 'undefined') {
+      var redirectUrl = '/account/login?return_url=' + encodeURIComponent('{{ request.path }}');
+      window.location.replace(redirectUrl);
+    }
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/account/login?return_url={{ request.path | url_encode }}">
+    <p>This area is for approved dealers only. <a href="/account/login?return_url={{ request.path | url_encode }}">Sign in</a>.</p>
+  </noscript>
+{% endif %}

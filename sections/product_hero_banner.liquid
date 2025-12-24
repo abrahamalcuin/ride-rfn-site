@@ -1,0 +1,400 @@
+{% comment %}
+  Section: Product Hero Banner with navigation
+{% endcomment %}
+{% assign nav_collection = section.settings.nav_collection %}
+{% if nav_collection == blank and product.collections.size > 0 %}
+  {% assign nav_collection = product.collections.first %}
+{% endif %}
+{% assign prev_product = nil %}
+{% assign next_product = nil %}
+{% assign previous_loop_product = nil %}
+{% assign found_current = false %}
+{% if nav_collection != blank %}
+  {% for coll_product in nav_collection.products %}
+    {% if coll_product.id == product.id %}
+      {% assign prev_product = previous_loop_product %}
+      {% assign found_current = true %}
+    {% elsif found_current and next_product == nil %}
+      {% assign next_product = coll_product %}
+      {% break %}
+    {% endif %}
+    {% assign previous_loop_product = coll_product %}
+  {% endfor %}
+  {% if section.settings.wrap_navigation and nav_collection.products_count > 1 %}
+    {% if prev_product == nil %}
+      {% assign prev_product = nav_collection.products | last %}
+    {% endif %}
+    {% if next_product == nil %}
+      {% assign next_product = nav_collection.products | first %}
+    {% endif %}
+    {% if prev_product and prev_product.id == product.id %}
+      {% assign prev_product = nil %}
+    {% endif %}
+    {% if next_product and next_product.id == product.id %}
+      {% assign next_product = nil %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% assign prev_link = section.settings.nav_prev_custom_link %}
+{% assign next_link = section.settings.nav_next_custom_link %}
+{% if prev_link == blank and prev_product %}
+  {% assign prev_link = prev_product.url %}
+{% endif %}
+{% if next_link == blank and next_product %}
+  {% assign next_link = next_product.url %}
+{% endif %}
+{% assign hero_variant = product.selected_or_first_available_variant %}
+{% assign fade_alpha = section.settings.fade_opacity | divided_by: 100.0 %}
+{% assign fade_color = section.settings.fade_color | default: '#000000' %}
+{% assign fade_rgba = fade_color | color_modify: 'alpha', fade_alpha %}
+{% assign transition_duration = section.settings.transition_duration | default: 220 %}
+<section class="product-hero product-hero--{{ section.id }}" style="--product-hero-transition-duration: {{ transition_duration }}ms; --product-hero-fade-color: {{ fade_rgba }}; --product-hero-text-color: {{ section.settings.text_color }}; --product-hero-bg-color: {{ section.settings.background_color }}; --product-hero-min-height: {{ section.settings.hero_min_height }}px;">
+  <div class="product-hero__fade" aria-hidden="true"></div>
+  <div class="product-hero__media">
+    {% if section.settings.hero_video != blank %}
+      <video
+        class="product-hero__media-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        {% if section.settings.hero_image %}
+          poster="{{ section.settings.hero_image | image_url }}"
+        {% endif %}
+      >
+        {% for source in section.settings.hero_video.sources %}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+      </video>
+    {% elsif section.settings.hero_image != blank %}
+      {{ section.settings.hero_image | image_url: width: 2400 | image_tag: class: 'product-hero__media-image', loading: 'lazy', alt: section.settings.custom_title | default: product.title }}
+    {% elsif product.featured_media %}
+      {% if product.featured_media.media_type == 'video' or product.featured_media.media_type == 'external_video' %}
+        {{ product.featured_media | media_tag: autoplay: true, loop: true, muted: true, playsinline: true, class: 'product-hero__media-video' }}
+      {% else %}
+        {{ product.featured_media | image_url: width: 2400 | image_tag: class: 'product-hero__media-image', loading: 'lazy', alt: product.featured_media.alt | default: product.title }}
+      {% endif %}
+    {% else %}
+      <div class="product-hero__media-placeholder"></div>
+    {% endif %}
+    {% if section.settings.media_overlay_opacity > 0 %}
+      <div class="product-hero__media-overlay" style="background: {{ section.settings.media_overlay_color | color_modify: 'alpha', section.settings.media_overlay_opacity | divided_by: 100.0 }};"></div>
+    {% endif %}
+  </div>
+  <div class="product-hero__content-wrapper product-hero__content-wrapper--{{ section.settings.content_alignment }}">
+    <div class="product-hero__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="product-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h1 class="product-hero__title">
+        {% if section.settings.custom_title != blank %}
+          {{ section.settings.custom_title }}
+        {% else %}
+          {{ product.title }}
+        {% endif %}
+      </h1>
+      {% if section.settings.show_price and hero_variant %}
+        <p class="product-hero__price">{{ hero_variant.price | money_with_currency }}</p>
+      {% endif %}
+      {% if section.settings.richtext != blank %}
+        <div class="product-hero__description">{{ section.settings.richtext }}</div>
+      {% elsif product.description != blank %}
+        <div class="product-hero__description product-hero__description--excerpt">{{ product.description | strip_html | truncatewords: section.settings.description_words }}</div>
+      {% endif %}
+    </div>
+  </div>
+  {% if prev_link != blank %}
+    <a
+      class="product-hero__nav-button product-hero__nav-button--prev"
+      href="{{ prev_link }}"
+      data-product-hero-nav
+      aria-label="{{ section.settings.nav_prev_label | default: 'Previous model' }}"
+    >
+      <span class="product-hero__nav-icon" aria-hidden="true">&larr;</span>
+    </a>
+  {% endif %}
+  {% if next_link != blank %}
+    <a
+      class="product-hero__nav-button product-hero__nav-button--next"
+      href="{{ next_link }}"
+      data-product-hero-nav
+      aria-label="{{ section.settings.nav_next_label | default: 'Next model' }}"
+    >
+      <span class="product-hero__nav-icon" aria-hidden="true">&rarr;</span>
+    </a>
+  {% endif %}
+</section>
+
+<style>
+.product-hero--{{ section.id }} {
+  position: relative;
+  overflow: hidden;
+  color: var(--product-hero-text-color);
+  background: var(--product-hero-bg-color);
+  min-height: var(--product-hero-min-height);
+}
+
+.product-hero--{{ section.id }} .product-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.product-hero--{{ section.id }} .product-hero__media-image,
+.product-hero--{{ section.id }} .product-hero__media-video,
+.product-hero--{{ section.id }} .product-hero__media-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-hero--{{ section.id }} .product-hero__media-placeholder {
+  background: rgba(255,255,255,0.1);
+}
+
+.product-hero--{{ section.id }} .product-hero__media-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.product-hero--{{ section.id }} .product-hero__content-wrapper {
+  position: relative;
+  z-index: 2;
+  min-height: var(--product-hero-min-height);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px;
+}
+
+.product-hero--{{ section.id }} .product-hero__content-wrapper--left { justify-content: flex-start; }
+.product-hero--{{ section.id }} .product-hero__content-wrapper--center { justify-content: center; }
+.product-hero--{{ section.id }} .product-hero__content-wrapper--right { justify-content: flex-end; }
+
+.product-hero--{{ section.id }} .product-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: {{ section.settings.content_gap }}px;
+  max-width: min(920px, 100%);
+}
+
+.product-hero--{{ section.id }} .product-hero__content-wrapper--left .product-hero__content { align-items: flex-start; text-align: left; }
+.product-hero--{{ section.id }} .product-hero__content-wrapper--center .product-hero__content { align-items: center; text-align: center; }
+.product-hero--{{ section.id }} .product-hero__content-wrapper--right .product-hero__content { align-items: flex-end; text-align: right; }
+
+.product-hero--{{ section.id }} .product-hero__eyebrow {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.product-hero--{{ section.id }} .product-hero__title {
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.product-hero--{{ section.id }} .product-hero__price {
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+.product-hero--{{ section.id }} .product-hero__description {
+  max-width: 42ch;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.product-hero--{{ section.id }} .product-hero__nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: rgba(255,255,255,0.85);
+  color: #111111;
+  border-radius: 6px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.product-hero--{{ section.id }} .product-hero__nav-button:hover,
+.product-hero--{{ section.id }} .product-hero__nav-button:focus-visible {
+  transform: translateY(-50%) scale(1.04);
+  background: rgba(255,255,255,0.95);
+}
+
+.product-hero--{{ section.id }} .product-hero__nav-button:focus-visible {
+  outline: 2px solid rgba(17,17,17,0.4);
+  outline-offset: 3px;
+}
+
+.product-hero--{{ section.id }} .product-hero__nav-button--prev {
+  left: clamp(16px, 4vw, 64px);
+}
+
+.product-hero--{{ section.id }} .product-hero__nav-button--next {
+  right: clamp(16px, 4vw, 64px);
+}
+
+.product-hero--{{ section.id }} .product-hero__nav-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.product-hero--{{ section.id }} .product-hero__fade {
+  position: fixed;
+  inset: 0;
+  background: var(--product-hero-fade-color);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--product-hero-transition-duration) ease;
+  z-index: 999;
+}
+
+.product-hero--{{ section.id }} .product-hero__fade.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  .product-hero--{{ section.id }} {
+    min-height: max(var(--product-hero-min-height), 520px);
+  }
+}
+
+@media (max-width: 700px) {
+  .product-hero--{{ section.id }} .product-hero__nav-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+  }
+  .product-hero--{{ section.id }} .product-hero__nav-icon {
+    font-size: 1.35rem;
+  }
+  .product-hero--{{ section.id }} .product-hero__nav-button--prev { left: clamp(12px, 4vw, 36px); }
+  .product-hero--{{ section.id }} .product-hero__nav-button--next { right: clamp(12px, 4vw, 36px); }
+}
+
+@media (max-width: 520px) {
+  .product-hero--{{ section.id }} {
+    --product-hero-min-height: {{ section.settings.hero_min_height | divided_by: 1.2 | round }}px;
+  }
+  .product-hero--{{ section.id }} .product-hero__content-wrapper {
+    padding: {{ section.settings.padding_top | times: 0.7 | round }}px {{ section.settings.padding_horizontal | times: 0.6 | round }}px {{ section.settings.padding_bottom | times: 0.7 | round }}px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var heroSelector = '.product-hero--{{ section.id }}';
+  var bindNavigation = function(root) {
+    var hero = root.querySelector(heroSelector);
+    if (!hero || hero.dataset.fadeBound === 'true') {
+      return;
+    }
+    hero.dataset.fadeBound = 'true';
+    var overlay = hero.querySelector('.product-hero__fade');
+    if (!overlay) {
+      return;
+    }
+    var links = hero.querySelectorAll('[data-product-hero-nav]');
+    links.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+          return;
+        }
+        event.preventDefault();
+        var href = link.getAttribute('href');
+        if (!href) {
+          return;
+        }
+        overlay.classList.add('is-active');
+        var navigate = function() {
+          window.location.assign(href);
+        };
+        var onTransitionEnd = function() {
+          overlay.removeEventListener('transitionend', onTransitionEnd);
+          navigate();
+        };
+        overlay.addEventListener('transitionend', onTransitionEnd);
+        window.setTimeout(navigate, {{ transition_duration | plus: 120 }});
+      });
+    });
+  };
+  var init = function() {
+    bindNavigation(document);
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+  document.addEventListener('shopify:section:load', function(event) {
+    if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+      bindNavigation(event.target);
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Product hero banner",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow text" },
+    { "type": "text", "id": "custom_title", "label": "Custom title" },
+    { "type": "richtext", "id": "richtext", "label": "Custom description" },
+    { "type": "checkbox", "id": "show_price", "label": "Show product price", "default": true },
+    { "type": "range", "id": "description_words", "label": "Fallback description word count", "min": 10, "max": 80, "step": 5, "default": 35 },
+
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "video", "id": "hero_video", "label": "Hero video" },
+    { "type": "color", "id": "media_overlay_color", "label": "Media overlay color", "default": "#000000" },
+    { "type": "range", "id": "media_overlay_opacity", "label": "Media overlay opacity", "min": 0, "max": 100, "default": 30, "unit": "%" },
+
+    { "type": "collection", "id": "nav_collection", "label": "Navigation collection" },
+    { "type": "checkbox", "id": "wrap_navigation", "label": "Wrap navigation (loop back around)", "default": false },
+    { "type": "text", "id": "nav_prev_label", "label": "Previous nav label", "default": "Previous" },
+    { "type": "text", "id": "nav_next_label", "label": "Next nav label", "default": "Next" },
+    { "type": "url", "id": "nav_prev_custom_link", "label": "Override previous button link" },
+    { "type": "url", "id": "nav_next_custom_link", "label": "Override next button link" },
+
+    { "type": "select", "id": "content_alignment", "label": "Content alignment", "default": "center", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ] },
+
+    { "type": "range", "id": "hero_min_height", "label": "Banner minimum height", "min": 400, "max": 900, "step": 20, "default": 640 },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 200, "step": 4, "default": 100 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 200, "step": 4, "default": 100 },
+    { "type": "range", "id": "padding_horizontal", "label": "Padding horizontal", "min": 0, "max": 160, "step": 4, "default": 60 },
+    { "type": "range", "id": "content_gap", "label": "Content vertical spacing", "min": 4, "max": 48, "step": 2, "default": 18 },
+
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#FFFFFF" },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#000000" },
+
+    { "type": "color", "id": "fade_color", "label": "Page fade color", "default": "#000000" },
+    { "type": "range", "id": "fade_opacity", "label": "Page fade opacity", "min": 0, "max": 100, "default": 70, "unit": "%" },
+    { "type": "range", "id": "transition_duration", "label": "Fade duration (ms)", "min": 100, "max": 800, "step": 20, "default": 260 }
+  ],
+  "presets": [
+    { "name": "Product hero banner" }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,749 @@
+{{ "component-card.css" | asset_url | stylesheet_tag }}
+{{ "component-price.css" | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .featured-collection--{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    --carousel-card-width: clamp(360px, 68vw, 760px);
+    --carousel-card-height: clamp(360px, 60vw, 520px);
+    --carousel-card-radius: {{ section.settings.card_corner_radius }}px;
+    --carousel-slide-offset: clamp(190px, 22vw, 280px);
+    --spec-row-gap: {{ section.settings.feature_row_gap }}px;
+    --spec-column-gap: {{ section.settings.feature_row_content_gap }}px;
+    --spec-heading-size: {{ section.settings.feature_heading_size }}px;
+    --spec-heading-weight: {{ section.settings.feature_heading_weight }};
+    --spec-subheading-size: {{ section.settings.feature_subheading_size }}px;
+    --spec-subheading-weight: {{ section.settings.feature_subheading_weight }};
+    --fc-media-width: {{ section.settings.media_width_percent }}%;
+    --fc-media-scale: {{ section.settings.media_zoom | times: 0.01 | plus: 1 }};
+    --fc-media-fit: {{ section.settings.media_object_fit }};
+  }
+
+  .featured-collection--{{ section.id }} .section-inner {
+    padding: {{ section.settings.padding_vertical }}px {{ section.settings.padding_horizontal }}px;
+    max-width: min(1480px, 100%);
+    margin: 0 auto;
+  }
+
+  .featured-collection--{{ section.id }} .collection-header {
+    text-align: center;
+    margin-bottom: clamp(24px, 5vw, 52px);
+  }
+
+  .featured-collection--{{ section.id }} .collection-title {
+    margin: 0 0 clamp(12px, 2vw, 18px);
+    font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .featured-collection--{{ section.id }} .collection-description {
+    max-width: 760px;
+    margin: 0 auto;
+    color: rgba(255,255,255,0.82);
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, 3vw, 32px);
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__viewport {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: var(--carousel-card-height);
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__track {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: var(--carousel-card-height);
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__slide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--carousel-card-width);
+    height: var(--carousel-card-height);
+    transform: translate(-50%, -50%) scale(0.72);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.55s cubic-bezier(0.4, 0.15, 0.2, 1), opacity 0.45s ease, filter 0.45s ease;
+    z-index: 1;
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__slide.is-active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+    z-index: 3;
+    filter: drop-shadow(0 28px 58px rgba(0,0,0,0.42));
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__slide.is-prev {
+    opacity: 0.52;
+    transform: translate(calc(-50% - var(--carousel-slide-offset)), -50%) scale(0.86);
+    z-index: 2;
+    filter: blur(1px) brightness(0.78);
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__slide.is-next {
+    opacity: 0.52;
+    transform: translate(calc(-50% + var(--carousel-slide-offset)), -50%) scale(0.86);
+    z-index: 2;
+    filter: blur(1px) brightness(0.78);
+  }
+
+  .featured-collection--{{ section.id }} .fc-card {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--carousel-card-radius);
+    background: #101214;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    color: inherit;
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__inner {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+    padding: clamp(22px, 3.8vw, 36px);
+    gap: clamp(18px, 3vw, 36px);
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__media {
+    flex: 0 0 var(--fc-media-width);
+    width: var(--fc-media-width);
+    min-width: clamp(200px, 32vw, 480px);
+    max-width: 100%;
+    position: relative;
+    border-radius: calc(var(--carousel-card-radius) - 14px);
+    overflow: hidden;
+    background: #050607;
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: var(--fc-media-fit);
+    object-position: center;
+    display: block;
+    transform: scale(var(--fc-media-scale));
+    transition: transform 0.3s ease;
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #15181b;
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__placeholder .placeholder-svg {
+    width: 70%;
+    height: 70%;
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(18px, 3vw, 28px);
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__header {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6px, 1.2vw, 12px);
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__title {
+    margin: 0;
+    font-size: clamp(1.35rem, 2.8vw, 2rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__price {
+    margin: 0;
+    font-size: clamp(0.95rem, 2vw, 1.18rem);
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.82);
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__specs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__spec {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spec-column-gap);
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__spec + .fc-card__spec {
+    border-top: 1px solid rgba(255,255,255,0.25);
+    padding-top: var(--spec-row-gap);
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__spec-title {
+    font-size: var(--spec-heading-size);
+    font-weight: var(--spec-heading-weight);
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .featured-collection--{{ section.id }} .fc-card__spec-subtitle {
+    font-size: var(--spec-subheading-size);
+    font-weight: var(--spec-subheading-weight);
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.08em;
+  }
+
+    .featured-collection--{{ section.id }} .fc-card__buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .featured-collection--{{ section.id }} .fc-button {
+      display: inline-flex;
+      align-items: center;
+    justify-content: center;
+    min-width: 168px;
+    padding: 0.88rem 1.95rem;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .featured-collection--{{ section.id }} .fc-button--primary {
+    background: {{ section.settings.order_button_bg }};
+    color: {{ section.settings.order_button_text }};
+    border: none;
+  }
+
+  .featured-collection--{{ section.id }} .fc-button--secondary {
+    background: transparent;
+    color: {{ section.settings.learn_button_text }};
+    border: 1px solid {{ section.settings.learn_button_border }};
+  }
+
+  .featured-collection--{{ section.id }} .fc-button:hover,
+  .featured-collection--{{ section.id }} .fc-button:focus-visible {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(44px, 6vw, 58px);
+    height: clamp(44px, 6vw, 58px);
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.5);
+    background: rgba(10,12,14,0.6);
+    color: inherit;
+    font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__control:hover,
+  .featured-collection--{{ section.id }} .fc-carousel__control:focus-visible {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.7);
+  }
+
+  .featured-collection--{{ section.id }} .fc-carousel__control[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 1040px) {
+    .featured-collection--{{ section.id }} {
+      --carousel-slide-offset: clamp(130px, 24vw, 210px);
+    }
+  }
+
+  @media (max-width: 880px) {
+    .featured-collection--{{ section.id }} .fc-card__inner {
+      flex-direction: column;
+      padding: clamp(18px, 5vw, 28px);
+    }
+
+    .featured-collection--{{ section.id }} .fc-card__media {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 100%;
+      min-width: auto;
+      height: clamp(240px, 60vw, 360px);
+      border-radius: calc(var(--carousel-card-radius) - 10px);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .featured-collection--{{ section.id }} {
+      --carousel-card-width: min(100%, 440px);
+      --carousel-slide-offset: clamp(24px, 12vw, 80px);
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel__viewport {
+      width: 100%;
+      max-width: var(--carousel-card-width);
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel__track {
+      min-height: auto;
+      display: block;
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel__slide {
+      display: none;
+      width: 100%;
+      position: static;
+      transform: none;
+      height: auto;
+      margin: 0 auto;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel__slide.is-active {
+      display: block;
+      pointer-events: auto;
+      transform: none;
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel__slide.is-prev,
+    .featured-collection--{{ section.id }} .fc-carousel__slide.is-next {
+      transform: none;
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel__control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(42px, 12vw, 48px);
+      height: clamp(42px, 12vw, 48px);
+      border-radius: 50%;
+      z-index: 3;
+      background: rgba(10,12,14,0.7);
+      border: 1px solid rgba(255,255,255,0.52);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel__control--prev {
+      left: clamp(-16px, -4vw, -8px);
+    }
+
+    .featured-collection--{{ section.id }} .fc-carousel__control--next {
+      right: clamp(-16px, -4vw, -8px);
+    }
+
+    .featured-collection--{{ section.id }} .fc-card__inner {
+      gap: clamp(14px, 5vw, 20px);
+      height: auto;
+    }
+
+    .featured-collection--{{ section.id }} .fc-card {
+      height: auto;
+      width: 100%;
+    }
+
+    .featured-collection--{{ section.id }} .fc-card__specs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .featured-collection--{{ section.id }} .fc-card__spec {
+      border-top: 1px solid rgba(255,255,255,0.18);
+      padding-top: 8px;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+    }
+
+    .featured-collection--{{ section.id }} .fc-card__spec:nth-child(-n+3) {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .featured-collection--{{ section.id }} .fc-card__spec-title {
+      font-size: clamp(1.05rem, 3.6vw, 1.3rem);
+    }
+
+    .featured-collection--{{ section.id }} .fc-card__spec-subtitle {
+      font-size: clamp(0.85rem, 2.8vw, 1rem);
+    }
+
+    .featured-collection--{{ section.id }} .fc-button {
+      min-width: 150px;
+    }
+  }
+{%- endstyle -%}
+
+
+{%- liquid
+  assign source_collection = section.settings.collection
+  if source_collection == blank and collection != blank
+    assign source_collection = collection
+  endif
+  assign total_products = 0
+  if source_collection != blank
+    assign total_products = source_collection.products_count
+  endif
+  assign products_limit = section.settings.products_to_show
+  if products_limit <= 0 or products_limit > total_products
+    assign products_limit = total_products
+  endif
+-%}
+
+<section class="featured-collection--{{ section.id }}" data-featured-carousel-wrapper>
+  <div class="section-inner">
+    {% if section.settings.title != blank or section.settings.description != blank %}
+      <div class="collection-header">
+        {% if section.settings.title != blank %}
+          <h2 class="collection-title">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="collection-description">{{ section.settings.description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if source_collection != blank and total_products > 0 %}
+      {% assign collection_products = source_collection.products %}
+      {% assign sorted_products = collection_products %}
+      <div class="fc-carousel" data-featured-carousel="{{ section.id }}">
+        {% if products_limit > 1 %}
+          <button class="fc-carousel__control fc-carousel__control--prev" type="button" data-carousel-prev aria-label="{{ 'general.pagination.previous' | t }}">
+            <span aria-hidden="true">&lt;</span>
+          </button>
+        {% endif %}
+        <div class="fc-carousel__viewport">
+          <ul class="fc-carousel__track">
+            {% assign spec_item_blocks = section.blocks | where: 'type', 'product_spec_item' %}
+            {% assign product_blocks = section.blocks | where: 'type', 'product_specs' %}
+            {% assign rendered_ids = '|' %}
+            {% assign rendered_count = 0 %}
+            {% assign card_index = 0 %}
+            {% for block in product_blocks %}
+              {% assign product = block.settings.product %}
+              {% if product %}
+                {% assign overrides = spec_item_blocks | where: 'settings.product', product %}
+                {% render 'featured-carousel-card', section: section, product: product, product_block: block, override_blocks: overrides, index: card_index %}
+                {% assign rendered_ids = rendered_ids | append: '|' | append: product.id | append: '|' %}
+                {% assign card_index = card_index | plus: 1 %}
+                {% assign rendered_count = rendered_count | plus: 1 %}
+                {% if rendered_count >= products_limit %}{% break %}{% endif %}
+              {% endif %}
+            {% endfor %}
+            {% if rendered_count < products_limit %}
+              {% for product in sorted_products %}
+                {% assign id_token = '|' | append: product.id | append: '|' %}
+                {% unless rendered_ids contains id_token %}
+                  {% assign overrides = spec_item_blocks | where: 'settings.product', product %}
+                  {% render 'featured-carousel-card', section: section, product: product, product_block: nil, override_blocks: overrides, index: card_index %}
+                  {% assign rendered_ids = rendered_ids | append: id_token %}
+                  {% assign card_index = card_index | plus: 1 %}
+                  {% assign rendered_count = rendered_count | plus: 1 %}
+                  {% if rendered_count >= products_limit %}{% break %}{% endif %}
+                {% endunless %}
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+        {% if products_limit > 1 %}
+          <button class="fc-carousel__control fc-carousel__control--next" type="button" data-carousel-next aria-label="{{ 'general.pagination.next' | t }}">
+            <span aria-hidden="true">&gt;</span>
+          </button>
+        {% endif %}
+      </div>
+    {% else %}
+      <p>{{ 'sections.featured_collection.empty' | t }}</p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (function() {
+    const root = document.querySelector('[data-featured-carousel="{{ section.id }}"]');
+    if (!root) return;
+    const track = root.querySelector('.fc-carousel__track');
+    if (!track) return;
+    const slides = Array.from(track.children);
+    if (!slides.length) return;
+    const prevBtn = root.querySelector('[data-carousel-prev]');
+    const nextBtn = root.querySelector('[data-carousel-next]');
+    const viewport = root.querySelector('.fc-carousel__viewport');
+    const focusableSelector = 'a, button, input, select, textarea, [tabindex]';
+    let current = 0;
+
+    const preserveTabIndex = (element) => {
+      if (!element.hasAttribute('data-carousel-tabindex')) {
+        const original = element.getAttribute('tabindex');
+        element.setAttribute('data-carousel-tabindex', original === null ? '' : original);
+      }
+    };
+
+    const restoreTabIndex = (element) => {
+      if (element.hasAttribute('data-carousel-tabindex')) {
+        const original = element.getAttribute('data-carousel-tabindex');
+        if (original === '') {
+          element.removeAttribute('tabindex');
+        } else {
+          element.setAttribute('tabindex', original);
+        }
+      } else {
+        element.removeAttribute('tabindex');
+      }
+      element.removeAttribute('aria-hidden');
+    };
+
+    const disableFocus = (element) => {
+      preserveTabIndex(element);
+      element.setAttribute('tabindex', '-1');
+      element.setAttribute('aria-hidden', 'true');
+    };
+
+    const updateControls = () => {
+      if (prevBtn) prevBtn.disabled = slides.length < 2;
+      if (nextBtn) nextBtn.disabled = slides.length < 2;
+    };
+
+    const assignStates = () => {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('is-active', 'is-prev', 'is-next');
+        slide.setAttribute('aria-hidden', index === current ? 'false' : 'true');
+        const focusables = slide.querySelectorAll(focusableSelector);
+        focusables.forEach((focusable) => {
+          if (index === current) {
+            restoreTabIndex(focusable);
+          } else {
+            disableFocus(focusable);
+          }
+        });
+      });
+      slides[current].classList.add('is-active');
+      if (slides.length > 1) {
+        const nextIndex = (current + 1) % slides.length;
+        slides[nextIndex].classList.add('is-next');
+        if (slides.length > 2) {
+          const prevIndex = (current - 1 + slides.length) % slides.length;
+          slides[prevIndex].classList.add('is-prev');
+        }
+      }
+    };
+
+    const goNext = () => {
+      current = (current + 1) % slides.length;
+      assignStates();
+    };
+
+    const goPrev = () => {
+      current = (current - 1 + slides.length) % slides.length;
+      assignStates();
+    };
+
+    updateControls();
+    assignStates();
+
+    if (nextBtn) nextBtn.addEventListener('click', goNext);
+    if (prevBtn) prevBtn.addEventListener('click', goPrev);
+
+    if (viewport && slides.length > 1) {
+      let startX = 0;
+      let startY = 0;
+      let dragging = false;
+      const swipeThreshold = 40;
+      const verticalAllowance = 80;
+
+      const handleSwipeEnd = (endX, endY) => {
+        if (!dragging) return;
+        const deltaX = endX - startX;
+        const deltaY = Math.abs(endY - startY);
+        dragging = false;
+        if (Math.abs(deltaX) > swipeThreshold && deltaY < verticalAllowance) {
+          if (deltaX < 0) {
+            goNext();
+          } else {
+            goPrev();
+          }
+        }
+      };
+
+      if (window.PointerEvent) {
+        viewport.addEventListener('pointerdown', (event) => {
+          if (event.pointerType === 'mouse' && event.button !== 0) return;
+          dragging = true;
+          startX = event.clientX;
+          startY = event.clientY;
+        });
+
+        viewport.addEventListener('pointerup', (event) => {
+          handleSwipeEnd(event.clientX, event.clientY);
+        });
+
+        viewport.addEventListener('pointercancel', () => {
+          dragging = false;
+        });
+
+        viewport.addEventListener('pointerleave', () => {
+          dragging = false;
+        });
+      } else {
+        viewport.addEventListener('touchstart', (event) => {
+          if (!event.touches.length) return;
+          const touch = event.touches[0];
+          dragging = true;
+          startX = touch.clientX;
+          startY = touch.clientY;
+        }, { passive: true });
+
+        viewport.addEventListener('touchend', (event) => {
+          const touch = event.changedTouches && event.changedTouches[0];
+          if (!touch) {
+            dragging = false;
+            return;
+          }
+          handleSwipeEnd(touch.clientX, touch.clientY);
+        });
+
+        viewport.addEventListener('touchcancel', () => {
+          dragging = false;
+        });
+      }
+    }
+
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        if (slides.length > 1) goNext();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        if (slides.length > 1) goPrev();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Featured carousel",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 40,
+  "blocks": [
+    {
+      "type": "product_specs",
+      "name": "Product specs override",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "url", "id": "learn_more_link", "label": "Learn more link" },
+        { "type": "checkbox", "id": "media_zoom_override_enable", "label": "Override image zoom", "default": false },
+        { "type": "range", "id": "media_zoom_override", "label": "Image zoom override (%)", "min": 0, "max": 60, "step": 1, "default": 0 },
+        { "type": "text", "id": "spec_1_metric", "label": "Metric 1", "default": "15,000W" },
+        { "type": "text", "id": "spec_1_hint", "label": "Hint 1", "default": "59 MPH" },
+        { "type": "text", "id": "spec_2_metric", "label": "Metric 2", "default": "74V 2960aH" },
+        { "type": "text", "id": "spec_2_hint", "label": "Hint 2", "default": "50 MILE RANGE" },
+        { "type": "text", "id": "spec_3_metric", "label": "Metric 3", "default": "34.5 IN SEAT" },
+        { "type": "text", "id": "spec_3_hint", "label": "Hint 3", "default": "RIDERS 5FT0-5FT8" },
+        { "type": "text", "id": "spec_4_metric", "label": "Metric 4", "default": "READY TO RIDE" },
+        { "type": "text", "id": "spec_4_hint", "label": "Hint 4", "default": "180 LBS" },
+        { "type": "text", "id": "order_button_label", "label": "Order button label" },
+        { "type": "url", "id": "order_button_link", "label": "Order button link" },
+        { "type": "text", "id": "learn_button_label", "label": "Learn button label" },
+        { "type": "url", "id": "learn_button_link", "label": "Learn button link" }
+      ]
+    },
+    {
+      "type": "product_spec_item",
+      "name": "Spec item override",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "select", "id": "position", "label": "Feature slot", "options": [ { "value": "1", "label": "Feature 1" }, { "value": "2", "label": "Feature 2" }, { "value": "3", "label": "Feature 3" }, { "value": "4", "label": "Feature 4" } ], "default": "1" },
+        { "type": "text", "id": "metric", "label": "Metric" },
+        { "type": "text", "id": "hint", "label": "Hint" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "collection", "label": "Collection", "id": "collection" },
+    { "type": "range", "label": "Products to show", "id": "products_to_show", "min": 1, "max": 12, "default": 4 },
+    { "type": "text", "label": "Heading", "id": "title", "default": "Featured Models" },
+    { "type": "richtext", "label": "Subheading", "id": "description" },
+    { "type": "checkbox", "label": "Show price", "id": "show_price", "default": true },
+    { "type": "color", "label": "Background", "id": "background_color", "default": "#000000" },
+    { "type": "color", "label": "Text color", "id": "text_color", "default": "#FFFFFF" },
+    { "type": "range", "label": "Vertical padding", "id": "padding_vertical", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range", "label": "Horizontal padding", "id": "padding_horizontal", "min": 0, "max": 80, "step": 4, "default": 24 },
+    { "type": "range", "label": "Card corner radius", "id": "card_corner_radius", "min": 8, "max": 50, "default": 18 },
+    { "type": "range", "label": "Image width (%)", "id": "media_width_percent", "min": 30, "max": 80, "step": 1, "default": 55 },
+    { "type": "range", "label": "Image zoom (%)", "id": "media_zoom", "min": 0, "max": 60, "step": 1, "default": 0 },
+    { "type": "select", "label": "Image fit", "id": "media_object_fit", "options": [ { "value": "cover", "label": "Cover" }, { "value": "contain", "label": "Contain" } ], "default": "cover" },
+    { "type": "range", "label": "Feature row spacing", "id": "feature_row_gap", "min": 0, "max": 48, "step": 2, "default": 16 },
+    { "type": "range", "label": "Feature text spacing", "id": "feature_row_content_gap", "min": 0, "max": 36, "step": 1, "default": 12 },
+    { "type": "range", "label": "Feature heading size", "id": "feature_heading_size", "min": 12, "max": 36, "step": 1, "default": 18 },
+    { "type": "select", "label": "Feature heading weight", "id": "feature_heading_weight", "options": [ { "value": "400", "label": "Normal" }, { "value": "500", "label": "Medium" }, { "value": "600", "label": "Semi-bold" }, { "value": "700", "label": "Bold" } ], "default": "600" },
+    { "type": "range", "label": "Feature subheading size", "id": "feature_subheading_size", "min": 10, "max": 28, "step": 1, "default": 14 },
+    { "type": "select", "label": "Feature subheading weight", "id": "feature_subheading_weight", "options": [ { "value": "300", "label": "Light" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "600", "label": "Semi-bold" } ], "default": "400" },
+    { "type": "text", "label": "Default metric 1", "id": "spec_1_metric", "default": "15,000W" },
+    { "type": "text", "label": "Default hint 1", "id": "spec_1_hint", "default": "59 MPH" },
+    { "type": "text", "label": "Default metric 2", "id": "spec_2_metric", "default": "74V 2960aH" },
+    { "type": "text", "label": "Default hint 2", "id": "spec_2_hint", "default": "50 MILE RANGE" },
+    { "type": "text", "label": "Default metric 3", "id": "spec_3_metric", "default": "34.5 IN SEAT" },
+    { "type": "text", "label": "Default hint 3", "id": "spec_3_hint", "default": "RIDERS 5FT0-5FT8" },
+    { "type": "text", "label": "Default metric 4", "id": "spec_4_metric", "default": "READY TO RIDE" },
+    { "type": "text", "label": "Default hint 4", "id": "spec_4_hint", "default": "180 LBS" },
+    { "type": "text", "label": "Order CTA label", "id": "order_button_label", "default": "Order Now" },
+    { "type": "color", "label": "Order CTA background", "id": "order_button_bg", "default": "#FFFFFF" },
+    { "type": "color", "label": "Order CTA text", "id": "order_button_text", "default": "#000000" },
+    { "type": "text", "label": "Learn CTA label", "id": "learn_button_label", "default": "Learn More" },
+    { "type": "url", "label": "Default learn link", "id": "default_learn_link" },
+    { "type": "color", "label": "Learn CTA text", "id": "learn_button_text", "default": "#FFFFFF" },
+    { "type": "color", "label": "Learn CTA border", "id": "learn_button_border", "default": "rgba(255,255,255,0.5)" }
+  ],
+  "presets": [
+    { "name": "Featured carousel" }
+  ]
+}
+{% endschema %}
+
+
+
+
+

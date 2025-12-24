@@ -1,0 +1,402 @@
+{% if product == nil %}
+  <div class="pre-checkout-stage__warning">{{ 'products.product.add_product_context' | t | default: 'Add this section to a product template to show the pre-checkout stage.' }}</div>
+{% else %}
+  {% assign stage_id = 'pre-checkout-stage-' | append: section.id %}
+  {% assign color_property_label = section.settings.color_property_label | default: 'Selected Color' %}
+  <section id="{{ stage_id }}" class="pre-checkout-stage">
+    <button type="button" class="pre-checkout-stage__trigger" data-stage-trigger>
+      {{ section.settings.button_label | default: 'Choose color & checkout' }}
+    </button>
+    <div class="pre-checkout-stage__layer" data-stage hidden data-unit-price="{{ product.selected_or_first_available_variant.price }}">
+      <div class="pre-checkout-stage__dialog" role="dialog" aria-modal="true" aria-labelledby="{{ stage_id }}-heading">
+        <button type="button" class="pre-checkout-stage__close" data-stage-close aria-label="{{ 'general.close' | t | default: 'Close' }}">&times;</button>
+        {% if section.settings.stage_heading != blank %}
+          <h3 id="{{ stage_id }}-heading">{{ section.settings.stage_heading }}</h3>
+        {% endif %}
+        {% if section.settings.stage_subheading != blank %}
+          <p class="pre-checkout-stage__subheading">{{ section.settings.stage_subheading }}</p>
+        {% endif %}
+        <form class="pre-checkout-stage__form">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <div class="pre-checkout-stage__field">
+            <label for="{{ stage_id }}-color">{{ section.settings.color_label | default: 'Color' }}</label>
+            {% liquid
+              assign has_default_option = false
+              for block in section.blocks
+                if block.settings.default_option
+                  assign has_default_option = true
+                  break
+                endif
+              endfor
+            %}
+            <select id="{{ stage_id }}-color" name="properties[{{ color_property_label }}]" required>
+              {% if section.blocks.size > 0 %}
+                {% for block in section.blocks %}
+                  {% liquid
+                    assign option_label = block.settings.option_label | default: block.settings.option_value
+                    assign option_value = block.settings.option_value | default: option_label
+                    assign should_select = false
+                    if block.settings.default_option
+                      assign should_select = true
+                    elsif has_default_option == false and forloop.first
+                      assign should_select = true
+                    endif
+                  %}
+                  <option value="{{ option_value | escape }}" {% if should_select %}selected{% endif %}>{{ option_label }}</option>
+                {% endfor %}
+              {% else %}
+                {% assign color_options_assigned = false %}
+                {% for option in product.options_with_values %}
+                  {% if option.name contains 'Color' or option.name contains 'Colour' or option.name contains 'colour' %}
+                    {% assign color_options_assigned = true %}
+                    {% for value in option.values %}
+                      <option value="{{ value | escape }}">{{ value }}</option>
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+                {% unless color_options_assigned %}
+                  <option value="Default">Default</option>
+                {% endunless %}
+              {% endif %}
+            </select>
+          </div>
+          <div class="pre-checkout-stage__field">
+            <label for="{{ stage_id }}-quantity">{{ section.settings.quantity_label | default: 'Quantity' }}</label>
+            <input id="{{ stage_id }}-quantity" type="number" name="quantity" min="1" value="1" inputmode="numeric">
+          </div>
+          <div class="pre-checkout-stage__total">
+            <span>{{ section.settings.total_label | default: 'Total' }}:</span>
+            <strong data-stage-price></strong>
+          </div>
+          <div class="pre-checkout-stage__actions">
+            <button type="submit" class="pre-checkout-stage__continue">
+              {{ section.settings.continue_label | default: 'Continue to checkout' }}
+            </button>
+            <button type="button" class="pre-checkout-stage__cancel" data-stage-close>
+              {{ section.settings.cancel_label | default: 'Cancel' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <style>
+    #{{ stage_id }} .pre-checkout-stage__trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      padding: 0.75rem 1.5rem;
+      background: {{ section.settings.trigger_background | default: '#111111' }};
+      color: {{ section.settings.trigger_text_color | default: '#ffffff' }};
+      border: none;
+      cursor: pointer;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__layer[hidden] {
+      display: none !important;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__layer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 1000;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__dialog {
+      position: relative;
+      background: #ffffff;
+      padding: 1.5rem;
+      width: min(26rem, 100%);
+      border-radius: 0.5rem;
+      box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.12);
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__close {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__field select,
+    #{{ stage_id }} .pre-checkout-stage__field input[type="number"] {
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #d1d1d1;
+      border-radius: 0.375rem;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__continue {
+      flex: 1 1 auto;
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 0.375rem;
+      background: {{ section.settings.continue_background | default: '#000000' }};
+      color: {{ section.settings.continue_text_color | default: '#ffffff' }};
+      cursor: pointer;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__cancel {
+      flex: 0 0 auto;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid #d1d1d1;
+      border-radius: 0.375rem;
+      background: #ffffff;
+      color: #111111;
+      cursor: pointer;
+    }
+
+    #{{ stage_id }} .pre-checkout-stage__warning {
+      padding: 1rem;
+      background: #fff7d1;
+      color: #6b5100;
+    }
+  </style>
+  <script>
+    (() => {
+      const sectionEl = document.getElementById('{{ stage_id }}');
+      if (!sectionEl || typeof Shopify === 'undefined' || typeof Shopify.formatMoney !== 'function') {
+        return;
+      }
+
+      const stage = sectionEl.querySelector('[data-stage]');
+      if (!stage) {
+        return;
+      }
+
+      const trigger = sectionEl.querySelector('[data-stage-trigger]');
+      const form = sectionEl.querySelector('.pre-checkout-stage__form');
+      const priceTarget = sectionEl.querySelector('[data-stage-price]');
+      const closeButtons = sectionEl.querySelectorAll('[data-stage-close]');
+      const quantityInput = form ? form.querySelector('[name="quantity"]') : null;
+      const unitPrice = Number(stage.dataset.unit_price || stage.dataset.unitPrice || 0);
+      const moneyFormat = {{ shop.money_format | json }};
+
+      if (!trigger || !form || !priceTarget || !quantityInput || Number.isNaN(unitPrice)) {
+        return;
+      }
+
+      const toggleStage = (show) => {
+        stage.toggleAttribute('hidden', !show);
+        document.body.classList.toggle('pre-checkout-stage--open', show);
+      };
+
+      const formatPrice = (cents) => Shopify.formatMoney(Math.max(cents, 0), moneyFormat);
+
+      const updateTotal = () => {
+        const qty = Math.max(Number(quantityInput.value) || 1, 1);
+        if (quantityInput.value != qty) {
+          quantityInput.value = qty;
+        }
+        priceTarget.textContent = formatPrice(unitPrice * qty);
+      };
+
+      trigger.addEventListener('click', () => {
+        updateTotal();
+        toggleStage(true);
+        const firstInput = form.querySelector('select, input, button');
+        if (firstInput) {
+          window.requestAnimationFrame(() => firstInput.focus());
+        }
+      });
+
+      closeButtons.forEach((button) => {
+        button.addEventListener('click', () => toggleStage(false));
+      });
+
+      stage.addEventListener('click', (event) => {
+        if (event.target === stage) {
+          toggleStage(false);
+        }
+      });
+
+      quantityInput.addEventListener('input', updateTotal);
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+
+        const payload = {
+          id: Number(formData.get('id')),
+          quantity: Math.max(Number(formData.get('quantity')) || 1, 1),
+          properties: {}
+        };
+
+        formData.forEach((value, key) => {
+          const propertyMatch = key.match(/^properties\[(.+)\]$/);
+          if (propertyMatch) {
+            payload.properties[propertyMatch[1]] = value;
+          }
+        });
+
+        try {
+          await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+          window.location.href = '/checkout';
+        } catch (error) {
+          console.error('Failed to add item before checkout', error);
+          toggleStage(false);
+        }
+      });
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Pre-checkout color stage",
+  "tag": "section",
+  "templates": ["product"],
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Trigger button label",
+      "default": "Choose color & checkout"
+    },
+    {
+      "type": "text",
+      "id": "stage_heading",
+      "label": "Stage heading",
+      "default": "Select your color"
+    },
+    {
+      "type": "textarea",
+      "id": "stage_subheading",
+      "label": "Optional subheading",
+      "default": "Choose a color and confirm your quantity before checkout."
+    },
+    {
+      "type": "text",
+      "id": "color_label",
+      "label": "Color field label",
+      "default": "Color"
+    },
+    {
+      "type": "text",
+      "id": "color_property_label",
+      "label": "Order property label",
+      "default": "Selected Color",
+      "info": "Appears on the order details."
+    },
+    {
+      "type": "text",
+      "id": "quantity_label",
+      "label": "Quantity field label",
+      "default": "Quantity"
+    },
+    {
+      "type": "text",
+      "id": "total_label",
+      "label": "Total label",
+      "default": "Total"
+    },
+    {
+      "type": "text",
+      "id": "continue_label",
+      "label": "Continue button label",
+      "default": "Continue to checkout"
+    },
+    {
+      "type": "text",
+      "id": "cancel_label",
+      "label": "Cancel button label",
+      "default": "Cancel"
+    },
+    {
+      "type": "color",
+      "id": "trigger_background",
+      "label": "Trigger button background",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "trigger_text_color",
+      "label": "Trigger button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "continue_background",
+      "label": "Continue button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "continue_text_color",
+      "label": "Continue button text color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "color_option",
+      "name": "Color option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "option_label",
+          "label": "Label",
+          "default": "Aqua"
+        },
+        {
+          "type": "text",
+          "id": "option_value",
+          "label": "Value",
+          "default": "Aqua"
+        },
+        {
+          "type": "checkbox",
+          "id": "default_option",
+          "label": "Mark as default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pre-checkout color stage",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
+
+

@@ -1,0 +1,263 @@
+{% doc %}
+  @prompt
+    3 buttons that when hovered over the white text is underlined on the left for the following pages: Contact Us, About Us, Dealer Application. On the right hand side of the page is a logo.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-nav-buttons-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+    background-color: {{ block.settings.background_color }};
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .ai-nav-buttons__left-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.button_spacing }}px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .ai-nav-buttons__button-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .ai-nav-buttons__text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.font_size }}px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+  }
+
+  .ai-nav-buttons__text-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: {{ block.settings.text_color }};
+    transition: width 0.3s ease;
+  }
+
+  .ai-nav-buttons__button-{{ ai_gen_id }}:hover .ai-nav-buttons__text-{{ ai_gen_id }}::after {
+    width: 100%;
+  }
+
+  .ai-nav-buttons__logo-{{ ai_gen_id }} {
+    flex-shrink: 0;
+  }
+
+  .ai-nav-buttons__logo-image-{{ ai_gen_id }} {
+    max-width: {{ block.settings.logo_width }}px;
+    height: auto;
+    display: block;
+  }
+
+  .ai-nav-buttons__logo-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: 60px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .ai-nav-buttons__logo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 100px;
+    max-height: 50px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-nav-buttons-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ai-nav-buttons__left-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-nav-buttons__logo-{{ ai_gen_id }} {
+      align-self: flex-end;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-nav-buttons-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-nav-buttons__left-{{ ai_gen_id }}">
+    <a href="{{ block.settings.contact_url }}" class="ai-nav-buttons__button-{{ ai_gen_id }}">
+      <span class="ai-nav-buttons__text-{{ ai_gen_id }}">{{ block.settings.contact_text }}</span>
+    </a>
+    <a href="{{ block.settings.about_url }}" class="ai-nav-buttons__button-{{ ai_gen_id }}">
+      <span class="ai-nav-buttons__text-{{ ai_gen_id }}">{{ block.settings.about_text }}</span>
+    </a>
+    <a href="{{ block.settings.dealer_url }}" class="ai-nav-buttons__button-{{ ai_gen_id }}">
+      <span class="ai-nav-buttons__text-{{ ai_gen_id }}">{{ block.settings.dealer_text }}</span>
+    </a>
+  </div>
+
+  <div class="ai-nav-buttons__logo-{{ ai_gen_id }}">
+    {% if block.settings.logo %}
+      <img
+        src="{{ block.settings.logo | image_url: width: 400 }}"
+        alt="{{ block.settings.logo.alt | escape }}"
+        class="ai-nav-buttons__logo-image-{{ ai_gen_id }}"
+        loading="lazy"
+        width="{{ block.settings.logo.width }}"
+        height="{{ block.settings.logo.height }}"
+      >
+    {% else %}
+      <div class="ai-nav-buttons__logo-placeholder-{{ ai_gen_id }}">
+        {{ 'image' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Nav buttons with logo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contact Us button"
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Button text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "About Us button"
+    },
+    {
+      "type": "text",
+      "id": "about_text",
+      "label": "Button text",
+      "default": "About Us"
+    },
+    {
+      "type": "url",
+      "id": "about_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Dealer Application button"
+    },
+    {
+      "type": "text",
+      "id": "dealer_text",
+      "label": "Button text",
+      "default": "Dealer Application"
+    },
+    {
+      "type": "url",
+      "id": "dealer_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 150
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Button spacing",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nav buttons with logo"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,132 @@
+<section id="specs-board-{{ section.id }}" class="specs-board">
+  {%- assign pad_top = section.settings.pad_top | default: 48 | plus: 0 -%}
+  {%- assign pad_bottom = section.settings.pad_bottom | default: 48 | plus: 0 -%}
+  {%- assign max_w = section.settings.max_width | default: 1200 | plus: 0 -%}
+  {%- assign gap_x = section.settings.gap_x | default: 24 | plus: 0 -%}
+  {%- assign gap_y = section.settings.gap_y | default: 24 | plus: 0 -%}
+  {%- assign card_bg = section.settings.card_bg | default: '#1a1a1a' -%}
+  {%- assign card_text = section.settings.card_text | default: '#ffffff' -%}
+  {%- assign accent = section.settings.accent | default: 'rgba(255,255,255,.16)' -%}
+  {%- assign radius = section.settings.card_radius | default: 16 | plus: 0 -%}
+  {%- assign heading_1 = section.settings.heading_1 | default: blank -%}
+  {%- assign heading_2 = section.settings.heading_2 | default: blank -%}
+  {%- assign footnote = section.settings.footnote | default: blank -%}
+  {%- assign btn_text = section.settings.button_text | default: blank -%}
+  {%- assign btn_link = section.settings.button_link | default: blank -%}
+  {%- assign btn_style = section.settings.button_style | default: 'pill' -%}
+
+  <style>
+    #specs-board-{{ section.id }} { padding: {{ pad_top }}px 16px {{ pad_bottom }}px; }
+    #specs-board-{{ section.id }} .container { max-width: {{ max_w }}px; margin: 0 auto; }
+    #specs-board-{{ section.id }} .sup-title { text-align:center; font: 800 14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.9); }
+    #specs-board-{{ section.id }} .title { text-align:center; font: 800 28px/1.25 system-ui,-apple-system,Segoe UI,Roboto,Arial; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.95); margin-top:.25rem; }
+    #specs-board-{{ section.id }} .grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: {{ gap_y }}px {{ gap_x }}px; margin-top: 28px; }
+    #specs-board-{{ section.id }} .card { background: {{ card_bg }}; color: {{ card_text }}; border-radius: {{ radius }}px; padding: 22px; text-align:center; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+    #specs-board-{{ section.id }} .pre { font: 600 12px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial; opacity: .75; margin-top: .25rem; }
+    #specs-board-{{ section.id }} .value { font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: .04em; font-variant-numeric: tabular-nums; margin: .2rem 0; }
+    #specs-board-{{ section.id }} .unit { font: 800 12px/1 system-ui,-apple-system,Segoe UI,Roboto,Arial; letter-spacing: .18em; text-transform: uppercase; opacity: .9; }
+    #specs-board-{{ section.id }} .divider { height: 1px; background: {{ accent }}; margin: 14px 0; }
+    #specs-board-{{ section.id }} .label { font: 600 16px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial; opacity:.95; }
+    #specs-board-{{ section.id }} .foot { text-align:center; font: 14px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial; color: rgba(255,255,255,.8); margin-top: 28px; }
+    #specs-board-{{ section.id }} .btn { display:inline-flex; align-items:center; gap:.5rem; margin: 18px auto 0; font-weight:800; text-decoration:none; background:#fff; color:#111; padding:.65rem 1.0rem; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+    #specs-board-{{ section.id }} .btn:hover { transform: translateY(-1px); }
+    #specs-board-{{ section.id }} .btn.pill { border-radius:999px; }
+    #specs-board-{{ section.id }} .btn.rounded { border-radius:12px; }
+    #specs-board-{{ section.id }} .btn.square { border-radius:4px; }
+    @media (max-width: 1024px){
+      #specs-board-{{ section.id }} .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 640px){
+      #specs-board-{{ section.id }} .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #specs-board-{{ section.id }} .value { font-size: 52px; }
+    }
+  </style>
+
+  <div class="container">
+    {%- if heading_1 != blank -%}
+      <div class="sup-title">{{ heading_1 }}</div>
+    {%- endif -%}
+    {%- if heading_2 != blank -%}
+      <div class="title">{{ heading_2 }}</div>
+    {%- endif -%}
+
+    <div class="grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'spec' -%}
+          <div class="card" {{ block.shopify_attributes }}>
+            {%- if block.settings.pre_text != blank -%}
+              <div class="pre">{{ block.settings.pre_text }}</div>
+            {%- endif -%}
+            <div class="value">{{ block.settings.value }}</div>
+            {%- if block.settings.unit != blank -%}
+              <div class="unit">{{ block.settings.unit | upcase }}</div>
+            {%- endif -%}
+            <div class="divider"></div>
+            {%- if block.settings.label != blank -%}
+              <div class="label">{{ block.settings.label }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if footnote != blank -%}
+      <div class="foot">{{ footnote }}</div>
+    {%- endif -%}
+
+    {%- if btn_text != blank and btn_link != blank -%}
+      <div style="text-align:center;">
+        <a class="btn {{ btn_style }}" href="{{ btn_link }}">
+          {%- comment -%} simple info dot icon {%- endcomment -%}
+          <span style="display:inline-block;width:22px;height:22px;border-radius:999px;border:2px solid currentColor; line-height:18px; text-align:center; font-weight:800;">i</span>
+          <span>{{ btn_text }}</span>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Specs Board",
+  "settings": [
+    { "type": "range", "id": "pad_top", "label": "Padding top (px)", "default": 48, "min": 0, "max": 160, "step": 4 },
+    { "type": "range", "id": "pad_bottom", "label": "Padding bottom (px)", "default": 48, "min": 0, "max": 160, "step": 4 },
+    { "type": "number", "id": "max_width", "label": "Max content width (px)", "default": 1200 },
+    { "type": "range", "id": "gap_x", "label": "Grid gap X (px)", "default": 24, "min": 8, "max": 48, "step": 2 },
+    { "type": "range", "id": "gap_y", "label": "Grid gap Y (px)", "default": 24, "min": 8, "max": 48, "step": 2 },
+
+    { "type": "text", "id": "heading_1", "label": "Heading line 1", "default": "THE FASTEST ENDURO BIKE" },
+    { "type": "text", "id": "heading_2", "label": "Heading line 2", "default": "IS NOW ELECTRIC" },
+
+    { "type": "color", "id": "card_bg", "label": "Card background", "default": "#1a1a1a" },
+    { "type": "color", "id": "card_text", "label": "Card text color", "default": "#ffffff" },
+    { "type": "text", "id": "accent", "label": "Divider color (css)", "default": "rgba(255,255,255,.16)" },
+    { "type": "range", "id": "card_radius", "label": "Card border radius (px)", "default": 16, "min": 0, "max": 48, "step": 1 },
+
+    { "type": "textarea", "id": "footnote", "label": "Footnote text", "default": "Homologated in the USA with Class M license as of 16 years old in both power configuration." },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "More Info" },
+    { "type": "url",  "id": "button_link", "label": "Button link" },
+    { "type": "select", "id": "button_style", "label": "Button style", "default": "pill", "options": [
+      {"value":"pill","label":"Pill"}, {"value":"rounded","label":"Rounded"}, {"value":"square","label":"Square"}
+    ]}
+  ],
+  "blocks": [
+    { "type": "spec", "name": "Spec", "settings": [
+      { "type": "text", "id": "pre_text", "label": "Small prefix (e.g., up to)" },
+      { "type": "text", "id": "value", "label": "Value", "default": "80" },
+      { "type": "text", "id": "unit",  "label": "Unit",  "default": "HP" },
+      { "type": "text", "id": "label", "label": "Label", "default": "Power" }
+    ]}
+  ],
+  "presets": [ { "name": "Specs Board", "blocks": [
+    {"type":"spec","settings":{"value":"80","unit":"HP","label":"Power"}},
+    {"type":"spec","settings":{"value":"264","unit":"LBS","label":"Weight"}},
+    {"type":"spec","settings":{"value":"764","unit":"FT-LBS","label":"Torque"}},
+    {"type":"spec","settings":{"pre_text":"up to","value":"6","unit":"HOURS","label":"Riding time"}},
+    {"type":"spec","settings":{"value":"2","unit":"HOURS","label":"Charging time"}},
+    {"type":"spec","settings":{"value":"2","unit":"YEARS","label":"Warranty"}}
+  ] } ]
+}
+{% endschema %}
+

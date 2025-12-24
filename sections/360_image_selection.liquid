@@ -1,0 +1,369 @@
+<section class="section-360-image" style="--section-padding: var(--spacer, 0);">
+  {%- comment -%} Build image URL list from blocks and/or pasted URLs {%- endcomment -%}
+  {%- assign image_urls = '' -%}
+  {%- assign fw = section.settings.frame_width -%}
+  {%- if fw == blank -%}{%- assign fw = 2000 -%}{%- endif -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'frame' and block.settings.image != blank -%}
+      {%- assign u = block.settings.image | image_url: width: fw -%}
+      {%- if image_urls == '' -%}
+        {%- assign image_urls = u -%}
+      {%- else -%}
+        {%- assign image_urls = image_urls | append: '|' | append: u -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if section.settings.urls_text and section.settings.urls_text != blank -%}
+    {%- assign raw_lines = section.settings.urls_text | replace: '\r\n','\n' | replace: '\r','\n' | split: '\n' -%}
+    {%- for line in raw_lines -%}
+      {%- assign u = line | strip -%}
+      {%- if u != '' -%}
+        {%- if image_urls == '' -%}
+          {%- assign image_urls = u -%}
+        {%- else -%}
+          {%- assign image_urls = image_urls | append: '|' | append: u -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- assign images = image_urls | split: '|' -%}
+  {% render '360_image',
+    sprite_url: section.settings.sprite_url,
+    sprite_cols: section.settings.sprite_cols,
+    sprite_rows: section.settings.sprite_rows,
+    images: images,
+    base_url: section.settings.base_url,
+    frame_count: section.settings.frame_count,
+    pad: section.settings.pad,
+    ext: section.settings.ext,
+    query: section.settings.query,
+    header_text: section.settings.header_text,
+    header_size: section.settings.header_size,
+    header_align: section.settings.header_align,
+    bg_text: section.settings.bg_text,
+    bg_text_size: section.settings.bg_text_size,
+    bg_text_size_mobile: section.settings.bg_text_size_mobile,
+    bg_text_color: section.settings.bg_text_color,
+    bg_text_opacity: section.settings.bg_text_opacity,
+    show_hint: section.settings.show_hint,
+    viewer_background: section.settings.viewer_background,
+    frame_width: section.settings.frame_width,
+    frame_height: section.settings.frame_height,
+    frame_fit: section.settings.frame_fit,
+    width: section.settings.width,
+    height: section.settings.height,
+    height_mobile: section.settings.height_mobile,
+    autoplay: section.settings.autoplay,
+    speed: section.settings.speed,
+    sensitivity: section.settings.sensitivity,
+    reverse: section.settings.reverse,
+    autoplay_direction: section.settings.autoplay_direction,
+    preload: section.settings.preload,
+    alt: section.settings.alt,
+    first_frame_index: section.settings.first_frame_index
+  %}
+</section>
+
+{% schema %}
+{
+  "name": "360 Image Viewer",
+  "max_blocks": 100,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "header_text",
+      "label": "Header text"
+    },
+    {
+      "type": "range",
+      "id": "header_size",
+      "label": "Header font size (px)",
+      "default": 36,
+      "min": 12,
+      "max": 636,
+      "step": 8
+    },
+    {
+      "type": "select",
+      "id": "header_align",
+      "label": "Header alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Background Text"
+    },
+    {
+      "type": "textarea",
+      "id": "bg_text",
+      "label": "Background text",
+      "info": "Large text rendered behind the 360 viewer"
+    },
+    {
+      "type": "range",
+      "id": "bg_text_size",
+      "label": "Background text size (px)",
+      "default": 160,
+      "min": 40,
+      "max": 1600,
+      "step": 20
+    },
+    {
+      "type": "range",
+      "id": "bg_text_size_mobile",
+      "label": "Background text size on mobile (px)",
+      "default": 80,
+      "min": 24,
+      "max": 800,
+      "step": 8
+    },
+    {
+      "type": "color",
+      "id": "bg_text_color",
+      "label": "Background text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "bg_text_opacity",
+      "label": "Background text opacity (%)",
+      "default": 10,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hint",
+      "label": "Show 'Drag to rotate' hint",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Viewer appearance"
+    },
+    {
+      "type": "color",
+      "id": "viewer_background",
+      "label": "Viewer background color",
+      "info": "Fill the area behind the frames; leave empty for transparent."
+    },
+    {
+      "type": "select",
+      "id": "frame_fit",
+      "label": "Frame fit",
+      "default": "contain",
+      "options": [
+        { "value": "contain", "label": "Contain (no cropping)" },
+        { "value": "cover", "label": "Cover (fill, may crop)" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spritesheet (recommended)"
+    },
+    {
+      "type": "text",
+      "id": "sprite_url",
+      "label": "Sprite image URL",
+      "info": "Upload a single image to Files that contains all frames in a grid. If provided, pattern settings are ignored."
+    },
+    {
+      "type": "range",
+      "id": "sprite_cols",
+      "label": "Sprite columns",
+      "default": 12,
+      "min": 1,
+      "max": 72,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "sprite_rows",
+      "label": "Sprite rows",
+      "default": 6,
+      "min": 1,
+      "max": 72,
+      "step": 1
+    },
+    {
+      "type": "paragraph",
+      "content": "If you donâ€™t use a spritesheet, fill in the pattern settings below."
+    },
+    {
+      "type": "header",
+      "content": "Pattern (alternative)"
+    },
+    {
+      "type": "text",
+      "id": "base_url",
+      "label": "Base URL (without index or extension)",
+      "info": "Example: https://cdn.shopify.com/s/files/.../shoe-red-360_ (do not include 0001, extension, or ?v)"
+    },
+    {
+      "type": "textarea",
+      "id": "urls_text",
+      "label": "Frame URLs (one per line)",
+      "info": "Alternative to pattern/blocks. Paste full URLs to frames in order, one per line."
+    },
+    {
+      "type": "text",
+      "id": "query",
+      "label": "Optional query string",
+      "info": "Example: v=1760217892 (omit leading ?)"
+    },
+    {
+      "type": "range",
+      "id": "frame_count",
+      "label": "Frame count",
+      "default": 72,
+      "min": 2,
+      "max": 200,
+      "step": 2
+    },
+    {
+      "type": "select",
+      "id": "first_frame_index",
+      "label": "First frame index",
+      "default": "1",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "0", "label": "0" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "pad",
+      "label": "Zero padding",
+      "default": 4,
+      "min": 1,
+      "max": 6,
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "ext",
+      "label": "Extension",
+      "default": "webp",
+      "options": [
+        { "value": "webp", "label": "webp" },
+        { "value": "jpg", "label": "jpg" },
+        { "value": "jpeg", "label": "jpeg" },
+        { "value": "png", "label": "png" }
+      ]
+    },
+    {
+      "type": "number",
+      "id": "frame_width",
+      "label": "Frame width (px)",
+      "info": "Pixel width of each image frame (used for img width attribute)",
+      "default": 1000
+    },
+    {
+      "type": "number",
+      "id": "frame_height",
+      "label": "Frame height (px)",
+      "info": "Pixel height of each image frame (used for img height attribute)",
+      "default": 1000
+    },
+    {
+      "type": "text",
+      "id": "width",
+      "label": "Width",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "height",
+      "label": "Height",
+      "default": "500px"
+    },
+    {
+      "type": "text",
+      "id": "height_mobile",
+      "label": "Height on mobile",
+      "default": "500px",
+      "info": "Accepts CSS units (e.g. px, vh). Applied up to 749px wide."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Autoplay speed (ms per step)",
+      "default": 76,
+      "min": 16,
+      "max": 200,
+      "step": 2
+    },
+    {
+      "type": "range",
+      "id": "sensitivity",
+      "label": "Drag sensitivity (px per frame)",
+      "default": 8,
+      "min": 2,
+      "max": 40,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse",
+      "label": "Reverse drag direction",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "autoplay_direction",
+      "label": "Autoplay direction",
+      "default": "1",
+      "options": [
+        { "value": "1", "label": "Forward" },
+        { "value": "-1", "label": "Backward" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "preload",
+      "label": "Preload frames around current",
+      "default": 8,
+      "min": 1,
+      "max": 36,
+      "step": 1
+    },
+    {
+      "type": "text",
+      "id": "alt",
+      "label": "Alt text",
+      "default": "360 image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "frame",
+      "name": "Frame",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Frame image" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "360 Image Viewer" }
+  ]
+}
+{% endschema %}
+
+
+

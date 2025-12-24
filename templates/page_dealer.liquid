@@ -1,0 +1,18 @@
+{% comment %}Dealer-only page template.{% endcomment %}
+
+{% assign is_dealer = false %}
+{% if customer and customer.tags contains 'dealer' %}
+  {% assign is_dealer = true %}
+{% endif %}
+
+{% if is_dealer %}
+  {% section 'dealer-portal' %}
+{% else %}
+  <script>
+    window.location.replace('/account/login?return_url={{ request.path | url_encode }}');
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/account/login?return_url={{ request.path | url_encode }}">
+    <p>This area is for approved dealers only. <a href="/account/login?return_url={{ request.path | url_encode }}">Sign in</a>.</p>
+  </noscript>
+{% endif %}

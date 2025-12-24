@@ -1,0 +1,375 @@
+<section class="section-floating-cta">
+  {%- assign id = 'floating-cta-' | append: section.id -%}
+  {%- assign bg = section.settings.bg_color | default: '#111111' -%}
+  {%- assign fg = section.settings.text_color | default: '#ffffff' -%}
+  {%- assign pos = section.settings.position | default: 'bc' -%}
+  {%- assign offx = section.settings.offset_x | default: 16 | plus: 0 -%}
+  {%- assign offy = section.settings.offset_y | default: 16 | plus: 0 -%}
+  {%- assign radius = section.settings.shape | default: 'pill' -%}
+  {%- assign card_radius = section.settings.card_radius | default: 18 | plus: 0 -%}
+  {%- assign card_pad_x = section.settings.card_pad_x | default: 20 | plus: 0 -%}
+  {%- assign card_pad_y = section.settings.card_pad_y | default: 16 | plus: 0 -%}
+  {%- assign card_max_w = section.settings.card_max_w | default: 520 | plus: 0 -%}
+  {%- assign header_text = section.settings.header_text | default: blank -%}
+  {%- assign header_size = section.settings.header_size | default: 36 | plus: 0 -%}
+  {%- assign header_align = section.settings.header_align | default: 'left' -%}
+  {%- assign bg_text = section.settings.bg_text | default: blank -%}
+  {%- assign bg_text_size = section.settings.bg_text_size | default: 160 | plus: 0 -%}
+  {%- assign bg_text_color = section.settings.bg_text_color | default: '#000000' -%}
+  {%- assign bg_text_opacity = section.settings.bg_text_opacity | default: 10 | plus: 0 -%}
+  {%- comment -%} Hint removed by request {%- endcomment -%}
+  {%- assign show_hint = false -%}
+  {%- comment -%} Removed separate label_text to avoid confusion; header_text carries default {%- endcomment -%}
+  {%- assign chip_bg = section.settings.header_chip_color | default: '#2a2a2a' -%}
+  {%- assign price_text = section.settings.price_text | default: blank -%}
+  {%- assign compare_price_text = section.settings.compare_price_text | default: blank -%}
+  {%- assign date_text = section.settings.date_text | default: blank -%}
+  {%- assign finance_text = section.settings.finance_text | default: blank -%}
+  {%- assign btn_bg = section.settings.button_bg_color | default: '#ffffff' -%}
+  {%- assign btn_fg = section.settings.button_text_color | default: '#111111' -%}
+  {%- assign show_header_icon = section.settings.show_header_icon | default: true -%}
+  {%- assign compare_sz = section.settings.compare_price_size | default: 14 | plus: 0 -%}
+  {%- assign visibility = section.settings.visibility | default: 'all' -%}
+  {%- assign delay_s = section.settings.show_delay | default: 0 | plus: 0 -%}
+  {%- assign scroll_pct = section.settings.show_scroll_percent | default: 0 | plus: 0 -%}
+  {%- assign dismissible = section.settings.dismissible | default: true -%}
+  {%- assign open_new = section.settings.open_new | default: false -%}
+  {%- assign z_index = section.settings.z_index | default: 9999 | plus: 0 -%}
+  {%- assign width_px = section.settings.width_px | default: 0 | plus: 0 -%}
+  {%- assign dynamic_checkout_enabled = false -%}
+  {%- assign initial_variant = nil -%}
+  {%- assign initial_checkout_qty = 1 -%}
+  {%- if product and section.settings.link == blank -%}
+    {%- assign initial_variant = product.selected_or_first_available_variant -%}
+    {%- if initial_variant -%}
+      {%- assign dynamic_checkout_enabled = true -%}
+      {%- assign initial_checkout_qty = initial_variant.quantity_rule.min | default: 1 -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- assign button_disabled = false -%}
+  {%- assign initial_href = section.settings.link | default: '#' -%}
+  {%- assign button_state_class = '' -%}
+  {%- if dynamic_checkout_enabled -%}
+    {%- if initial_variant and initial_variant.available -%}
+      {%- assign initial_href = routes.cart_url | append: '/' | append: initial_variant.id | append: ':' | append: initial_checkout_qty | append: '?checkout' -%}
+    {%- else -%}
+      {%- assign initial_href = '' -%}
+      {%- assign button_disabled = true -%}
+      {%- assign button_state_class = ' button--disabled is-disabled' -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- assign card_bg_rgb = card_bg | color_to_rgb -%}
+  {%- assign card_bg_vals = card_bg_rgb | remove: 'rgb(' | remove: ')' -%}
+  {%- assign card_bg_opacity = section.settings.card_bg_opacity | default: 90 | plus: 0 -%}
+  {%- assign card_bg_alpha = card_bg_opacity | times: 0.01 -%}
+
+  <style>
+    #{{ id }} { position: fixed; z-index: {{ z_index }}; inset: auto; display: none; }
+    #{{ id }}.is-visible { display: block; }
+    #{{ id }}.pos-br { right: {{ offx }}px; bottom: calc({{ offy }}px + env(safe-area-inset-bottom)); }
+    #{{ id }}.pos-bl { left: {{ offx }}px; bottom: calc({{ offy }}px + env(safe-area-inset-bottom)); }
+    #{{ id }}.pos-tr { right: {{ offx }}px; top: {{ offy }}px; }
+    #{{ id }}.pos-tl { left: {{ offx }}px; top: {{ offy }}px; }
+    #{{ id }}.pos-bc { left: 50%; transform: translateX(-50%); bottom: calc({{ offy }}px + env(safe-area-inset-bottom)); }
+    #{{ id }} .floating-cta__wrap { position: relative; }
+    #{{ id }} .floating-cta__bgtext { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; pointer-events:none; font-weight:800; line-height:1; white-space:pre-wrap; }
+    #{{ id }} .floating-cta__card { background: rgba({{ card_bg_vals }}, {{ card_bg_alpha }}); color: {{ fg }}; border-radius: {{ card_radius }}px; padding: {{ card_pad_y }}px {{ card_pad_x }}px; box-shadow: 0 12px 32px rgba(0,0,0,.35); max-width: {{ card_max_w }}px; width: 100%; }
+    #{{ id }} .floating-cta__topwrap { text-align: {{ header_align }}; }
+    #{{ id }} .floating-cta__top { display:inline-flex; align-items:center; gap:.5rem; font: 600 {{ header_size }}px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial; opacity:.95; margin-bottom:.6rem; background: {{ chip_bg }}; padding: .35rem .6rem; border-radius: 999px; }
+    #{{ id }} .floating-cta__grid { display:grid; grid-template-columns: 1fr auto; gap: 1rem; align-items:center; }
+    #{{ id }} .floating-cta__price { font-weight: 800; font-size: 26px; letter-spacing: .2px; margin:0; }
+    #{{ id }} .floating-cta__price-compare { margin-top: 4px; font: 600 {{ compare_sz }}px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial; opacity:.75; }
+    #{{ id }} .floating-cta__price-compare s { text-decoration-thickness: 2px; }
+    #{{ id }} .floating-cta__meta { font: 13px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial; opacity:.9; }
+    #{{ id }} .floating-cta__meta .line { margin-top:.25rem; }
+    #{{ id }} .floating-cta__btn { display:inline-flex; align-items:center; gap:.6rem; text-decoration:none; font-weight:800; padding:.7rem 1.1rem; background: {{ btn_bg }}; color: {{ btn_fg }}; box-shadow: 0 8px 24px rgba(0,0,0,.25); transition: transform .12s ease, box-shadow .12s ease; border-radius: 999px; white-space:nowrap; }
+    #{{ id }} .floating-cta__btn:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(0,0,0,.3); }
+    #{{ id }} .floating-cta__btn:focus { outline: 2px solid rgba(255,255,255,.7); outline-offset: 2px; }
+    #{{ id }} .floating-cta__close { position:absolute; top:-10px; right:-10px; width:28px; height:28px; border-radius:999px; background:#000; color:#fff; font:700 14px/28px system-ui, -apple-system, Segoe UI, Roboto, Arial; text-align:center; cursor:pointer; opacity:.85; }
+    #{{ id }} .floating-cta__close:hover { opacity:1; }
+    {%- case radius -%}
+    {%- when 'pill' -%}
+    #{{ id }} .floating-cta__btn { border-radius: 999px; }
+    {%- when 'rounded' -%}
+    #{{ id }} .floating-cta__btn { border-radius: 12px; }
+    {%- else -%}
+    #{{ id }} .floating-cta__btn { border-radius: 4px; }
+    {%- endcase -%}
+    {%- if width_px > 0 -%}
+    #{{ id }} .floating-cta__btn { width: {{ width_px }}px; justify-content:center; }
+    {%- endif -%}
+    @media (max-width: 749px) {
+      #{{ id }} .floating-cta__card { max-width: min(92vw, {{ card_max_w }}px); }
+      #{{ id }} .floating-cta__grid { grid-template-columns: 1fr; gap: .75rem; }
+      #{{ id }} .floating-cta__btn { justify-content:center; }
+    }
+  </style>
+
+  <div id="{{ id }}" class="floating-cta pos-{{ pos }}" data-visibility="{{ visibility }}" data-delay="{{ delay_s }}" data-scroll="{{ scroll_pct }}">
+    <div class="floating-cta__wrap">
+      {%- if bg_text != blank -%}
+        <div class="floating-cta__bgtext" style="font-size: {{ bg_text_size }}px; color: {{ bg_text_color }}; opacity: {{ bg_text_opacity | divided_by: 100.0 }};">{{ bg_text }}</div>
+      {%- endif -%}
+      <div class="floating-cta__card">
+        {%- if header_text != blank -%}
+          <div class="floating-cta__topwrap"><div class="floating-cta__top">
+            {%- if show_header_icon -%}
+              <span aria-hidden="true" style="display:inline-block;width:16px;height:16px;border:2px solid currentColor;border-radius:999px;position:relative;opacity:.8">
+                <span style="position:absolute;left:7px;top:2px;width:2px;height:6px;background:currentColor;border-radius:2px"></span>
+                <span style="position:absolute;left:7px;top:2px;width:5px;height:2px;background:currentColor;border-radius:2px;transform-origin:left top;transform:rotate(45deg);"></span>
+              </span>
+            {%- endif -%}
+            <span>{{ header_text }}</span>
+          </div></div>
+        {%- endif -%}
+        <div class="floating-cta__grid">
+          <div class="floating-cta__left">
+            {%- if price_text != blank -%}
+              <p class="floating-cta__price">{{ price_text }}</p>
+              {%- if compare_price_text != blank -%}
+                <div class="floating-cta__price-compare"><s>{{ compare_price_text }}</s></div>
+              {%- endif -%}
+            {%- endif -%}
+            <div class="floating-cta__meta">
+              {%- if date_text != blank -%}<div class="line">{{ date_text }}</div>{%- endif -%}
+              {%- if finance_text != blank -%}<div class="line">{{ finance_text }}</div>{%- endif -%}
+            </div>
+          </div>
+          <div class="floating-cta__right">
+            <a
+              class="floating-cta__btn{{ button_state_class }}"
+              href="{{ initial_href | default: '#' }}"
+              {% if dynamic_checkout_enabled %}
+                data-dynamic-checkout
+                data-section-id="{{ section.id }}"
+                data-default-quantity="{{ initial_checkout_qty }}"
+              {% endif %}
+              {% if button_disabled %}aria-disabled="true"{% endif %}
+              {% if dynamic_checkout_enabled == false and open_new %}target="_blank" rel="noopener"{% endif %}
+              aria-label="{{ section.settings.aria_label | default: section.settings.button_text }}"
+            >
+              <span class="floating-cta__label">{{ section.settings.button_text | default: 'Order now' }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Close button and hint removed {%- endcomment -%}
+    </div>
+  </div>
+
+  {%- if dynamic_checkout_enabled -%}
+    <script>
+      (() => {
+        const root = document.getElementById({{ id | json }});
+        if (!root) return;
+        const button = root.querySelector('[data-dynamic-checkout]');
+        if (!button) return;
+
+        const cartUrl = {{ routes.cart_url | json }};
+        const checkoutUrl = `${cartUrl}?checkout`;
+        const defaultQty = parseInt(button.dataset.defaultQuantity, 10) || 1;
+        const quantityInput = document.querySelector('form[action*="/cart/add"] input[name="quantity"]');
+
+        const getQuantity = () => {
+          if (!quantityInput) return defaultQty;
+          const parsed = parseInt(quantityInput.value, 10);
+          return Number.isFinite(parsed) && parsed > 0 ? parsed : defaultQty;
+        };
+
+        const disable = () => {
+          button.setAttribute('aria-disabled', 'true');
+          button.classList.add('button--disabled', 'is-disabled');
+          button.removeAttribute('href');
+        };
+
+        const enable = (variantId) => {
+          button.removeAttribute('aria-disabled');
+          button.classList.remove('button--disabled', 'is-disabled');
+          button.href = `${cartUrl}/${variantId}:${getQuantity()}?checkout`;
+          button.dataset.variantId = variantId;
+        };
+
+        let currentVariant = {{ initial_variant | json }};
+
+        const refresh = () => {
+          if (!currentVariant || currentVariant.available === false) {
+            disable();
+            return;
+          }
+          enable(currentVariant.id);
+        };
+
+        refresh();
+
+        const addToCart = (variantId, quantity) => {
+          const endpoint = `${(window.Shopify && Shopify.routes ? Shopify.routes.root : '/') }cart/add.js`;
+          return fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({ id: variantId, quantity })
+          });
+        };
+
+        button.addEventListener('click', (evt) => {
+          if (!currentVariant || currentVariant.available === false) return;
+          if (button.getAttribute('aria-disabled') === 'true') return;
+          evt.preventDefault();
+
+          const quantity = getQuantity();
+          button.classList.add('is-loading');
+          addToCart(currentVariant.id, quantity)
+            .then((response) => {
+              if (!response.ok) throw new Error('Add to cart failed');
+              return response.json();
+            })
+            .then(() => {
+              window.location.href = checkoutUrl;
+            })
+            .catch(() => {
+              window.location.href = `${cartUrl}/${currentVariant.id}:${quantity}?checkout`;
+            })
+            .finally(() => {
+              button.classList.remove('is-loading');
+            });
+        });
+
+        const onVariantChange = (event) => {
+          const detail = event.detail && (event.detail.variant || event.detail);
+          if (!detail) return;
+          currentVariant = detail;
+          refresh();
+        };
+
+        document.addEventListener('variant:change', onVariantChange);
+
+        if (quantityInput) {
+          ['input', 'change'].forEach((evt) => quantityInput.addEventListener(evt, refresh));
+        }
+      })();
+    </script>
+  {%- endif -%}
+
+  <script>
+    (function(){
+      var root = document.getElementById({{ id | json }});
+      if(!root) return;
+      // Remove any legacy dismissal flags from older versions so CTA can reappear
+      try {
+        for (var i=0; i<localStorage.length; i++) {
+          var k = localStorage.key(i);
+          if(k && k.indexOf('floating_cta_dismissed_') === 0){ localStorage.removeItem(k); break; }
+        }
+      } catch(e) {}
+      var vis = root.getAttribute('data-visibility') || 'all';
+      var delay = parseInt(root.getAttribute('data-delay')||'0',10);
+      var scrollNeed = parseInt(root.getAttribute('data-scroll')||'0',10);
+      
+
+      function deviceOK(){
+        var mobile = window.matchMedia('(max-width: 749px)').matches;
+        if(vis === 'mobile') return mobile;
+        if(vis === 'desktop') return !mobile;
+        return true;
+      }
+
+      function scrollOK(){
+        if(scrollNeed <= 0) return true;
+        var doc = document.documentElement;
+        var scrolled = (doc.scrollTop || document.body.scrollTop) / (doc.scrollHeight - doc.clientHeight) * 100;
+        return scrolled >= scrollNeed;
+      }
+
+      function show(){ root.classList.add('is-visible'); }
+
+      function tryShow(){
+        if(!deviceOK()) return; 
+        if(!scrollOK()) return;
+        show();
+        window.removeEventListener('scroll', onScroll);
+      }
+
+      function onScroll(){ tryShow(); }
+
+      // init
+      if(scrollNeed > 0) window.addEventListener('scroll', onScroll, {passive:true});
+      if(delay > 0) setTimeout(tryShow, delay*1000); else tryShow();
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Floating CTA",
+  "settings": [
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Shop Now" },
+    { "type": "url",  "id": "link", "label": "Button link" },
+    { "type": "text", "id": "aria_label", "label": "ARIA label (accessibility)" },
+
+    { "type": "header", "content": "Layout & Position" },
+    { "type": "select", "id": "position", "label": "Position", "default": "bc",
+      "options": [
+        {"value":"bc","label":"Bottom Center"},
+        {"value":"br","label":"Bottom Right"},
+        {"value":"bl","label":"Bottom Left"},
+        {"value":"tr","label":"Top Right"},
+        {"value":"tl","label":"Top Left"}
+      ]
+    },
+    { "type": "range", "id": "offset_x", "label": "X offset (px)", "default": 16, "min": 0, "max": 100, "step": 1 },
+    { "type": "range", "id": "offset_y", "label": "Y offset (px)", "default": 16, "min": 0, "max": 100, "step": 1 },
+    { "type": "number", "id": "width_px", "label": "Fixed width (px, optional)", "default": 0 },
+    { "type": "select", "id": "shape", "label": "Button shape", "default": "pill", "options": [
+        {"value":"pill","label":"Pill"},
+        {"value":"rounded","label":"Rounded"},
+        {"value":"square","label":"Square"}
+      ]
+    },
+    { "type": "range", "id": "card_radius", "label": "Card border radius (px)", "default": 18, "min": 8, "max": 40, "step": 1 },
+    { "type": "range", "id": "card_pad_x", "label": "Card padding X (px)", "default": 20, "min": 8, "max": 40, "step": 1 },
+    { "type": "range", "id": "card_pad_y", "label": "Card padding Y (px)", "default": 16, "min": 8, "max": 40, "step": 1 },
+    { "type": "number", "id": "card_max_w", "label": "Card max width (px)", "default": 520 },
+
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "header_text", "label": "Header text", "default": "Order now to secure your delivery" },
+    { "type": "range", "id": "header_size", "label": "Header font size (px)", "default": 36, "min": 12, "max": 120, "step": 2 },
+    { "type": "select", "id": "header_align", "label": "Header alignment", "default": "left",
+      "options": [ {"value":"left","label":"Left"}, {"value":"center","label":"Center"}, {"value":"right","label":"Right"} ] },
+    { "type": "color", "id": "header_chip_color", "label": "Header bar color", "default": "#2a2a2a" },
+    { "type": "checkbox", "id": "show_header_icon", "label": "Show header icon", "default": true },
+
+    { "type": "header", "content": "Price" },
+    { "type": "text", "id": "price_text", "label": "Price", "default": "$12,990.00" },
+    { "type": "text", "id": "compare_price_text", "label": "Compare at price (optional)" },
+    { "type": "range", "id": "compare_price_size", "label": "Compare price font size (px)", "default": 14, "min": 10, "max": 32, "step": 1 },
+    { "type": "text", "id": "date_text", "label": "Date (optional)", "default": "Oct 22, 2025" },
+    { "type": "text", "id": "finance_text", "label": "Finance line (optional)", "default": "Finance from $167.00/month" },
+
+    { "type": "header", "content": "Background Text" },
+    { "type": "textarea", "id": "bg_text", "label": "Background text" },
+    { "type": "range", "id": "bg_text_size", "label": "Background text size (px)", "default": 160, "min": 40, "max": 300, "step": 4 },
+    { "type": "color", "id": "bg_text_color", "label": "Background text color", "default": "#000000" },
+    { "type": "range", "id": "bg_text_opacity", "label": "Background text opacity (%)", "default": 10, "min": 0, "max": 100, "step": 1 },
+
+    { "type": "header", "content": "Behavior" },
+    { "type": "select", "id": "visibility", "label": "Visibility", "default": "all",
+      "options": [ {"value":"all","label":"All devices"}, {"value":"mobile","label":"Mobile only"}, {"value":"desktop","label":"Desktop only"} ] },
+    { "type": "range", "id": "show_delay", "label": "Show delay (seconds)", "default": 0, "min": 0, "max": 30, "step": 1 },
+    { "type": "range", "id": "show_scroll_percent", "label": "Show after scroll (%)", "default": 0, "min": 0, "max": 100, "step": 1 },
+    { "type": "checkbox", "id": "open_new", "label": "Open link in new tab", "default": false },
+    { "type": "number", "id": "z_index", "label": "Z-Index", "default": 9999 },
+
+    { "type": "header", "content": "Styling" },
+    { "type": "color", "id": "bg_color", "label": "Card background", "default": "#111111" },
+    { "type": "range", "id": "card_bg_opacity", "label": "Card background opacity (%)", "default": 90, "min": 0, "max": 100, "step": 1 },
+    { "type": "color", "id": "text_color", "label": "Card text color", "default": "#ffffff" },
+    { "type": "color", "id": "button_bg_color", "label": "Button background", "default": "#ffffff" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#111111" }
+  ],
+  "presets": [ { "name": "Floating CTA" } ]
+}
+{% endschema %}

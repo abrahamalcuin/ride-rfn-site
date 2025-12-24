@@ -1,0 +1,131 @@
+{% assign preview_image = product.featured_media %}
+{% if preview_image %}
+  {% assign preview_image = preview_image.preview_image %}
+{% endif %}
+{% if preview_image == blank %}
+  {% assign preview_image = product.featured_image %}
+{% endif %}
+
+{% assign overrides = override_blocks %}
+{% assign media_scale = section.settings.media_zoom | times: 0.01 | plus: 1 %}
+{% if product_block and product_block.settings.media_zoom_override_enable == true %}
+  {% assign media_scale = product_block.settings.media_zoom_override | times: 0.01 | plus: 1 %}
+{% endif %}
+
+<li class="fc-carousel__slide" data-index="{{ index }}"{% if product_block %} {{ product_block.shopify_attributes }}{% endif %} style="--fc-media-scale: {{ media_scale }}">
+  <article class="fc-card">
+    <div class="fc-card__inner">
+      <div class="fc-card__media">
+        {% if preview_image %}
+          <img src="{{ preview_image | image_url: width: 1600 }}" alt="{{ preview_image.alt | default: product.title | escape }}">
+        {% else %}
+          <div class="fc-card__placeholder">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="fc-card__content">
+        <div class="fc-card__header">
+          <h3 class="fc-card__title">{{ product.title }}</h3>
+          {% if section.settings.show_price and product.price %}
+            <p class="fc-card__price">{{ product.price | money_with_currency }}</p>
+          {% endif %}
+        </div>
+
+        {% capture specs_markup %}
+          {% for spec_index in (1..4) %}
+            {% assign spec_index_str = spec_index | append: '' %}
+            {% assign metric_key = 'spec_' | append: spec_index | append: '_metric' %}
+            {% assign hint_key = 'spec_' | append: spec_index | append: '_hint' %}
+            {% assign spec_override = overrides | where: 'settings.position', spec_index_str | first %}
+
+            {% assign metric = '' %}
+            {% assign hint = '' %}
+
+            {% if spec_override %}
+              {% assign metric = spec_override.settings.metric %}
+              {% assign hint = spec_override.settings.hint %}
+            {% elsif product_block %}
+              {% assign metric = product_block.settings[metric_key] %}
+              {% assign hint = product_block.settings[hint_key] %}
+            {% else %}
+              {% assign metric = section.settings[metric_key] %}
+              {% assign hint = section.settings[hint_key] %}
+            {% endif %}
+
+            {% if metric != blank or hint != blank %}
+              <div class="fc-card__spec">
+                {% if metric != blank %}
+                  <span class="fc-card__spec-title">{{ metric }}</span>
+                {% endif %}
+                {% if hint != blank %}
+                  <span class="fc-card__spec-subtitle">{{ hint }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endcapture %}
+
+        {% assign specs_markup_trimmed = specs_markup | strip %}
+        {% if specs_markup_trimmed != '' %}
+          <div class="fc-card__specs">
+            {{ specs_markup_trimmed }}
+          </div>
+        {% endif %}
+
+        {% assign order_label = section.settings.order_button_label %}
+        {% assign order_link = '' %}
+        {% assign order_variant = product.selected_or_first_available_variant %}
+        {% assign order_default_qty = 1 %}
+        {% if order_variant %}
+          {% assign order_default_qty = order_variant.quantity_rule.min | default: 1 %}
+        {% endif %}
+        {% assign learn_label = section.settings.learn_button_label %}
+        {% assign learn_link = section.settings.default_learn_link %}
+
+        {% if product_block %}
+          {% if product_block.settings.order_button_label != blank %}
+            {% assign order_label = product_block.settings.order_button_label %}
+          {% endif %}
+          {% if product_block.settings.order_button_link != blank %}
+            {% assign order_link = product_block.settings.order_button_link %}
+          {% endif %}
+          {% if product_block.settings.learn_button_label != blank %}
+            {% assign learn_label = product_block.settings.learn_button_label %}
+          {% endif %}
+          {% if product_block.settings.learn_button_link != blank %}
+            {% assign learn_link = product_block.settings.learn_button_link %}
+          {% elsif product_block.settings.learn_more_link != blank %}
+            {% assign learn_link = product_block.settings.learn_more_link %}
+          {% endif %}
+        {% endif %}
+
+        {% if order_label == blank %}
+          {% assign order_label = 'Order Now' %}
+        {% endif %}
+        {% if learn_label == blank %}
+          {% assign learn_label = 'Learn More' %}
+        {% endif %}
+        {% if order_link == '' %}
+          {% if order_variant and order_variant.available %}
+            {% assign order_link = routes.cart_url | append: '/' | append: order_variant.id | append: ':' | append: order_default_qty | append: '?checkout' %}
+          {% else %}
+            {% assign order_link = product.url %}
+          {% endif %}
+        {% endif %}
+        {% if learn_link == blank %}
+          {% assign learn_link = product.url %}
+        {% endif %}
+
+        <div class="fc-card__buttons">
+          <a class="fc-button fc-button--primary" href="{{ order_link }}">
+            {{ order_label }}
+          </a>
+          <a class="fc-button fc-button--secondary" href="{{ learn_link }}">
+            {{ learn_label }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</li>

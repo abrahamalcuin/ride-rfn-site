@@ -1,0 +1,621 @@
+{% liquid
+  assign modal_id = 'product-modal-' | append: section.id
+  assign target_product = section.settings.product
+  if target_product == blank and product
+    assign target_product = product
+  endif
+  if target_product == blank and section.settings.product != blank
+    assign target_product = all_products[section.settings.product]
+  endif
+  assign initial_variant = nil
+  if target_product
+    assign initial_variant = target_product.selected_or_first_available_variant
+  endif
+  assign color_option_index = blank
+  if target_product
+    for option in target_product.options_with_values
+      assign option_normalized = option.name | strip | downcase
+      if option_normalized contains 'color' or option_normalized contains 'colour'
+        assign color_option_index = forloop.index0
+        break
+      endif
+    endfor
+    if color_option_index == blank and target_product.options_with_values.size == 1
+      assign color_option_index = 0
+    endif
+  endif
+  assign color_option_values = blank
+  if target_product and color_option_index != blank
+    assign color_option_values = target_product.options_with_values[color_option_index].values | uniq
+  endif
+  assign initial_image = nil
+  assign initial_image_alt = nil
+  if initial_variant and initial_variant.image
+    assign initial_image = initial_variant.image | image_url: width: 900
+    assign initial_image_alt = initial_variant.image.alt | default: target_product.title
+  elsif target_product and target_product.featured_image
+    assign initial_image = target_product.featured_image | image_url: width: 900
+    assign initial_image_alt = target_product.featured_image.alt | default: target_product.title
+  endif
+%}
+
+<div id="{{ modal_id }}" class="product-modal" data-product-modal data-section-id="{{ section.id }}" hidden>
+  <style>
+    #{{ modal_id }} {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 12000;
+    }
+    #{{ modal_id }}.is-open {
+      display: flex;
+    }
+    #{{ modal_id }} .product-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+    }
+    #{{ modal_id }} .product-modal__dialog {
+      position: relative;
+      background: #ffffff;
+      border-radius: 18px;
+      max-width: 960px;
+      width: min(90vw, 920px);
+      display: grid;
+      grid-template-columns: minmax(0, 45%) minmax(0, 55%);
+      gap: 32px;
+      padding: 32px;
+      box-shadow: 0 32px 120px rgba(0, 0, 0, 0.35);
+      z-index: 1;
+    }
+    #{{ modal_id }} .product-modal__close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.06);
+      color: #111111;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.18s ease, background-color 0.18s ease;
+    }
+    #{{ modal_id }} .product-modal__close:hover {
+      background: rgba(0, 0, 0, 0.12);
+      transform: scale(1.05);
+    }
+    #{{ modal_id }} .product-modal__media {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #{{ modal_id }} .product-modal__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #{{ modal_id }} .product-modal__info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #{{ modal_id }} .product-modal__title {
+      font-size: clamp(1.5rem, 2vw, 2.25rem);
+      margin: 0;
+      font-weight: 600;
+      color: #111111;
+    }
+    #{{ modal_id }} .product-modal__price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-weight: 600;
+    }
+    #{{ modal_id }} .product-modal__price {
+      font-size: 1.5rem;
+      color: #111111;
+    }
+    #{{ modal_id }} .product-modal__compare-price {
+      font-size: 1rem;
+      color: #8a8a8a;
+      text-decoration: line-through;
+    }
+    #{{ modal_id }} .product-modal__option-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #666666;
+      margin-bottom: 6px;
+    }
+    #{{ modal_id }} .product-modal__color-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    #{{ modal_id }} .modal-color-button {
+      appearance: none;
+      border: 1px solid rgba(17, 17, 17, 0.2);
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 110px;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
+    #{{ modal_id }} .modal-color-button[aria-pressed="true"] {
+      border-color: #111111;
+      box-shadow: 0 0 0 2px #111111 inset;
+    }
+    #{{ modal_id }} .modal-color-button:hover:not([disabled]) {
+      transform: translateY(-2px);
+    }
+    #{{ modal_id }} .modal-color-button[disabled] {
+      border-color: rgba(0, 0, 0, 0.08);
+      color: rgba(0, 0, 0, 0.45);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    #{{ modal_id }} .product-modal__quantity {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(17, 17, 17, 0.18);
+      overflow: hidden;
+      width: fit-content;
+    }
+    #{{ modal_id }} .product-modal__quantity button {
+      width: 42px;
+      height: 42px;
+      border: none;
+      background: transparent;
+      font-size: 1.35rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #111111;
+    }
+    #{{ modal_id }} .product-modal__quantity input {
+      width: 64px;
+      height: 42px;
+      border: none;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111111;
+    }
+    #{{ modal_id }} .product-modal__actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    #{{ modal_id }} .product-modal__btn {
+      flex: 1 1 200px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    #{{ modal_id }} .product-modal__btn--primary {
+      background: #111111;
+      color: #ffffff;
+    }
+    #{{ modal_id }} .product-modal__btn--secondary {
+      background: #ffffff;
+      color: #111111;
+      border: 1px solid rgba(17, 17, 17, 0.2);
+    }
+    #{{ modal_id }} .product-modal__btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    #{{ modal_id }} .product-modal__btn:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+    #{{ modal_id }} .product-modal__feedback {
+      font-size: 0.9rem;
+      color: #111111;
+      min-height: 1.2rem;
+    }
+    body.product-modal--locked {
+      overflow: hidden;
+      touch-action: none;
+    }
+    @media screen and (max-width: 900px) {
+      #{{ modal_id }} .product-modal__dialog {
+        grid-template-columns: 1fr;
+        padding: 24px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      #{{ modal_id }} .product-modal__media {
+        aspect-ratio: 1 / 1;
+      }
+    }
+    @media screen and (max-width: 540px) {
+      #{{ modal_id }} .product-modal__dialog {
+        width: 94vw;
+        padding: 20px;
+      }
+      #{{ modal_id }} .product-modal__close {
+        top: 12px;
+        right: 12px;
+      }
+    }
+  </style>
+  <div class="product-modal__backdrop" data-modal-close></div>
+  <div class="product-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="{{ modal_id }}-title" tabindex="-1">
+    <button class="product-modal__close" type="button" data-modal-close aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {%- if target_product -%}
+      <div class="product-modal__media">
+        {%- if initial_image -%}
+          <img src="{{ initial_image }}" alt="{{ initial_image_alt | escape }}" data-modal-hero>
+        {%- else -%}
+          <div class="product-modal__media-placeholder" aria-hidden="true"></div>
+        {%- endif -%}
+      </div>
+      <div class="product-modal__info">
+        <div>
+          <h2 class="product-modal__title" id="{{ modal_id }}-title">{{ target_product.title }}</h2>
+          {%- if initial_variant -%}
+            <div class="product-modal__price-wrap">
+              <span class="product-modal__price" data-modal-price>{{ initial_variant.price | money }}</span>
+              <span class="product-modal__compare-price" data-modal-compare-price {% if initial_variant.compare_at_price <= initial_variant.price or initial_variant.compare_at_price == blank %}hidden{% endif %}>
+                {{ initial_variant.compare_at_price | money }}
+              </span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div>
+          <div class="product-modal__option-label">Quantity</div>
+          <div class="product-modal__quantity">
+            <button type="button" data-quantity-decrease aria-label="Decrease quantity">&minus;</button>
+            <input type="number" name="quantity" min="1" value="{% if initial_variant %}{{ initial_variant.quantity_rule.min | default: 1 }}{% else %}1{% endif %}" data-modal-quantity>
+            <button type="button" data-quantity-increase aria-label="Increase quantity">&#43;</button>
+          </div>
+        </div>
+
+        {%- if color_option_values and color_option_values.size > 0 -%}
+          <div>
+            <div class="product-modal__option-label">Select Color</div>
+            <ul class="product-modal__color-list" role="list">
+              {%- assign current_color_value = '' -%}
+              {%- if initial_variant and color_option_index != blank -%}
+                {%- assign current_color_value = initial_variant.options[color_option_index] -%}
+              {%- endif -%}
+              {%- for value in color_option_values -%}
+                {%- assign matched_variant = nil -%}
+                {%- for candidate_variant in target_product.variants -%}
+                  {%- if color_option_index != blank and candidate_variant.options[color_option_index] == value -%}
+                    {%- assign matched_variant = candidate_variant -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                <li>
+                  <button
+                    type="button"
+                    class="modal-color-button"
+                    data-variant-id="{%- if matched_variant -%}{{ matched_variant.id }}{%- else -%}{{ initial_variant.id }}{%- endif -%}"
+                    data-variant-available="{%- if matched_variant -%}{{ matched_variant.available | default: false }}{%- else -%}false{%- endif -%}"
+                    data-variant-price="{%- if matched_variant -%}{{ matched_variant.price }}{%- else -%}{{ initial_variant.price | default: 0 }}{%- endif -%}"
+                    data-variant-price-formatted="{%- if matched_variant -%}{{ matched_variant.price | money }}{%- else -%}{{ initial_variant.price | money }}{%- endif -%}"
+                    data-variant-compare-price="{%- if matched_variant and matched_variant.compare_at_price -%}{{ matched_variant.compare_at_price }}{%- else -%}0{%- endif -%}"
+                    data-variant-compare-price-formatted="{%- if matched_variant and matched_variant.compare_at_price -%}{{ matched_variant.compare_at_price | money }}{%- else -%}{{ '' }}{%- endif -%}"
+                    data-variant-image="{%- if matched_variant and matched_variant.image -%}{{ matched_variant.image | image_url: width: 900 }}{%- elsif initial_image -%}{{ initial_image }}{%- endif -%}"
+                    data-variant-image-alt="{%- if matched_variant and matched_variant.image -%}{{ matched_variant.image.alt | default: matched_variant.title | escape }}{%- else -%}{{ initial_image_alt | escape }}{%- endif -%}"
+                    aria-pressed="{%- if value == current_color_value -%}true{%- else -%}false{%- endif -%}"
+                    {% if matched_variant == nil or matched_variant.available == false %}disabled{% endif %}
+                  >
+                    {{ value }}
+                  </button>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        <div class="product-modal__actions">
+          <button class="product-modal__btn product-modal__btn--primary" type="button" data-modal-action="add">{{ section.settings.add_button_text | default: 'Add to cart' }}</button>
+          <button class="product-modal__btn product-modal__btn--secondary" type="button" data-modal-action="checkout">{{ section.settings.checkout_button_text | default: 'Checkout now' }}</button>
+        </div>
+        <p class="product-modal__feedback" data-modal-feedback role="status" aria-live="polite"></p>
+      </div>
+      <div hidden data-modal-variant-state
+        data-initial-variant-id="{%- if initial_variant -%}{{ initial_variant.id }}{%- endif -%}"
+        data-initial-available="{%- if initial_variant -%}{{ initial_variant.available | default: false }}{%- endif -%}">
+      </div>
+    {%- else -%}
+      <div class="product-modal__info">
+        <h2 class="product-modal__title" id="{{ modal_id }}-title">Select a product for this section</h2>
+        <p>Add this section to a page and choose a product in the theme editor.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- if target_product -%}
+  <script>
+    (() => {
+      const modalId = {{ modal_id | json }};
+      const sectionId = {{ section.id | json }};
+      const root = document.getElementById(modalId);
+      if (!root) return;
+
+      const dialog = root.querySelector('.product-modal__dialog');
+      const backdrop = root.querySelector('.product-modal__backdrop');
+      const closeButtons = root.querySelectorAll('[data-modal-close]');
+      const quantityInput = root.querySelector('[data-modal-quantity]');
+      const decreaseBtn = root.querySelector('[data-quantity-decrease]');
+      const increaseBtn = root.querySelector('[data-quantity-increase]');
+      const priceEl = root.querySelector('[data-modal-price]');
+      const comparePriceEl = root.querySelector('[data-modal-compare-price]');
+      const feedbackEl = root.querySelector('[data-modal-feedback]');
+      const addButton = root.querySelector('[data-modal-action="add"]');
+      const checkoutButton = root.querySelector('[data-modal-action="checkout"]');
+      const heroImage = root.querySelector('[data-modal-hero]');
+      const colorButtons = Array.from(root.querySelectorAll('.modal-color-button'));
+      const stateStore = root.querySelector('[data-modal-variant-state]');
+
+      let activeVariantId = stateStore ? parseInt(stateStore.dataset.initialVariantId || '0', 10) : 0;
+      let variantAvailable = stateStore ? (stateStore.dataset.initialAvailable === 'true') : true;
+
+      const setBodyLock = (lock) => {
+        document.body.classList.toggle('product-modal--locked', lock);
+      };
+
+      const open = (event) => {
+        if (event) {
+          event.preventDefault();
+        }
+        if (root.classList.contains('is-open')) return;
+        root.hidden = false;
+        root.classList.add('is-open');
+        if (feedbackEl) {
+          feedbackEl.textContent = '';
+          feedbackEl.style.color = '#111111';
+        }
+        setBodyLock(true);
+        window.setTimeout(() => {
+          dialog.focus({ preventScroll: true });
+        }, 10);
+      };
+
+      const close = () => {
+        if (!root.classList.contains('is-open')) return;
+        root.classList.remove('is-open');
+        root.hidden = true;
+        setBodyLock(false);
+      };
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-product-modal-trigger]');
+        if (!trigger) return;
+        if (trigger.dataset.productModalTrigger !== String(sectionId)) return;
+        open(event);
+      });
+
+      const onKeyDown = (event) => {
+        if (event.key === 'Escape') {
+          close();
+        }
+      };
+      document.addEventListener('keydown', onKeyDown);
+
+      [...closeButtons].forEach((button) => {
+        button.addEventListener('click', close);
+      });
+
+      if (backdrop) {
+        backdrop.addEventListener('click', close);
+      }
+
+      const clampQuantity = (value) => {
+        const parsed = parseInt(value, 10);
+        if (!Number.isFinite(parsed) || parsed < 1) return 1;
+        return parsed;
+      };
+
+      if (quantityInput) {
+        quantityInput.addEventListener('input', () => {
+          quantityInput.value = clampQuantity(quantityInput.value);
+        });
+      }
+
+      if (decreaseBtn && quantityInput) {
+        decreaseBtn.addEventListener('click', () => {
+          quantityInput.value = clampQuantity((parseInt(quantityInput.value, 10) || 1) - 1);
+        });
+      }
+
+      if (increaseBtn && quantityInput) {
+        increaseBtn.addEventListener('click', () => {
+          quantityInput.value = clampQuantity((parseInt(quantityInput.value, 10) || 1) + 1);
+        });
+      }
+
+      const setFeedback = (message, isError = false) => {
+        if (!feedbackEl) return;
+        feedbackEl.textContent = message || '';
+        feedbackEl.style.color = isError ? '#b42318' : '#111111';
+      };
+
+      const setVariantAvailability = (available) => {
+        variantAvailable = Boolean(available);
+        if (addButton) addButton.disabled = !variantAvailable;
+        if (checkoutButton) checkoutButton.disabled = !variantAvailable;
+      };
+
+      const selectColorButton = (button) => {
+        if (!button) return;
+        colorButtons.forEach((btn) => {
+          btn.setAttribute('aria-pressed', btn === button ? 'true' : 'false');
+        });
+        activeVariantId = parseInt(button.dataset.variantId || '0', 10);
+        const available = button.dataset.variantAvailable === 'true';
+        setVariantAvailability(available);
+
+        if (priceEl) {
+          priceEl.textContent = button.dataset.variantPriceFormatted || priceEl.textContent;
+        }
+        if (comparePriceEl) {
+          const compare = parseInt(button.dataset.variantComparePrice || '0', 10);
+          if (compare > 0 && compare > parseInt(button.dataset.variantPrice || '0', 10)) {
+            comparePriceEl.textContent = button.dataset.variantComparePriceFormatted || '';
+            comparePriceEl.hidden = false;
+          } else {
+            comparePriceEl.hidden = true;
+          }
+        }
+        if (heroImage && button.dataset.variantImage) {
+          heroImage.src = button.dataset.variantImage;
+          if (button.dataset.variantImageAlt) {
+            heroImage.alt = button.dataset.variantImageAlt;
+          }
+        }
+        setFeedback('');
+      };
+
+      if (colorButtons.length > 0) {
+        let initial = colorButtons.find((btn) => btn.getAttribute('aria-pressed') === 'true' && !btn.disabled);
+        if (!initial) {
+          initial = colorButtons.find((btn) => !btn.disabled) || colorButtons[0];
+        }
+        if (initial) {
+          selectColorButton(initial);
+        }
+        colorButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            if (button.disabled || button.getAttribute('aria-pressed') === 'true') return;
+            selectColorButton(button);
+          });
+        });
+      } else {
+        setVariantAvailability(variantAvailable);
+      }
+
+      const sendCartRequest = (action) => {
+        if (!activeVariantId) {
+          setFeedback('Unable to identify the selected variant.', true);
+          return;
+        }
+        if (!quantityInput) {
+          setFeedback('Quantity input missing.', true);
+          return;
+        }
+        const quantity = clampQuantity(quantityInput.value);
+        const payload = {
+          id: activeVariantId,
+          quantity
+        };
+        const buttons = [addButton, checkoutButton].filter(Boolean);
+        buttons.forEach((btn) => btn.disabled = true);
+        setFeedback('Adding to cart...');
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw response;
+            }
+            return response.json();
+          })
+          .then(() => {
+            if (action === 'checkout') {
+              window.location.href = '/checkout';
+              return;
+            }
+            setFeedback('Added to cart!');
+          })
+          .catch(() => {
+            setFeedback('Could not update the cart. Please try again.', true);
+          })
+          .finally(() => {
+            buttons.forEach((btn) => btn.disabled = !variantAvailable);
+          });
+      };
+
+      if (addButton) {
+        addButton.addEventListener('click', () => {
+          sendCartRequest('add');
+        });
+      }
+
+      if (checkoutButton) {
+        checkoutButton.addEventListener('click', () => {
+          sendCartRequest('checkout');
+        });
+      }
+
+      const observer = new MutationObserver(() => {
+        if (!root.classList.contains('is-open')) {
+          setBodyLock(false);
+        }
+      });
+      observer.observe(root, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product modal",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "add_button_text",
+      "label": "Add button label",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "checkout_button_text",
+      "label": "Checkout button label",
+      "default": "Checkout now"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product modal"
+    }
+  ]
+}
+{% endschema %}
+
+
+

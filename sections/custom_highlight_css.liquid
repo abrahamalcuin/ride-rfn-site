@@ -1,0 +1,132 @@
+{% comment %}
+  Rich text section with heading, alignment, width controls, and optional per-term text color overrides.
+{% endcomment %}
+{% assign content_html = section.settings.body %}
+{% assign alignment = section.settings.alignment | default: 'left' %}
+{% assign max_width = section.settings.max_width | default: 720 %}
+{% assign container_style = 'max-width:' | append: max_width | append: 'px;margin:0 auto;text-align:' | append: alignment | append: ';' %}
+
+{% if content_html != blank %}
+  {% for block in section.blocks %}
+    {% liquid
+      assign term = block.settings.term | strip
+      if term == blank
+        continue
+      endif
+
+      assign style_fragment = ''
+      if block.settings.text_color != blank
+        assign style_fragment = style_fragment | append: 'color:' | append: block.settings.text_color | append: ';'
+      endif
+
+      if style_fragment == ''
+        continue
+      endif
+
+      assign styled_span = '<span class="colored-term" style="' | append: style_fragment | append: '">' | append: term | append: '</span>'
+
+      if block.settings.replace_all
+        assign content_html = content_html | replace: term, styled_span
+      else
+        assign content_html = content_html | replace_first: term, styled_span
+      endif
+    %}
+  {% endfor %}
+{% endif %}
+
+<div class="colored-rich-text" style="{{ container_style }}">
+  {% if section.settings.heading != blank %}
+    <h2 class="colored-rich-text__heading"{% if section.settings.heading_color != blank %} style="color: {{ section.settings.heading_color }};"{% endif %}>{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  {% if content_html != blank %}
+    {{ content_html }}
+  {% elsif request.design_mode %}
+    <p>Add text in the section settings.</p>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Colored rich text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Vision."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Text",
+      "default": "<p>Type your text here.</p>"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content width",
+      "min": 320,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 720
+    }
+  ],
+  "blocks": [
+    {
+      "type": "term",
+      "name": "Colored term",
+      "settings": [
+        {
+          "type": "text",
+          "id": "term",
+          "label": "Word or phrase",
+          "placeholder": "e.g. limited edition"
+        },
+        {
+          "type": "checkbox",
+          "id": "replace_all",
+          "label": "Color every match",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ff5c5c"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Colored rich text",
+      "blocks": [
+        {
+          "type": "term"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

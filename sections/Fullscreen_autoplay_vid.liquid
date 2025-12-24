@@ -1,0 +1,383 @@
+{% comment %}
+  Section: Fullscreen Autoplay Video (restored + spacer)
+{% endcomment %}
+{% liquid
+  assign desktop_video  = section.settings.desktop_video
+  assign mobile_video   = section.settings.mobile_video
+  assign fallback_image = section.settings.fallback_image
+  assign mobile_vertical_alignment   = section.settings.mobile_vertical_alignment
+  assign mobile_horizontal_alignment = section.settings.mobile_horizontal_alignment
+  if mobile_vertical_alignment == blank or mobile_vertical_alignment == 'inherit'
+    assign mobile_vertical_alignment = section.settings.vertical_alignment
+  endif
+  if mobile_horizontal_alignment == blank or mobile_horizontal_alignment == 'inherit'
+    assign mobile_horizontal_alignment = section.settings.horizontal_alignment
+  endif
+%}
+
+<section
+  class="fullscreen-video fullscreen-video--{{ section.id }} fullscreen-video--vertical-{{ section.settings.vertical_alignment }} fullscreen-video--horizontal-{{ section.settings.horizontal_alignment }} fullscreen-video--mobile-vertical-{{ mobile_vertical_alignment }} fullscreen-video--mobile-horizontal-{{ mobile_horizontal_alignment }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="fullscreen-video__media">
+    {% if desktop_video != blank %}
+      <video
+        class="fullscreen-video__video fullscreen-video__video--desktop"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="{% if fallback_image %}{{ fallback_image | image_url }}{% endif %}"
+      >
+        {% for source in desktop_video.sources %}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+        {% if fallback_image %}
+          <img src="{{ fallback_image | image_url: width: 2048 }}" alt="{{ section.settings.heading | escape }}">
+        {% endif %}
+      </video>
+    {% endif %}
+
+    {% if mobile_video != blank %}
+      <video
+        class="fullscreen-video__video fullscreen-video__video--mobile"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="{% if fallback_image %}{{ fallback_image | image_url }}{% endif %}"
+      >
+        {% for source in mobile_video.sources %}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+        {% if fallback_image %}
+          <img src="{{ fallback_image | image_url: width: 1024 }}" alt="{{ section.settings.heading | escape }}">
+        {% endif %}
+      </video>
+    {% endif %}
+
+    {% if fallback_image != blank %}
+      <div class="fullscreen-video__fallback">
+        <img src="{{ fallback_image | image_url: width: 2048 }}" alt="{{ section.settings.heading | escape }}">
+      </div>
+    {% endif %}
+  </div>
+
+  {% if section.settings.overlay_opacity > 0 %}
+    <div class="fullscreen-video__overlay" style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+  {% endif %}
+
+  {% if section.settings.heading != blank or section.settings.subheading != blank or section.settings.cta_label != blank or section.settings.cta_secondary_label != blank %}
+    <div class="fullscreen-video__content fullscreen-video__content--{{ section.settings.horizontal_alignment }} fullscreen-video__content--mobile-{{ mobile_horizontal_alignment }}">
+      {% if section.settings.heading != blank %}
+        <h1 class="fullscreen-video__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="fullscreen-video__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+      {% if section.settings.cta_label != blank or section.settings.cta_secondary_label != blank %}
+        {% capture fullscreen_video_button_classes -%}fullscreen-video__button{% if section.settings.button_style_mode == 'theme' %} button{% endif %}{%- endcapture %}
+        <div class="fullscreen-video__buttons">
+          {% if section.settings.cta_label != blank %}
+            <a
+              class="{{ fullscreen_video_button_classes }}"
+              href="{{ section.settings.cta_link }}"
+            >
+              {{ section.settings.cta_label }}
+            </a>
+          {% endif %}
+          {% if section.settings.cta_secondary_label != blank %}
+            <a
+              class="{{ fullscreen_video_button_classes }}"
+              href="{{ section.settings.cta_secondary_link }}"
+            >
+              {{ section.settings.cta_secondary_label }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+
+<style>
+.fullscreen-video {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: {{ section.settings.text_color }};
+}
+
+.fullscreen-video__media { position: absolute; inset: 0; }
+.fullscreen-video__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.fullscreen-video__video--mobile { display: none; }
+
+.fullscreen-video__fallback { position: absolute; inset: 0; }
+.fullscreen-video__fallback img { width: 100%; height: 100%; object-fit: cover; }
+
+.fullscreen-video__overlay {
+  position: absolute; inset: 0;
+  background: {{ section.settings.overlay_color }};
+  pointer-events: none;
+}
+
+/* Content box (per-side padding + optional background) */
+.fullscreen-video__content {
+  position: relative; z-index: 2; max-width: 60rem;
+  text-align: center;
+
+  padding-top:    {{ section.settings.padding_top }}px;
+  padding-right:  {{ section.settings.padding_right }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  padding-left:   {{ section.settings.padding_left }}px;
+
+  {% if section.settings.content_bg_opacity > 0 %}
+    background: {{ section.settings.content_bg_color | color_modify: 'alpha', section.settings.content_bg_opacity | divided_by: 100.0 }};
+    border-radius: 1rem;
+    backdrop-filter: blur({{ section.settings.content_bg_blur }}px);
+  {% endif %}
+/* ---- Force hover opacity to apply (beats theme defaults) ---- */
+.fullscreen-video__button:hover,
+.fullscreen-video__button:focus-visible {
+  opacity: {{ section.settings.button_hover_opacity | divided_by: 100.0 }} !important;
+}
+
+.fullscreen-video__button.button:hover,
+.fullscreen-video__button.button:focus-visible {
+  opacity: {{ section.settings.button_hover_opacity | divided_by: 100.0 }} !important;
+}
+
+/* Smoothen interaction */
+.fullscreen-video__button,
+.fullscreen-video__button.button {
+  transition: opacity 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  will-change: opacity, transform;
+}
+
+}
+
+/* Typography */
+.fullscreen-video__heading {
+  margin: 0 0 1rem;
+  font-size: {{ section.settings.heading_font_size }}px;
+  {% if section.settings.heading_font_family != 'inherit' %}
+    font-family: {{ section.settings.heading_font_family }};
+  {% endif %}
+}
+
+.fullscreen-video__subheading {
+  margin: 0 0 2rem;
+  font-size: {{ section.settings.subheading_font_size }}px;
+  {% if section.settings.subheading_font_family != 'inherit' %}
+    font-family: {{ section.settings.subheading_font_family }};
+  {% endif %}
+}
+
+/* Alignment */
+.fullscreen-video--vertical-top    { align-items: flex-start; }
+.fullscreen-video--vertical-center { align-items: center; }
+.fullscreen-video--vertical-bottom { align-items: flex-end; }
+.fullscreen-video--horizontal-left   { justify-content: flex-start; }
+.fullscreen-video--horizontal-center { justify-content: center; }
+.fullscreen-video--horizontal-right  { justify-content: flex-end; }
+
+.fullscreen-video__content--left   { text-align: left; }
+.fullscreen-video__content--center { text-align: center; }
+.fullscreen-video__content--right  { text-align: right; }
+.fullscreen-video__buttons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Mobile alignment + padding overrides */
+@media (max-width: 749px) {
+  .fullscreen-video--mobile-vertical-top    { align-items: flex-start; }
+  .fullscreen-video--mobile-vertical-center { align-items: center; }
+  .fullscreen-video--mobile-vertical-bottom { align-items: flex-end; }
+
+  .fullscreen-video--mobile-horizontal-left   { justify-content: flex-start; }
+  .fullscreen-video--mobile-horizontal-center { justify-content: center; }
+  .fullscreen-video--mobile-horizontal-right  { justify-content: flex-end; }
+
+  .fullscreen-video__content--mobile-left   { text-align: left; }
+  .fullscreen-video__content--mobile-center { text-align: center; }
+  .fullscreen-video__content--mobile-right  { text-align: right; }
+
+  .fullscreen-video__content {
+    padding-top:    {{ section.settings.padding_top_mobile }}px;
+    padding-right:  {{ section.settings.padding_right_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    padding-left:   {{ section.settings.padding_left_mobile }}px;
+  }
+}
+
+/* Button styles */
+{% if section.settings.button_style_mode == 'custom' %}
+.fullscreen-video__button {
+  display: inline-block;
+  {% if section.settings.button_font_family != 'inherit' %}
+    font-family: {{ section.settings.button_font_family }};
+  {% endif %}
+  font-size: {{ section.settings.button_font_size }}px;
+  border-radius: {% if section.settings.button_pill %}9999px{% else %}{{ section.settings.button_radius_px }}px{% endif %};
+  padding: 0.9rem 1.6rem;
+  line-height: 1;
+  margin-top: {{ section.settings.button_margin_top }}px;
+
+  border: {% if section.settings.button_border_width > 0 %}{{ section.settings.button_border_width }}px solid {{ section.settings.button_border_color }}{% else %}none{% endif %};
+  background: {{ section.settings.button_bg_color }};
+  color: {{ section.settings.button_text_color }};
+  text-decoration: none;
+
+  opacity: {{ section.settings.button_opacity | divided_by: 100.0 }};
+  transition: opacity 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  box-shadow: {% if section.settings.button_shadow %}0 6px 20px rgba(0,0,0,0.18){% else %}none{% endif %};
+}
+.fullscreen-video__button:hover {
+  opacity: {{ section.settings.button_hover_opacity | divided_by: 100.0 }};
+  transform: translateY(-1px);
+}
+{% else %}
+.fullscreen-video__button.button {
+  {% if section.settings.button_font_family != 'inherit' %}
+    font-family: {{ section.settings.button_font_family }};
+  {% endif %}
+  font-size: {{ section.settings.button_font_size }}px;
+  border-radius: {% if section.settings.button_pill %}9999px{% else %}{{ section.settings.button_radius_px }}px{% endif %};
+  margin-top: {{ section.settings.button_margin_top }}px;
+  opacity: {{ section.settings.button_opacity | divided_by: 100.0 }};
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.fullscreen-video__button.button:hover {
+  opacity: {{ section.settings.button_hover_opacity | divided_by: 100.0 }};
+  transform: translateY(-1px);
+}
+{% endif %}
+
+@media (max-width: 749px) {
+  .fullscreen-video__video--desktop { display: none; }
+  .fullscreen-video__video--mobile  { display: block; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.fullscreen-video__video').forEach(function(video) {
+    video.muted = true;
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise.catch(function() {
+        video.setAttribute('data-autoplay-failed', 'true');
+      });
+    }
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Fullscreen Autoplay Video",
+  "settings": [
+    { "type": "video", "id": "desktop_video", "label": "Desktop video" },
+    { "type": "video", "id": "mobile_video", "label": "Mobile video (optional)" },
+    { "type": "image_picker", "id": "fallback_image", "label": "Poster / fallback image" },
+
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "default": 40, "min": 0, "max": 100, "unit": "%" },
+
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#FFFFFF" },
+
+    { "type": "range", "id": "padding_top", "label": "Padding top (desktop)", "default": 32, "min": 0, "max": 200, "step": 2, "unit": "px" },
+    { "type": "range", "id": "padding_right", "label": "Padding right (desktop)", "default": 32, "min": 0, "max": 200, "step": 2, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom (desktop)", "default": 32, "min": 0, "max": 200, "step": 2, "unit": "px" },
+    { "type": "range", "id": "padding_left", "label": "Padding left (desktop)", "default": 32, "min": 0, "max": 200, "step": 2, "unit": "px" },
+
+    { "type": "range", "id": "padding_top_mobile", "label": "Padding top (mobile)", "default": 20, "min": 0, "max": 200, "step": 2, "unit": "px" },
+    { "type": "range", "id": "padding_right_mobile", "label": "Padding right (mobile)", "default": 16, "min": 0, "max": 200, "step": 2, "unit": "px" },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Padding bottom (mobile)", "default": 20, "min": 0, "max": 200, "step": 2, "unit": "px" },
+    { "type": "range", "id": "padding_left_mobile", "label": "Padding left (mobile)", "default": 16, "min": 0, "max": 200, "step": 2, "unit": "px" },
+
+    { "type": "color", "id": "content_bg_color", "label": "Text box background color", "default": "#000000" },
+    { "type": "range", "id": "content_bg_opacity", "label": "Text box background opacity", "default": 0, "min": 0, "max": 100, "unit": "%" },
+    { "type": "range", "id": "content_bg_blur", "label": "Backdrop blur behind text", "default": 0, "min": 0, "max": 20, "unit": "px" },
+
+    { "type": "text", "id": "heading_font_family", "label": "Heading font-family", "default": "inherit" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading font size (px)", "default": 48, "min": 12, "max": 120, "step": 2, "unit": "px" },
+
+    { "type": "text", "id": "subheading_font_family", "label": "Subheading font-family", "default": "inherit" },
+    { "type": "range", "id": "subheading_font_size", "label": "Subheading font size (px)", "default": 20, "min": 10, "max": 60, "step": 2, "unit": "px" },
+
+    { "type": "text", "id": "button_font_family", "label": "Button font-family", "default": "inherit" },
+    { "type": "range", "id": "button_font_size", "label": "Button font size (px)", "default": 16, "min": 10, "max": 40, "step": 2, "unit": "px" },
+
+    { "type": "range", "id": "button_margin_top", "label": "Space above buttons", "default": 20, "min": 0, "max": 100, "step": 2, "unit": "px" },
+
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your headline here" },
+    { "type": "richtext", "id": "subheading", "label": "Subheading", "default": "<p>Add supporting copy for your video hero.</p>" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop now" },
+    { "type": "url", "id": "cta_secondary_link", "label": "Second button link" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Second button label" },
+
+    { "type": "select", "id": "button_style_mode", "label": "Button style", "default": "theme",
+      "options": [
+        { "label": "Use theme styles", "value": "theme" },
+        { "label": "Custom (override theme)", "value": "custom" }
+      ]
+    },
+
+    { "type": "checkbox", "id": "button_pill", "label": "Make button pill/oblong", "default": true },
+    { "type": "range", "id": "button_radius_px", "label": "Button border radius (px)", "default": 24, "min": 0, "max": 100, "step": 2, "unit": "px" },
+    { "type": "color", "id": "button_bg_color", "label": "Button background color", "default": "#111111" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#FFFFFF" },
+    { "type": "color", "id": "button_border_color", "label": "Button border color", "default": "#111111" },
+    { "type": "range", "id": "button_border_width", "label": "Button border width (px)", "default": 0, "min": 0, "max": 6, "unit": "px" },
+    { "type": "checkbox", "id": "button_shadow", "label": "Soft shadow on button", "default": false },
+
+    { "type": "range", "id": "button_opacity", "label": "Button opacity", "default": 100, "min": 0, "max": 100, "unit": "%" },
+    { "type": "range", "id": "button_hover_opacity", "label": "Button hover opacity", "default": 90, "min": 0, "max": 100, "unit": "%" },
+
+    { "type": "select", "id": "vertical_alignment", "label": "Content vertical position", "default": "center",
+      "options": [
+        { "label": "Top", "value": "top" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "bottom" }
+      ]
+    },
+    { "type": "select", "id": "horizontal_alignment", "label": "Content horizontal position", "default": "center",
+      "options": [
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
+    },
+    { "type": "select", "id": "mobile_vertical_alignment", "label": "Mobile content vertical position", "default": "inherit",
+      "options": [
+        { "label": "Match desktop", "value": "inherit" },
+        { "label": "Top", "value": "top" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "bottom" }
+      ]
+    },
+    { "type": "select", "id": "mobile_horizontal_alignment", "label": "Mobile content horizontal position", "default": "inherit",
+      "options": [
+        { "label": "Match desktop", "value": "inherit" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Fullscreen Autoplay Video" }
+  ]
+}
+{% endschema %}

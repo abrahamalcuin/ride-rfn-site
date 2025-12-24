@@ -1,0 +1,311 @@
+{%- comment -%}
+  360 Image Component (Shopify-ready)
+
+  Two input modes:
+  1) images array (existing):
+     images: array of image objects or URLs
+  2) pattern mode (recommended for Shopify Files batch upload):
+     base_url: string prefix up to the padded index (no extension, no ?v)
+     frame_count: total frames (e.g., 72)
+     pad: zero-padding length (e.g., 4 for 0001)
+     ext: file extension (webp, jpg, png)
+
+  Common options:
+  - width/height: container dimensions (e.g., '100%', '500px')
+  - autoplay: boolean to auto-rotate
+  - speed: ms per step when autoplaying
+  - alt: alt text for accessibility (applied on the container; individual frames are aria-hidden)
+  - sensitivity: pixels per step while dragging (default 8)
+  - reverse: invert drag direction (default false)
+  - autoplay_direction: 1 or -1 (default 1)
+  - preload: number of frames to preload initially (default 8)
+
+  Example (pattern mode):
+  {% render "360_image",
+     base_url: "https://cdn.shopify.com/s/files/.../shoe-red-360_",
+     frame_count: 72,
+     pad: 4,
+     ext: "webp",
+     width: "100%",
+     height: "500px",
+     autoplay: true,
+     speed: 75,
+     sensitivity: 8,
+     alt: "Shoe in 360 degrees"
+  %}
+{%- endcomment -%}
+
+{%- assign viewer_width = width | default: '100%' -%}
+{%- assign viewer_height = height | default: 'auto' -%}
+{%- assign viewer_height_mobile = height_mobile | default: blank -%}
+{%- assign viewer_height_trimmed = viewer_height | strip -%}
+{%- assign viewer_height_mobile_trimmed = viewer_height_mobile | strip -%}
+{%- assign auto = autoplay | default: false -%}
+{%- assign frame_speed = speed | default: 80 -%}
+{%- assign alt_text = alt | default: '360 image' -%}
+{%- assign sensitivity_px = sensitivity | default: 8 -%}
+{%- assign drag_reverse = reverse | default: false -%}
+{%- assign play_dir = autoplay_direction | default: 1 -%}
+{%- assign preload_n = preload | default: 8 -%}
+{%- assign frame_w = frame_width | default: 1000 | plus: 0 -%}
+{%- assign frame_h = frame_height | default: 1000 | plus: 0 -%}
+{%- assign header_text_value = header_text | default: blank -%}
+{%- assign header_font_size = header_size | default: 36 | plus: 0 -%}
+{%- assign header_align_value = header_align | default: 'left' -%}
+{%- assign bg_text_value = bg_text | default: blank -%}
+{%- assign bg_font_size = bg_text_size | default: 160 | plus: 0 -%}
+{%- assign bg_font_size_mobile = blank -%}
+{%- if bg_text_size_mobile != blank -%}
+  {%- assign bg_font_size_mobile = bg_text_size_mobile | plus: 0 -%}
+{%- endif -%}
+{%- assign bg_color_value = bg_text_color | default: '#000000' -%}
+{%- assign bg_opacity_percent = bg_text_opacity | default: 10 | plus: 0 -%}
+{%- assign bg_opacity_css = bg_opacity_percent | divided_by: 100.0 -%}
+{%- assign show_hint_flag = show_hint | default: true -%}
+
+{%- comment -%} Determine input mode {%- endcomment -%}
+{%- assign imgs = images | default: blank -%}
+{%- assign has_images = false -%}
+
+{%- if imgs != blank -%}
+
+  {%- assign _image_count = imgs | size -%}
+
+  {%- if _image_count > 1 -%}{%- assign has_images = true -%}{%- endif -%}
+
+{%- endif -%}
+{%- assign has_pattern = false -%}
+
+{%- if base_url and base_url != blank and frame_count and frame_count != blank -%}
+
+  {%- assign has_pattern = true -%}
+
+{%- endif -%}
+
+{%- if has_images == false and has_pattern == false -%}
+  <div class="liquid-360 placeholder" role="img" aria-label="360 viewer placeholder">
+    Configure images[] or base_url + frame_count.
+  </div>
+{%- else -%}
+  {%- comment -%} Create a robust, unique viewer id {%- endcomment -%}
+  {%- if viewer_id -%}
+    {%- assign viewer_id_value = viewer_id -%}
+  {%- else -%}
+    {%- assign sid = section.id | default: '' -%}
+    {%- assign bid = block.id | default: '' -%}
+    {%- if sid != '' -%}
+      {%- assign viewer_id_value = 'viewer-' | append: sid -%}
+    {%- elsif bid != '' -%}
+      {%- assign viewer_id_value = 'viewer-' | append: bid -%}
+    {%- else -%}
+      {%- assign viewer_id_value = 'viewer-' | append: 'ts-' | append: now | replace: ' ', '-' -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  <div class="liquid-360" id="{{ viewer_id_value }}" style="width: {{ viewer_width }};" aria-label="{{ alt_text }}" role="img">
+    <style>
+      #{{ viewer_id_value | escape }} { height: {{ viewer_height_trimmed }} !important; }
+      {%- if viewer_height_mobile_trimmed != blank -%}
+        @media (max-width: 749px) {
+          #{{ viewer_id_value | escape }} { height: {{ viewer_height_mobile_trimmed }} !important; }
+        }
+      {%- endif -%}
+    </style>
+    {%- if header_text_value != blank -%}
+      <div class="liquid-360__header" style="margin:0 0 .5rem 0;font-size: {{ header_font_size }}px;text-align: {{ header_align_value }};font-weight:700;line-height:1.05;letter-spacing:var(--liquid-360-header-tracking,0);">{{ header_text_value }}</div>
+    {%- endif -%}
+    <div class="liquid-360__stage" style="position: relative; width: 100%; height: 100%; overflow: hidden; touch-action: pan-y; user-select: none; background: var(--liquid-360-bg, transparent);">
+      {%- if bg_text_value != blank -%}
+        <style>
+          #{{ viewer_id_value | escape }} .liquid-360__bgtext { font-size: {{ bg_font_size }}px !important; }
+          {%- if bg_font_size_mobile != blank -%}
+            @media (max-width: 749px) {
+              #{{ viewer_id_value | escape }} .liquid-360__bgtext { font-size: {{ bg_font_size_mobile }}px !important; }
+            }
+          {%- endif -%}
+        </style>
+        <div class="liquid-360__bgtext" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;pointer-events:none;z-index:0;font-weight:800;opacity: {{ bg_opacity_css }};color: {{ bg_color_value }};line-height:1;white-space: pre-wrap;">{{ bg_text_value }}</div>
+      {%- endif -%}
+      {%- if has_images -%}
+        {%- for img in imgs -%}
+          {%- assign src = img -%}
+          {%- assign img_json = img | json -%}
+          {%- if img_json contains '"src"' or img_json contains '"image"' or img_json contains '"preview_image"' -%}
+            {%- assign src = img | image_url: width: 2000 -%}
+          {%- endif -%}
+          <img
+            class="liquid-360__frame"
+            {% if forloop.first %}
+              src="{{ src | escape }}"
+              fetchpriority="high"
+              alt="{{ alt_text | escape }}"
+            {% else %}
+              data-src="{{ src | escape }}"
+              alt=""
+              aria-hidden="true"
+            {% endif %}
+            width="{{ frame_w }}"
+            height="{{ frame_h }}"
+            draggable="false"
+            decoding="async"
+            style="position:absolute;inset:0;max-width:100%;max-height:100%;object-fit:contain;margin:auto;pointer-events:none;z-index:1;display:{% if forloop.first %}block{% else %}none{% endif %};"
+          />
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Pattern mode: generate frame URLs {%- endcomment -%}
+        {%- assign count = frame_count | plus: 0 -%}
+        {%- assign pad_len = pad | default: 4 | plus: 0 -%}
+        {%- assign extension = ext | default: 'webp' -%}
+        {%- assign start_index = first_frame_index | default: 1 | plus: 0 -%}
+        {%- assign zeros = '00000000000000000000' -%}
+        {%- for i in (0..count) -%}
+          {%- if forloop.index0 >= count -%}{% break %}{%- endif -%}
+          {%- assign n = start_index | plus: forloop.index0 -%}
+          {%- assign num_str = n | append: '' -%}
+          {%- assign z = zeros | append: num_str -%}
+          {%- assign z_len = z | size -%}
+          {%- assign slice_start = z_len | minus: pad_len -%}
+          {%- assign padded = z | slice: slice_start, pad_len -%}
+          {%- assign src = base_url | append: padded | append: '.' | append: extension -%}
+          <img
+            class="liquid-360__frame"
+            {% if forloop.first %}
+              src="{{ src | escape }}"
+              fetchpriority="high"
+              alt="{{ alt_text | escape }}"
+            {% else %}
+              data-src="{{ src | escape }}"
+              alt=""
+              aria-hidden="true"
+            {% endif %}
+            width="{{ frame_w }}"
+            height="{{ frame_h }}"
+            draggable="false"
+            decoding="async"
+            style="position:absolute;inset:0;max-width:100%;max-height:100%;object-fit:contain;margin:auto;pointer-events:none;z-index:1;display:{% if forloop.first %}block{% else %}none{% endif %};"
+          />
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if show_hint_flag -%}
+        <div class="liquid-360__hint" style="position:absolute;right:.5rem;bottom:.5rem;background:rgba(0,0,0,.5);color:#fff;font:12px/1.2 system-ui;padding:.25rem .4rem;border-radius:4px;">
+          Drag to rotate
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var root = document.getElementById({{ viewer_id_value | json }});
+      if(!root) return;
+      var frames = Array.prototype.slice.call(root.querySelectorAll('.liquid-360__frame'));
+      if(frames.length < 2) return;
+
+      // Config from Liquid
+      var pixelsPerFrame = parseFloat({{ sensitivity_px | json }}) || 8;
+      var playing = {{ auto | json }};
+      var speed = parseInt({{ frame_speed | json }}) || 80;
+      var dragInvert = {{ drag_reverse | json }} ? -1 : 1;
+      var autoplayDir = (parseInt({{ play_dir | json }}) || 1) >= 0 ? 1 : -1;
+      var preloadN = Math.max(1, parseInt({{ preload_n | json }}) || 8);
+
+      // State
+      var index = 0;
+      var isDown = false;
+      var lastX = 0;
+      var accumulator = 0;
+      var rafId = null;
+      var loaded = new Array(frames.length).fill(false);
+      var transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+
+      // Ensure only first frame has actual src; others lazy
+      frames.forEach(function(img, i){
+        if(i !== 0){
+          if(!img.getAttribute('src')){
+            img.setAttribute('src', transparentPixel);
+          }
+        } else {
+          loaded[0] = true;
+        }
+      });
+
+      function reveal(i){
+        frames[index].style.display = 'none';
+        index = (i + frames.length) % frames.length;
+        frames[index].style.display = 'block';
+      }
+
+      function ensureLoaded(i){
+        if(loaded[i]) return;
+        var img = frames[i];
+        var src = img.getAttribute('data-src');
+        if(!src) { loaded[i] = true; return; }
+        img.onload = function(){ loaded[i] = true; img.onload = null; };
+        img.setAttribute('src', src);
+      }
+
+      function preloadAround(center){
+        ensureLoaded(center);
+        for(var k=1; k<=preloadN; k++){
+          ensureLoaded((center + k) % frames.length);
+          ensureLoaded((center - k + frames.length) % frames.length);
+        }
+      }
+
+      function nextStep(dir){
+        // One logical step forward/back
+        reveal(index + dir);
+        preloadAround(index);
+      }
+
+      function onDown(x){ isDown = true; lastX = x; accumulator = 0; stop(); }
+      function onMove(x){
+        if(!isDown) return;
+        var dx = x - lastX;
+        lastX = x;
+        accumulator += dx * dragInvert;
+        while(Math.abs(accumulator) >= pixelsPerFrame){
+          if(accumulator > 0){ nextStep(-1); accumulator -= pixelsPerFrame; }
+          else { nextStep(1); accumulator += pixelsPerFrame; }
+        }
+      }
+      function onUp(){ isDown = false; if({{ auto | json }}) play(); }
+
+      function play(){
+        if(rafId) cancelAnimationFrame(rafId);
+        var last = performance.now();
+        function tick(now){
+          if(!playing) return;
+          if(now - last >= speed){
+            nextStep(autoplayDir);
+            last = now;
+          }
+          rafId = requestAnimationFrame(tick);
+        }
+        playing = true;
+        rafId = requestAnimationFrame(tick);
+      }
+      function stop(){ playing = false; if(rafId) cancelAnimationFrame(rafId); rafId = null; }
+
+      var stage = root.querySelector('.liquid-360__stage');
+      stage.addEventListener('mousedown', function(e){ onDown(e.clientX); });
+      window.addEventListener('mousemove', function(e){ onMove(e.clientX); });
+      window.addEventListener('mouseup', onUp);
+
+      stage.addEventListener('touchstart', function(e){ if(e.touches && e.touches[0]) onDown(e.touches[0].clientX); }, {passive: true});
+      stage.addEventListener('touchmove', function(e){ if(e.touches && e.touches[0]) onMove(e.touches[0].clientX); }, {passive: true});
+      stage.addEventListener('touchend', onUp, {passive: true});
+
+      // Keyboard support
+      root.setAttribute('tabindex','0');
+      root.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowLeft'){ nextStep(-1); }
+        if(e.key === 'ArrowRight'){ nextStep(1); }
+      });
+
+      // Initial preload and start
+      preloadAround(0);
+      if({{ auto | json }}) play();
+    })();
+  </script>
+{%- endif -%}
