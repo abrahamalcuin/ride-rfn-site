@@ -1,0 +1,143 @@
+{%- liquid
+  assign announcement_text = section.settings.message | strip
+  assign show_bar = section.settings.enable_bar and announcement_text != blank
+-%}
+
+{% if show_bar %}
+  <div
+    id="RollingAnnouncement-{{ section.id }}"
+    class="rolling-announcement color-{{ section.settings.color_scheme }} gradient"
+    role="region"
+    aria-label="{{ 'sections.header.announcement' | t }}"
+  >
+    <div class="rolling-announcement__inner"{% if section.settings.pause_on_hover %} data-pause-on-hover="true"{% endif %}>
+      <div class="rolling-announcement__track" aria-live="polite">
+        <div class="rolling-announcement__group">
+          {%- for i in (1..6) -%}
+            <p class="rolling-announcement__item h5">{{ announcement_text }}</p>
+          {%- endfor -%}
+        </div>
+        <div class="rolling-announcement__group" aria-hidden="true">
+          {%- for i in (1..6) -%}
+            <p class="rolling-announcement__item h5">{{ announcement_text }}</p>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% style %}
+    #RollingAnnouncement-{{ section.id }} {
+      --rolling-padding: {{ section.settings.vertical_padding }}px;
+      --rolling-gap: {{ section.settings.item_spacing }}px;
+      --rolling-speed: {{ section.settings.scroll_speed }}s;
+    }
+
+    #RollingAnnouncement-{{ section.id }} .rolling-announcement__inner {
+      overflow: hidden;
+      padding-block: var(--rolling-padding);
+      padding-inline: clamp(1rem, 3vw, 2.5rem);
+    }
+
+    #RollingAnnouncement-{{ section.id }} .rolling-announcement__track {
+      display: flex;
+      width: max-content;
+      animation: rolling-announcement var(--rolling-speed) linear infinite;
+    }
+
+    #RollingAnnouncement-{{ section.id }} .rolling-announcement__inner[data-pause-on-hover='true']:hover .rolling-announcement__track {
+      animation-play-state: paused;
+    }
+
+    #RollingAnnouncement-{{ section.id }} .rolling-announcement__group {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--rolling-gap);
+      white-space: nowrap;
+      padding-inline-end: var(--rolling-gap);
+    }
+
+    #RollingAnnouncement-{{ section.id }} .rolling-announcement__item {
+      margin: 0;
+    }
+
+    @keyframes rolling-announcement {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+  {% endstyle %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Rolling announcement",
+  "tag": "section",
+  "class": "section-rolling-announcement",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_bar",
+      "label": "Enable section",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "message",
+      "label": "Announcement text",
+      "default": "Ride RFN - Fast shipping | Flexible financing | 24/7 rider support"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll duration",
+      "unit": "s",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Spacing between repeated text",
+      "unit": "px",
+      "min": 8,
+      "max": 160,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Top and bottom spacing",
+      "unit": "px",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause scroll on hover",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rolling announcement"
+    }
+  ]
+}
+{% endschema %}
