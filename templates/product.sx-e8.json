@@ -844,6 +844,15 @@
             "row_content": "<p>Comprehensive warranty protects customers from defective parts.</p><p>Battery - 24 months</p><p>Motor - 24 months</p><p>Controller - 24 months</p><p>Charger - 24 months</p><p>F/R wheel without tire - 10000km</p><p>Front suspension fork - 6 months or 3000km</p><p>Rear shock - 6 months or 3000km</p><p>Display - 12 months</p><p>Chain - 1500km</p><p>Sprocket - 5000km</p><p>Saddle - 12 months</p><p>Harness - 12 months</p><p>Disc rotor - Lifetime</p><p>Speed mode button - 12 months</p><p>Emergency power off switch - 12 months</p><p>Front brake assembly (without brake pads) - 12 months</p><p>Rear brake assembly (without brake pads) - 12 months</p><p> </p>",
             "page": ""
           }
+        },
+        "collapsible_row_8DLKzm": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Return Policy",
+            "icon": "none",
+            "row_content": "<p>Our warranty is 90 days from the day of purchase, and it covers defects on parts that we are liable for. The factory decides when we are liable upon photo submission and review by the factory. When we are liable, we will send you the necessary parts to fix it. The warranty does NOT cover service / labor fees, nor do we perform labor or service on dirt bikes purchased under our LLC.We will need the following customer information to process warranties: Photo proof, Vin, Name, Address, Phone Number, Etc..When we receive the above information, we will consider and have our engineers from the factory consider the issue, and will decide if it was a defect, or a consequence of the customer's choice.The warranty ONLY covers parts.This Warranty is limited to cover any defective parts of original purchaser of KICKIN BIKES LLC (here refer as Kickin Bikes, or Kickin Power Sports, or Kickinpowersports.com ) for 90 days from the date of KICKIN BIKES LLC sales invoice and does not cover common wear items such as blades, belts, tines, tires etc. KICKIN BIKES reserves the right to inspect any equipment or parts, which are claimed to have been defective in material or workmanship. This Warranty does not apply to any part or product which in KICKIN BIKES LLC  judgment shall have been misused or damaged by accident or lack of normal maintenance or care, or used as rental or racing or rider abuse or altered in a way which adversely affects its performance or reliability, or which has been used for a purpose for which the product is not designed. Misuse also specifically includes failure to properly maintain oil levels, grease points and driveline shafts. KICKIN BIKES LLC reserves the right to make changes in materials or design of the product at any time without notice. This Warranty shall not be interpreted to render KICKIN BIKES LLC liable for damages of any kind, direct, consequential, or contingent to property. Furthermore, KICKIN BIKES LLC shall not be liable for damages resulting from any cause beyond its reasonable control. This Warranty does not extend to loss of any expense or loss for labor, towing, shipping charges incurred, supplies, and rental machinery or for any other reason. KICKIN BIKES LLC does not reimburse any labor cost. However, KICKIN BIKES LLC does provide free labor on defective motors and installation of defective parts that are still under their specified warranty period in its own facility. The following items are not covered: Blades tires, tines rims, body panels, fuses, forks, shocks, gaskets, light bulbs, seats, CV Boots, oil filter, air filter, fuel filter, filters, clutch wear parts, cables, drive belt, chain, spark plug, any part made from rubber, belts, brake linings and/or pads, batteries, sprockets, external springs, clips, nuts, bolts and fasteners. Engine case will be covered only if damage is caused by internal mechanical failure of lubricated components. By placing an order, you agree to this policy.<br/></p>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -854,7 +863,8 @@
         "collapsible_row_qNbkUQ",
         "collapsible_row_YNffC7",
         "collapsible_row_7XBEWL",
-        "collapsible_row_9jE3An"
+        "collapsible_row_9jE3An",
+        "collapsible_row_8DLKzm"
       ],
       "name": "t:sections.collapsible_content.presets.name",
       "settings": {
