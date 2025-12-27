@@ -99,6 +99,16 @@
             {{ block.settings.link_3_text }}
           </a>
         {% endif %}
+        {% if block.settings.link_4_text != blank %}
+          <a href="{{ block.settings.link_4_url }}" class="ai-footer-link-{{ ai_gen_id }}">
+            {{ block.settings.link_4_text }}
+          </a>
+        {% endif %}
+        {% if block.settings.link_5_text != blank %}
+          <a href="{{ block.settings.link_5_url }}" class="ai-footer-link-{{ ai_gen_id }}">
+            {{ block.settings.link_5_text }}
+          </a>
+        {% endif %}
       </nav>
 
       {% if block.settings.logo %}
@@ -161,6 +171,26 @@
       "type": "url",
       "id": "link_3_url",
       "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_4_text",
+      "label": "Link 4 text"
+    },
+    {
+      "type": "url",
+      "id": "link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_5_text",
+      "label": "Link 5 text"
+    },
+    {
+      "type": "url",
+      "id": "link_5_url",
+      "label": "Link 5 URL"
     },
     {
       "type": "color",
