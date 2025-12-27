@@ -425,7 +425,7 @@
         "card_text": "#ffffff",
         "accent": "rgba(255,255,255,.16)",
         "card_radius": 16,
-        "footnote": "",
+        "footnote": "For off road use only.",
         "button_text": "More Info",
         "button_link": "",
         "button_style": "pill"
