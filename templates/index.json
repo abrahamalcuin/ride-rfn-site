@@ -1,1 +1,224 @@
-{"sections":{"fullscreen_autoplay_vid_AfbPnP":{"type":"Fullscreen_autoplay_vid","name":"Fullscreen autoplay video","settings":{"desktop_video":"shopify:\/\/files\/videos\/RFN FINAL WEBSITE VID.mov","mobile_video":"shopify:\/\/files\/videos\/RFN FINAL WEBSITE VID.mov","overlay_color":"#000000","overlay_opacity":40,"text_color":"#ffffff","padding_top":38,"padding_right":32,"padding_bottom":88,"padding_left":32,"padding_top_mobile":0,"padding_right_mobile":0,"padding_bottom_mobile":0,"padding_left_mobile":0,"content_bg_color":"#000000","content_bg_opacity":0,"content_bg_blur":0,"heading_font_family":"inherit","heading_font_size":48,"subheading_font_family":"inherit","subheading_font_size":20,"button_font_family":"inherit","button_font_size":16,"button_margin_top":22,"heading":"2026 RFN WARRIOR SERIES","subheading":"<p>Pro Level Electric Dirt Bikes For All Riders<\/p>","cta_link":"#shopify-section-template--20657564614745__featured_collection_hAQfCp","cta_label":"View Models","cta_secondary_link":"shopify:\/\/pages\/find-a-dealer","cta_secondary_label":"Find a Dealer","button_style_mode":"custom","button_pill":true,"button_radius_px":0,"button_bg_color":"#303032","button_text_color":"#ffffff","button_border_color":"#1f1f21","button_border_width":0,"button_shadow":true,"button_opacity":100,"button_hover_opacity":50,"vertical_alignment":"bottom","horizontal_alignment":"center","mobile_vertical_alignment":"center","mobile_horizontal_alignment":"center"}},"featured_collection_hAQfCp":{"type":"featured-collection","blocks":{"product_specs_VKQBcD":{"type":"product_specs","settings":{"product":"2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order","learn_more_link":"","media_zoom_override_enable":true,"media_zoom_override":0,"spec_1_metric":"37.5 MPH","spec_1_hint":"TRUE 5000W","spec_2_metric":"18.6 Mi Range","spec_2_hint":"48v 1200 Ah","spec_3_metric":"Fits Riders 3'5\" - 4'5\"","spec_3_hint":"24”–26” ADJUSTABLE SEAT HEIGHT","spec_4_metric":"","spec_4_hint":"","order_button_label":"Find a Dealer","order_button_link":"shopify:\/\/pages\/find-a-dealer","learn_button_label":"","learn_button_link":""}},"product_specs_hHKmkp":{"type":"product_specs","settings":{"product":"2026-rfn-warrior-e8-youth-teen-electric-dirt-bike-60v-8-000w-pre-order","learn_more_link":"shopify:\/\/products\/2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order","media_zoom_override_enable":true,"media_zoom_override":24,"spec_1_metric":"52.1 MPH","spec_1_hint":"TRUE 8,000W","spec_2_metric":"60V 2100aH","spec_2_hint":"37.2 MILE RANGE","spec_3_metric":"FITS RIDERS 4'3\" - 5'6\"","spec_3_hint":"29.3\" SEAT HEIGHT","spec_4_metric":"","spec_4_hint":"","order_button_label":"Find a Dealer","order_button_link":"shopify:\/\/pages\/find-a-dealer","learn_button_label":"","learn_button_link":"shopify:\/\/products\/2026-rfn-warrior-e8-youth-teen-electric-dirt-bike-60v-8-000w-pre-order"}},"product_specs_xGQjBx":{"type":"product_specs","settings":{"product":"2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order","learn_more_link":"shopify:\/\/products\/2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order","media_zoom_override_enable":true,"media_zoom_override":60,"spec_1_metric":"56 MPH","spec_1_hint":"TRUE 15,000W","spec_2_metric":"74V 2960aH","spec_2_hint":"50 MILE RANGE","spec_3_metric":"FITS RIDERS 5'3\" +","spec_3_hint":"34.5 IN Seat","spec_4_metric":"","spec_4_hint":"","order_button_label":"Find a Dealer","order_button_link":"shopify:\/\/pages\/find-a-dealer","learn_button_label":"","learn_button_link":""}},"product_specs_8GjcLt":{"type":"product_specs","settings":{"product":"2026-rfn-warrior-pro-sx-e15-plus-74v-15-000w-adult-electric-dirt-bike-21-18-wheels-pre-order","learn_more_link":"","media_zoom_override_enable":true,"media_zoom_override":60,"spec_1_metric":"61 MPH","spec_1_hint":"TRUE 15,000W","spec_2_metric":"74V 2960aH","spec_2_hint":"50 MILE RANGE","spec_3_metric":"FITS RIDERS 5'6\" +","spec_3_hint":"36.2\" SEAT HEIGHT","spec_4_metric":"","spec_4_hint":"","order_button_label":"Find a Dealer","order_button_link":"shopify:\/\/pages\/find-a-dealer","learn_button_label":"","learn_button_link":"shopify:\/\/products\/2026-rfn-warrior-pro-sx-e15-plus-74v-15-000w-adult-electric-dirt-bike-21-18-wheels-pre-order"}}},"block_order":["product_specs_VKQBcD","product_specs_hHKmkp","product_specs_xGQjBx","product_specs_8GjcLt"],"name":"t:sections.featured-collection.presets.name","settings":{"collection":"rfn-warrior-line","products_to_show":4,"title":"Warrior series bikes","description":"","show_price":true,"background_color":"#000000","text_color":"#ffffff","padding_vertical":120,"padding_horizontal":24,"card_corner_radius":20,"media_width_percent":43,"media_zoom":0,"media_object_fit":"contain","feature_row_gap":6,"feature_row_content_gap":5,"feature_heading_size":15,"feature_heading_weight":"600","feature_subheading_size":14,"feature_subheading_weight":"400","spec_1_metric":"15,000 Watts","spec_1_hint":"59 Miles \/ Hour","spec_2_metric":"74V     2960aH","spec_2_hint":"50 Mile Range","spec_3_metric":"Fits 5'0-5'8","spec_3_hint":"34.5\" Seat","spec_4_metric":"180 lb. Max","spec_4_hint":"READY TO RIDE","order_button_label":"Order Now","order_button_bg":"#ffffff","order_button_text":"#000000","learn_button_label":"Learn More","default_learn_link":"shopify:\/\/products\/2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order","learn_button_text":"#ffffff","learn_button_border":"#ffffff80"}},"custom_highlight_css_dFMJEG":{"type":"custom_highlight_css","custom_css":[],"name":"Custom highlight CSS","settings":{"heading":"RIDE RFN","heading_color":"#ffffff","body":"<h4>In the past few years, we’ve witnessed an explosion of electric motos. They’re everywhere - on streets, trails, and tracks. Yet most e-motos are nothing more than a mountain bike with a motor on it. Fun, yes - but far from functional when it comes to serious trail riding or motocross racing.<br\/><br\/>That’s where our vision began. The goal behind the RFN Warrior Series was bold: to create the ultimate line of purpose-built electric dirt bikes - machines engineered for real riders of every size, age, and skill level. Not toys, not compromises - true electric motocross bikes that are head-to-head with gas competition.<br\/><br\/>After two years of research, testing, and over two million dollars invested in development, that vision has become reality. The RFN Warrior Series is here - four models that set a new benchmark for electric dirt bikes, combining championship-level performance, advanced battery technology, and precision engineering into one unstoppable lineup.<\/h4>","alignment":"center","max_width":720}},"product_modal_overlay_AtmGhb":{"type":"product_modal_overlay","name":"Product modal","settings":{"product":"2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order","add_button_text":"Add to cart","checkout_button_text":"Checkout now"}}},"order":["fullscreen_autoplay_vid_AfbPnP","featured_collection_hAQfCp","custom_highlight_css_dFMJEG","product_modal_overlay_AtmGhb"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "fullscreen_autoplay_vid_AfbPnP": {
+      "type": "Fullscreen_autoplay_vid",
+      "name": "Fullscreen autoplay video",
+      "settings": {
+        "desktop_video": "shopify://files/videos/RFN FINAL WEBSITE VID.mov",
+        "mobile_video": "shopify://files/videos/RFN FINAL WEBSITE VID.mov",
+        "overlay_color": "#000000",
+        "overlay_opacity": 40,
+        "text_color": "#ffffff",
+        "padding_top": 38,
+        "padding_right": 32,
+        "padding_bottom": 88,
+        "padding_left": 32,
+        "padding_top_mobile": 0,
+        "padding_right_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "padding_left_mobile": 0,
+        "content_bg_color": "#000000",
+        "content_bg_opacity": 0,
+        "content_bg_blur": 0,
+        "heading_font_family": "inherit",
+        "heading_font_size": 48,
+        "subheading_font_family": "inherit",
+        "subheading_font_size": 20,
+        "button_font_family": "inherit",
+        "button_font_size": 16,
+        "button_margin_top": 22,
+        "heading": "2026 RFN WARRIOR SERIES",
+        "subheading": "<p>Pro Level Electric Dirt Bikes For All Riders</p>",
+        "cta_link": "#shopify-section-template--20657564614745__featured_collection_hAQfCp",
+        "cta_label": "View Models",
+        "cta_secondary_link": "shopify://pages/find-a-dealer",
+        "cta_secondary_label": "Find a Dealer",
+        "button_style_mode": "custom",
+        "button_pill": true,
+        "button_radius_px": 0,
+        "button_bg_color": "#303032",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#1f1f21",
+        "button_border_width": 0,
+        "button_shadow": true,
+        "button_opacity": 100,
+        "button_hover_opacity": 50,
+        "vertical_alignment": "bottom",
+        "horizontal_alignment": "center",
+        "mobile_vertical_alignment": "center",
+        "mobile_horizontal_alignment": "center"
+      }
+    },
+    "featured_collection_hAQfCp": {
+      "type": "featured-collection",
+      "blocks": {
+        "product_specs_VKQBcD": {
+          "type": "product_specs",
+          "settings": {
+            "product": "2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
+            "learn_more_link": "",
+            "media_zoom_override_enable": true,
+            "media_zoom_override": 0,
+            "spec_1_metric": "37.5 MPH",
+            "spec_1_hint": "TRUE 5000W",
+            "spec_2_metric": "18.6 Mi Range",
+            "spec_2_hint": "48v 1200 Ah",
+            "spec_3_metric": "Fits Riders 3'5\" - 4'5\"",
+            "spec_3_hint": "24”–26” ADJUSTABLE SEAT HEIGHT",
+            "spec_4_metric": "",
+            "spec_4_hint": "",
+            "order_button_label": "Order Now",
+            "order_button_link": "",
+            "learn_button_label": "",
+            "learn_button_link": ""
+          }
+        },
+        "product_specs_hHKmkp": {
+          "type": "product_specs",
+          "settings": {
+            "product": "2026-rfn-warrior-e8-youth-teen-electric-dirt-bike-60v-8-000w-pre-order",
+            "learn_more_link": "shopify://products/2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
+            "media_zoom_override_enable": true,
+            "media_zoom_override": 24,
+            "spec_1_metric": "52.1 MPH",
+            "spec_1_hint": "TRUE 8,000W",
+            "spec_2_metric": "60V 2100aH",
+            "spec_2_hint": "37.2 MILE RANGE",
+            "spec_3_metric": "FITS RIDERS 4'3\" - 5'6\"",
+            "spec_3_hint": "29.3\" SEAT HEIGHT",
+            "spec_4_metric": "",
+            "spec_4_hint": "",
+            "order_button_label": "Order Now",
+            "order_button_link": "",
+            "learn_button_label": "",
+            "learn_button_link": "shopify://products/2026-rfn-warrior-e8-youth-teen-electric-dirt-bike-60v-8-000w-pre-order"
+          }
+        },
+        "product_specs_xGQjBx": {
+          "type": "product_specs",
+          "settings": {
+            "product": "2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order",
+            "learn_more_link": "shopify://products/2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order",
+            "media_zoom_override_enable": true,
+            "media_zoom_override": 60,
+            "spec_1_metric": "56 MPH",
+            "spec_1_hint": "TRUE 15,000W",
+            "spec_2_metric": "74V 2960aH",
+            "spec_2_hint": "50 MILE RANGE",
+            "spec_3_metric": "FITS RIDERS 5'3\" +",
+            "spec_3_hint": "34.5 IN Seat",
+            "spec_4_metric": "",
+            "spec_4_hint": "",
+            "order_button_label": "Order Now",
+            "order_button_link": "",
+            "learn_button_label": "",
+            "learn_button_link": ""
+          }
+        },
+        "product_specs_8GjcLt": {
+          "type": "product_specs",
+          "settings": {
+            "product": "2026-rfn-warrior-pro-sx-e15-plus-74v-15-000w-adult-electric-dirt-bike-21-18-wheels-pre-order",
+            "learn_more_link": "",
+            "media_zoom_override_enable": true,
+            "media_zoom_override": 60,
+            "spec_1_metric": "61 MPH",
+            "spec_1_hint": "TRUE 15,000W",
+            "spec_2_metric": "74V 2960aH",
+            "spec_2_hint": "50 MILE RANGE",
+            "spec_3_metric": "FITS RIDERS 5'6\" +",
+            "spec_3_hint": "36.2\" SEAT HEIGHT",
+            "spec_4_metric": "",
+            "spec_4_hint": "",
+            "order_button_label": "Order Now",
+            "order_button_link": "",
+            "learn_button_label": "",
+            "learn_button_link": "shopify://products/2026-rfn-warrior-pro-sx-e15-plus-74v-15-000w-adult-electric-dirt-bike-21-18-wheels-pre-order"
+          }
+        }
+      },
+      "block_order": [
+        "product_specs_VKQBcD",
+        "product_specs_hHKmkp",
+        "product_specs_xGQjBx",
+        "product_specs_8GjcLt"
+      ],
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "rfn-warrior-line",
+        "products_to_show": 4,
+        "title": "Warrior series bikes",
+        "description": "",
+        "show_price": true,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "padding_vertical": 120,
+        "padding_horizontal": 24,
+        "card_corner_radius": 20,
+        "media_width_percent": 43,
+        "media_zoom": 0,
+        "media_object_fit": "contain",
+        "feature_row_gap": 6,
+        "feature_row_content_gap": 5,
+        "feature_heading_size": 15,
+        "feature_heading_weight": "600",
+        "feature_subheading_size": 14,
+        "feature_subheading_weight": "400",
+        "spec_1_metric": "15,000 Watts",
+        "spec_1_hint": "59 Miles / Hour",
+        "spec_2_metric": "74V     2960aH",
+        "spec_2_hint": "50 Mile Range",
+        "spec_3_metric": "Fits 5'0-5'8",
+        "spec_3_hint": "34.5\" Seat",
+        "spec_4_metric": "180 lb. Max",
+        "spec_4_hint": "READY TO RIDE",
+        "order_button_label": "Order Now",
+        "order_button_bg": "#ffffff",
+        "order_button_text": "#000000",
+        "quick_shop_button_label": "Quick Shop",
+        "quick_shop_add_label": "Add to cart",
+        "quick_shop_checkout_label": "Checkout now",
+        "learn_button_label": "Learn More",
+        "default_learn_link": "shopify://products/2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
+        "learn_button_text": "#ffffff",
+        "learn_button_border": "#ffffff80"
+      }
+    },
+    "custom_highlight_css_dFMJEG": {
+      "type": "custom_highlight_css",
+      "custom_css": [],
+      "name": "Custom highlight CSS",
+      "settings": {
+        "heading": "RIDE RFN",
+        "heading_color": "#ffffff",
+        "body": "<h4>In the past few years, we’ve witnessed an explosion of electric motos. They’re everywhere - on streets, trails, and tracks. Yet most e-motos are nothing more than a mountain bike with a motor on it. Fun, yes - but far from functional when it comes to serious trail riding or motocross racing.<br/><br/>That’s where our vision began. The goal behind the RFN Warrior Series was bold: to create the ultimate line of purpose-built electric dirt bikes - machines engineered for real riders of every size, age, and skill level. Not toys, not compromises - true electric motocross bikes that are head-to-head with gas competition.<br/><br/>After two years of research, testing, and over two million dollars invested in development, that vision has become reality. The RFN Warrior Series is here - four models that set a new benchmark for electric dirt bikes, combining championship-level performance, advanced battery technology, and precision engineering into one unstoppable lineup.</h4>",
+        "alignment": "center",
+        "max_width": 720
+      }
+    },
+    "product_modal_overlay_AtmGhb": {
+      "type": "product_modal_overlay",
+      "name": "Product modal",
+      "settings": {
+        "product": "2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
+        "add_button_text": "Add to cart",
+        "checkout_button_text": "Checkout now"
+      }
+    }
+  },
+  "order": [
+    "fullscreen_autoplay_vid_AfbPnP",
+    "featured_collection_hAQfCp",
+    "custom_highlight_css_dFMJEG",
+    "product_modal_overlay_AtmGhb"
+  ]
+}
