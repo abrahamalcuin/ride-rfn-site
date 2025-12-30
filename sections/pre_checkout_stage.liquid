@@ -2,7 +2,6 @@
   <div class="pre-checkout-stage__warning">{{ 'products.product.add_product_context' | t | default: 'Add this section to a product template to show the pre-checkout stage.' }}</div>
 {% else %}
   {% assign stage_id = 'pre-checkout-stage-' | append: section.id %}
-  {% assign color_property_label = section.settings.color_property_label | default: 'Selected Color' %}
   <section id="{{ stage_id }}" class="pre-checkout-stage">
     <button type="button" class="pre-checkout-stage__trigger" data-stage-trigger>
       {{ section.settings.button_label | default: 'Choose color & checkout' }}
@@ -18,48 +17,6 @@
         {% endif %}
         <form class="pre-checkout-stage__form">
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-          <div class="pre-checkout-stage__field">
-            <label for="{{ stage_id }}-color">{{ section.settings.color_label | default: 'Color' }}</label>
-            {% liquid
-              assign has_default_option = false
-              for block in section.blocks
-                if block.settings.default_option
-                  assign has_default_option = true
-                  break
-                endif
-              endfor
-            %}
-            <select id="{{ stage_id }}-color" name="properties[{{ color_property_label }}]" required>
-              {% if section.blocks.size > 0 %}
-                {% for block in section.blocks %}
-                  {% liquid
-                    assign option_label = block.settings.option_label | default: block.settings.option_value
-                    assign option_value = block.settings.option_value | default: option_label
-                    assign should_select = false
-                    if block.settings.default_option
-                      assign should_select = true
-                    elsif has_default_option == false and forloop.first
-                      assign should_select = true
-                    endif
-                  %}
-                  <option value="{{ option_value | escape }}" {% if should_select %}selected{% endif %}>{{ option_label }}</option>
-                {% endfor %}
-              {% else %}
-                {% assign color_options_assigned = false %}
-                {% for option in product.options_with_values %}
-                  {% if option.name contains 'Color' or option.name contains 'Colour' or option.name contains 'colour' %}
-                    {% assign color_options_assigned = true %}
-                    {% for value in option.values %}
-                      <option value="{{ value | escape }}">{{ value }}</option>
-                    {% endfor %}
-                  {% endif %}
-                {% endfor %}
-                {% unless color_options_assigned %}
-                  <option value="Default">Default</option>
-                {% endunless %}
-              {% endif %}
-            </select>
-          </div>
           <div class="pre-checkout-stage__field">
             <label for="{{ stage_id }}-quantity">{{ section.settings.quantity_label | default: 'Quantity' }}</label>
             <input id="{{ stage_id }}-quantity" type="number" name="quantity" min="1" value="1" inputmode="numeric">

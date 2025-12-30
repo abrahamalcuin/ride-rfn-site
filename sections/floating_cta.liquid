@@ -140,6 +140,7 @@
             <a
               class="floating-cta__btn{{ button_state_class }}"
               href="{{ initial_href | default: '#' }}"
+              data-product-modal-trigger
               {% if dynamic_checkout_enabled %}
                 data-dynamic-checkout
                 data-section-id="{{ section.id }}"

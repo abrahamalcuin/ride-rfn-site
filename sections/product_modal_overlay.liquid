@@ -415,7 +415,8 @@
       document.addEventListener('click', (event) => {
         const trigger = event.target.closest('[data-product-modal-trigger]');
         if (!trigger) return;
-        if (trigger.dataset.productModalTrigger !== String(sectionId)) return;
+        const targetId = trigger.dataset.productModalTrigger;
+        if (targetId && targetId !== String(sectionId)) return;
         open(event);
       });
 
