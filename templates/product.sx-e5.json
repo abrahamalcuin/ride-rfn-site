@@ -712,7 +712,7 @@
       "type": "floating_cta",
       "name": "Floating CTA",
       "settings": {
-        "button_text": "Find a Dealer",
+        "button_text": "Order Now",
         "link": "",
         "aria_label": "",
         "position": "bc",
