@@ -247,6 +247,229 @@
     color: {{ section.settings.learn_button_text }};
     border: 1px solid {{ section.settings.learn_button_border }};
   }
+  .featured-collection--{{ section.id }} .quick-shop-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 14000;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal.is-open {
+    display: flex;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal[hidden] {
+    display: none !important;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__dialog {
+    position: relative;
+    background: #ffffff;
+    color: #111111;
+    border-radius: 18px;
+    max-width: 880px;
+    width: min(94vw, 840px);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+    z-index: 1;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.08);
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__close:hover {
+    background: rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__media {
+    flex: 0 0 clamp(240px, 32vw, 360px);
+    width: clamp(240px, 32vw, 360px);
+    background: #f5f5f5;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 5;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__media-placeholder {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      135deg,
+      #f0f0f0 0,
+      #f0f0f0 12px,
+      #fafafa 12px,
+      #fafafa 24px
+    );
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__info {
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__title {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    font-weight: 600;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__price {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(17, 17, 17, 0.7);
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__select {
+    border-radius: 10px;
+    border: 1px solid rgba(17, 17, 17, 0.25);
+    padding: 10px 12px;
+    font-size: 1rem;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__field--quantity .quick-shop-modal__label {
+    margin-bottom: 2px;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__quantity {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1px solid rgba(17, 17, 17, 0.2);
+    overflow: hidden;
+    width: fit-content;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__quantity button {
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: transparent;
+    font-size: 1.35rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: inherit;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__quantity input {
+    width: 70px;
+    height: 42px;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: inherit;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn {
+    flex: 1 1 220px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn--primary {
+    background: #111111;
+    color: #ffffff;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn--secondary {
+    background: #ffffff;
+    color: #111111;
+    border: 1px solid rgba(17, 17, 17, 0.2);
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+  }
+  .featured-collection--{{ section.id }} .quick-shop-modal__feedback {
+    min-height: 1.2rem;
+    font-size: 0.9rem;
+    color: rgba(17, 17, 17, 0.78);
+  }
+  body.quick-shop-locked {
+    overflow: hidden;
+    touch-action: none;
+  }
+  @media (max-width: 900px) {
+    .featured-collection--{{ section.id }} .quick-shop-modal__dialog {
+      width: 94vw;
+      padding: 22px;
+    }
+    .featured-collection--{{ section.id }} .quick-shop-modal__content {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .featured-collection--{{ section.id }} .quick-shop-modal__media {
+      width: 100%;
+      flex: 0 0 auto;
+      aspect-ratio: 1 / 1;
+    }
+  }
+  @media (max-width: 600px) {
+    .featured-collection--{{ section.id }} .quick-shop-modal__dialog {
+      padding: 18px;
+      border-radius: 14px;
+    }
+    .featured-collection--{{ section.id }} .quick-shop-modal__close {
+      top: 10px;
+      right: 10px;
+    }
+    .featured-collection--{{ section.id }} .quick-shop-modal__actions {
+      flex-direction: column;
+    }
+    .featured-collection--{{ section.id }} .quick-shop-modal__btn {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+  }
 
   .featured-collection--{{ section.id }} .fc-button:hover,
   .featured-collection--{{ section.id }} .fc-button:focus-visible {
@@ -649,6 +872,243 @@
       }
     }
 
+    const quickShopModals = Array.from(root.querySelectorAll('[data-quick-shop-modal]'));
+    if (quickShopModals.length) {
+      const body = document.body;
+      let activeModal = null;
+
+      const lockBody = () => {
+        body.classList.add('quick-shop-locked');
+      };
+
+      const unlockBody = () => {
+        body.classList.remove('quick-shop-locked');
+      };
+
+      const clampQuantity = (value, min) => {
+        const parsed = parseInt(value, 10);
+        if (!Number.isFinite(parsed) || parsed < min) return min;
+        return parsed;
+      };
+
+      const readVariantData = (source) => {
+        if (!source) return null;
+        const id = parseInt(source.value || source.dataset.variantId || '0', 10);
+        if (!id) return null;
+        return {
+          id,
+          available: source.dataset.available === 'true',
+          priceFormatted: source.dataset.priceFormatted || '',
+          price: parseInt(source.dataset.price || '0', 10) || 0,
+          image: source.dataset.image || '',
+          imageAlt: source.dataset.imageAlt || '',
+          min: parseInt(source.dataset.min || '1', 10) || 1
+        };
+      };
+
+      quickShopModals.forEach((modal) => {
+        const modalId = modal.id;
+        if (!modalId) return;
+        const triggers = Array.from(root.querySelectorAll(`[data-quick-shop-open="${modalId}"]`));
+        if (!triggers.length) return;
+
+        const dialog = modal.querySelector('.quick-shop-modal__dialog');
+        const closeButtons = modal.querySelectorAll('[data-quick-shop-close]');
+        const variantSelect = modal.querySelector('select[data-quick-shop-variant]');
+        const hiddenVariantInput = modal.querySelector('input[data-quick-shop-variant]');
+        const quantityInput = modal.querySelector('[data-quick-shop-quantity]');
+        const decreaseBtn = modal.querySelector('[data-quick-qty-decrease]');
+        const increaseBtn = modal.querySelector('[data-quick-qty-increase]');
+        const priceEl = modal.querySelector('[data-quick-shop-price]');
+        const heroImage = modal.querySelector('[data-quick-shop-hero]');
+        const feedbackEl = modal.querySelector('[data-quick-shop-feedback]');
+        const addButton = modal.querySelector('[data-quick-shop-add]');
+        const checkoutButton = modal.querySelector('[data-quick-shop-checkout]');
+        const defaultVariantId = parseInt(modal.dataset.defaultVariantId || '0', 10);
+
+        const getVariantSource = () => {
+          if (variantSelect) {
+            const { selectedIndex, options } = variantSelect;
+            if (selectedIndex >= 0) {
+              return options[selectedIndex];
+            }
+            return options.length ? options[0] : null;
+          }
+          return hiddenVariantInput;
+        };
+
+        const setSelectToDefault = () => {
+          if (!variantSelect || !defaultVariantId) return;
+          const options = Array.from(variantSelect.options);
+          const matchIndex = options.findIndex((option) => parseInt(option.value, 10) === defaultVariantId);
+          if (matchIndex >= 0) {
+            variantSelect.selectedIndex = matchIndex;
+          }
+        };
+
+        const setFeedback = (message, isError = false) => {
+          if (!feedbackEl) return;
+          feedbackEl.textContent = message || '';
+          feedbackEl.style.color = isError ? '#b42318' : '#111111';
+        };
+
+        const updateVariantState = () => {
+          const source = getVariantSource();
+          if (!source) return null;
+          const variant = readVariantData(source);
+          if (!variant) return null;
+
+          if (quantityInput) {
+            const min = Math.max(1, variant.min || 1);
+            quantityInput.min = String(min);
+            quantityInput.value = String(Math.max(min, parseInt(quantityInput.value || String(min), 10) || min));
+          }
+          if (priceEl) {
+            priceEl.textContent = variant.priceFormatted;
+          }
+          if (heroImage && variant.image) {
+            heroImage.src = variant.image;
+            if (variant.imageAlt) heroImage.alt = variant.imageAlt;
+          }
+          if (addButton) addButton.disabled = !variant.available;
+          if (checkoutButton) checkoutButton.disabled = !variant.available;
+
+          return variant;
+        };
+
+        setSelectToDefault();
+        updateVariantState();
+
+        const handleKeyDown = (event) => {
+          if (event.key === 'Escape') {
+            hideModal();
+          }
+        };
+
+        const showModal = (event) => {
+          event.preventDefault();
+          if (activeModal && activeModal !== modal && typeof activeModal.__quickShopHide === 'function') {
+            activeModal.__quickShopHide();
+          }
+          activeModal = modal;
+          if (quantityInput) {
+            const variant = updateVariantState();
+            if (variant) {
+              const min = Math.max(1, variant.min || parseInt(quantityInput.min || '1', 10) || 1);
+              quantityInput.value = String(min);
+            }
+          }
+          modal.hidden = false;
+          modal.classList.add('is-open');
+          lockBody();
+          setFeedback('');
+          if (dialog && typeof dialog.focus === 'function') {
+            window.setTimeout(() => dialog.focus({ preventScroll: true }), 10);
+          }
+          document.addEventListener('keydown', handleKeyDown);
+        };
+
+        const hideModal = () => {
+          if (activeModal !== modal) return;
+          modal.classList.remove('is-open');
+          modal.hidden = true;
+          activeModal = null;
+          unlockBody();
+          setFeedback('');
+          document.removeEventListener('keydown', handleKeyDown);
+        };
+
+        modal.__quickShopHide = hideModal;
+
+        triggers.forEach((trigger) => {
+          trigger.addEventListener('click', showModal);
+        });
+
+        closeButtons.forEach((button) => {
+          button.addEventListener('click', hideModal);
+        });
+
+        if (variantSelect) {
+          variantSelect.addEventListener('change', updateVariantState);
+        }
+
+        if (quantityInput) {
+          const min = Math.max(1, parseInt(quantityInput.min || '1', 10) || 1);
+          quantityInput.value = String(min);
+          quantityInput.addEventListener('input', () => {
+            quantityInput.value = String(clampQuantity(quantityInput.value, Math.max(1, parseInt(quantityInput.min || '1', 10) || 1)));
+          });
+
+          if (decreaseBtn) {
+            decreaseBtn.addEventListener('click', () => {
+              const currentMin = Math.max(1, parseInt(quantityInput.min || '1', 10) || 1);
+              const value = clampQuantity((parseInt(quantityInput.value, 10) || currentMin) - 1, currentMin);
+              quantityInput.value = String(value);
+            });
+          }
+          if (increaseBtn) {
+            increaseBtn.addEventListener('click', () => {
+              const currentMin = Math.max(1, parseInt(quantityInput.min || '1', 10) || 1);
+              const value = clampQuantity((parseInt(quantityInput.value, 10) || currentMin) + 1, currentMin);
+              quantityInput.value = String(value);
+            });
+          }
+        }
+
+        const sendCartRequest = (action) => {
+          const variant = updateVariantState() || readVariantData(getVariantSource());
+          if (!variant || !variant.id) {
+            setFeedback('Variant unavailable. Please choose another option.', true);
+            return;
+          }
+          const min = quantityInput ? Math.max(1, parseInt(quantityInput.min || '1', 10) || 1) : 1;
+          const quantity = quantityInput ? clampQuantity(quantityInput.value, min) : min;
+          const payload = { id: variant.id, quantity };
+          const buttons = [addButton, checkoutButton].filter(Boolean);
+          buttons.forEach((btn) => { btn.disabled = true; });
+          setFeedback('Adding to cart...');
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          })
+            .then((response) => {
+              if (!response.ok) throw response;
+              return response.json();
+            })
+            .then(() => {
+              if (action === 'checkout') {
+                window.location.href = '/checkout';
+                return;
+              }
+              setFeedback('Added to cart!');
+            })
+            .catch(() => {
+              setFeedback('Could not update the cart. Please try again.', true);
+            })
+            .finally(() => {
+              const available = Boolean((getVariantSource() && readVariantData(getVariantSource()) || {}).available);
+              buttons.forEach((btn) => { if (btn) btn.disabled = !available; });
+            });
+        };
+
+        if (addButton) {
+          addButton.addEventListener('click', () => sendCartRequest('add'));
+        }
+        if (checkoutButton) {
+          checkoutButton.addEventListener('click', () => sendCartRequest('checkout'));
+        }
+
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) hideModal();
+        });
+      });
+    }
+
     root.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowRight') {
         event.preventDefault();
@@ -732,6 +1192,9 @@
     { "type": "text", "label": "Order CTA label", "id": "order_button_label", "default": "Order Now" },
     { "type": "color", "label": "Order CTA background", "id": "order_button_bg", "default": "#FFFFFF" },
     { "type": "color", "label": "Order CTA text", "id": "order_button_text", "default": "#000000" },
+    { "type": "text", "label": "Quick shop button label", "id": "quick_shop_button_label", "default": "Quick Shop" },
+    { "type": "text", "label": "Quick shop add button label", "id": "quick_shop_add_label", "default": "Add to cart" },
+    { "type": "text", "label": "Quick shop checkout button label", "id": "quick_shop_checkout_label", "default": "Checkout now" },
     { "type": "text", "label": "Learn CTA label", "id": "learn_button_label", "default": "Learn More" },
     { "type": "url", "label": "Default learn link", "id": "default_learn_link" },
     { "type": "color", "label": "Learn CTA text", "id": "learn_button_text", "default": "#FFFFFF" },
@@ -742,8 +1205,4 @@
   ]
 }
 {% endschema %}
-
-
-
-
 

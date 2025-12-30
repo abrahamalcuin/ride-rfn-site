@@ -11,6 +11,19 @@
 {% if product_block and product_block.settings.media_zoom_override_enable == true %}
   {% assign media_scale = product_block.settings.media_zoom_override | times: 0.01 | plus: 1 %}
 {% endif %}
+{% assign first_variant = product.selected_or_first_available_variant %}
+{% assign quick_shop_label = section.settings.quick_shop_button_label %}
+{% if product_block and product_block.settings.order_button_label != blank %}
+  {% assign quick_shop_label = product_block.settings.order_button_label %}
+{% elsif quick_shop_label == blank and section.settings.order_button_label != blank %}
+  {% assign quick_shop_label = section.settings.order_button_label %}
+{% endif %}
+{% if quick_shop_label == blank %}
+  {% assign quick_shop_label = product.title %}
+{% endif %}
+{% assign quick_shop_add_label = section.settings.quick_shop_add_label | default: 'Add to cart' %}
+{% assign quick_shop_checkout_label = section.settings.quick_shop_checkout_label | default: 'Checkout now' %}
+{% assign quick_shop_modal_id = 'quick-modal-' | append: section.id | append: '-' | append: product.id %}
 
 <li class="fc-carousel__slide" data-index="{{ index }}"{% if product_block %} {{ product_block.shopify_attributes }}{% endif %} style="--fc-media-scale: {{ media_scale }}">
   <article class="fc-card">
@@ -73,58 +86,154 @@
           </div>
         {% endif %}
 
-        {% assign order_label = section.settings.order_button_label %}
-        {% assign order_link = '' %}
-        {% assign order_variant = product.selected_or_first_available_variant %}
-        {% assign order_default_qty = 1 %}
-        {% if order_variant %}
-          {% assign order_default_qty = order_variant.quantity_rule.min | default: 1 %}
-        {% endif %}
-        {% assign learn_label = section.settings.learn_button_label %}
-        {% assign learn_link = section.settings.default_learn_link %}
+{% assign learn_label = section.settings.learn_button_label | default: 'Learn More' %}
+{% assign learn_link = section.settings.default_learn_link %}
 
-        {% if product_block %}
-          {% if product_block.settings.order_button_label != blank %}
-            {% assign order_label = product_block.settings.order_button_label %}
-          {% endif %}
-          {% if product_block.settings.order_button_link != blank %}
-            {% assign order_link = product_block.settings.order_button_link %}
-          {% endif %}
-          {% if product_block.settings.learn_button_label != blank %}
-            {% assign learn_label = product_block.settings.learn_button_label %}
-          {% endif %}
-          {% if product_block.settings.learn_button_link != blank %}
-            {% assign learn_link = product_block.settings.learn_button_link %}
-          {% elsif product_block.settings.learn_more_link != blank %}
-            {% assign learn_link = product_block.settings.learn_more_link %}
-          {% endif %}
-        {% endif %}
+{% if product_block %}
+  {% if product_block.settings.learn_button_label != blank %}
+    {% assign learn_label = product_block.settings.learn_button_label %}
+  {% endif %}
+  {% if product_block.settings.learn_button_link != blank %}
+    {% assign learn_link = product_block.settings.learn_button_link %}
+  {% elsif product_block.settings.learn_more_link != blank %}
+    {% assign learn_link = product_block.settings.learn_more_link %}
+  {% endif %}
+{% endif %}
 
-        {% if order_label == blank %}
-          {% assign order_label = 'Order Now' %}
-        {% endif %}
-        {% if learn_label == blank %}
-          {% assign learn_label = 'Learn More' %}
-        {% endif %}
-        {% if order_link == '' %}
-          {% if order_variant and order_variant.available %}
-            {% assign order_link = routes.cart_url | append: '/' | append: order_variant.id | append: ':' | append: order_default_qty | append: '?checkout' %}
-          {% else %}
-            {% assign order_link = product.url %}
-          {% endif %}
-        {% endif %}
-        {% if learn_link == blank %}
-          {% assign learn_link = product.url %}
-        {% endif %}
+{% if learn_link == blank %}
+  {% assign learn_link = product.url %}
+{% endif %}
 
-        <div class="fc-card__buttons">
-          <a class="fc-button fc-button--primary" href="{{ order_link }}">
-            {{ order_label }}
-          </a>
-          <a class="fc-button fc-button--secondary" href="{{ learn_link }}">
-            {{ learn_label }}
-          </a>
-        </div>
+<div class="fc-card__buttons">
+  <button
+    type="button"
+    class="fc-button fc-button--primary fc-button--quick"
+    data-quick-shop-open="{{ quick_shop_modal_id }}"
+  >
+    {{ quick_shop_label }}
+  </button>
+  <a class="fc-button fc-button--secondary" href="{{ learn_link }}">
+    {{ learn_label }}
+  </a>
+</div>
+
+{% assign quick_shop_default_variant = first_variant %}
+{% if quick_shop_default_variant == nil %}
+  {% assign quick_shop_default_variant = product.variants.first %}
+{% endif %}
+          {% assign quick_shop_default_price = quick_shop_default_variant.price | default: product.price %}
+          {% assign quick_shop_default_price_formatted = quick_shop_default_price | money %}
+          {% assign quick_shop_default_available = quick_shop_default_variant.available | default: false %}
+          {% assign quick_shop_default_min = quick_shop_default_variant.quantity_rule.min | default: 1 %}
+          {% assign quick_shop_default_image = nil %}
+          {% assign quick_shop_default_image_alt = product.title %}
+          {% if quick_shop_default_variant and quick_shop_default_variant.image %}
+            {% assign quick_shop_default_image = quick_shop_default_variant.image %}
+            {% assign quick_shop_default_image_alt = quick_shop_default_variant.image.alt | default: quick_shop_default_variant.title %}
+          {% elsif product.featured_image %}
+            {% assign quick_shop_default_image = product.featured_image %}
+            {% assign quick_shop_default_image_alt = product.featured_image.alt | default: product.title %}
+          {% endif %}
+          <div
+            id="{{ quick_shop_modal_id }}"
+            class="quick-shop-modal"
+            data-quick-shop-modal
+            data-section-id="{{ section.id }}"
+            hidden
+            data-default-variant-id="{% if quick_shop_default_variant %}{{ quick_shop_default_variant.id }}{% endif %}"
+          >
+            <div class="quick-shop-modal__backdrop" data-quick-shop-close></div>
+            <div class="quick-shop-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="{{ quick_shop_modal_id }}-title" tabindex="-1">
+              <button class="quick-shop-modal__close" type="button" data-quick-shop-close aria-label="Close quick shop">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="quick-shop-modal__content">
+                <div class="quick-shop-modal__media">
+                  {% if quick_shop_default_image %}
+                    <img src="{{ quick_shop_default_image | image_url: width: 900 }}" alt="{{ quick_shop_default_image_alt | escape }}" data-quick-shop-hero>
+                  {% else %}
+                    <div class="quick-shop-modal__media-placeholder" aria-hidden="true"></div>
+                  {% endif %}
+                </div>
+                <div class="quick-shop-modal__info">
+                  <h2 class="quick-shop-modal__title" id="{{ quick_shop_modal_id }}-title">{{ product.title }}</h2>
+                  <div
+                    class="quick-shop-modal__price"
+                    data-quick-shop-price
+                    data-price="{{ quick_shop_default_price }}"
+                    data-price-formatted="{{ quick_shop_default_price_formatted }}"
+                  >
+                    {{ quick_shop_default_price_formatted }}
+                  </div>
+
+                  {% if product.variants.size > 1 %}
+                    <div class="quick-shop-modal__field">
+                      <label class="quick-shop-modal__label" for="{{ quick_shop_modal_id }}-variant">Select variant</label>
+                      <select class="quick-shop-modal__select" id="{{ quick_shop_modal_id }}-variant" data-quick-shop-variant>
+                        {% for modal_variant in product.variants %}
+                          {% assign variant_image_src = '' %}
+                          {% assign variant_image_alt = product.title %}
+                          {% if modal_variant.image %}
+                            {% assign variant_image_src = modal_variant.image | image_url: width: 900 %}
+                            {% assign variant_image_alt = modal_variant.image.alt | default: modal_variant.title %}
+                          {% endif %}
+                          <option
+                            value="{{ modal_variant.id }}"
+                            data-price="{{ modal_variant.price }}"
+                            data-price-formatted="{{ modal_variant.price | money }}"
+                            data-available="{{ modal_variant.available }}"
+                            data-image="{{ variant_image_src }}"
+                            data-image-alt="{{ variant_image_alt | escape }}"
+                            data-min="{{ modal_variant.quantity_rule.min | default: 1 }}"
+                            {% if quick_shop_default_variant and modal_variant.id == quick_shop_default_variant.id %}selected{% endif %}
+                          >
+                            {{ modal_variant.title }}{% unless modal_variant.available %} - Sold out{% endunless %}
+                          </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  {% else %}
+                    {% assign single_variant = product.variants.first %}
+                    <input
+                      type="hidden"
+                      data-quick-shop-variant
+                      value="{{ single_variant.id }}"
+                      data-price="{{ single_variant.price }}"
+                      data-price-formatted="{{ single_variant.price | money }}"
+                      data-available="{{ single_variant.available }}"
+                      data-image="{% if single_variant.image %}{{ single_variant.image | image_url: width: 900 }}{% endif %}"
+                      data-image-alt="{% if single_variant.image %}{{ single_variant.image.alt | default: single_variant.title | escape }}{% else %}{{ product.title | escape }}{% endif %}"
+                      data-min="{{ single_variant.quantity_rule.min | default: 1 }}"
+                    >
+                  {% endif %}
+
+                  <div class="quick-shop-modal__field quick-shop-modal__field--quantity">
+                    <span class="quick-shop-modal__label">Quantity</span>
+                    <div class="quick-shop-modal__quantity">
+                      <button type="button" data-quick-qty-decrease aria-label="Decrease quantity">&minus;</button>
+                      <input
+                        type="number"
+                        data-quick-shop-quantity
+                        min="{{ quick_shop_default_min }}"
+                        value="{{ quick_shop_default_min }}"
+                      >
+                      <button type="button" data-quick-qty-increase aria-label="Increase quantity">&#43;</button>
+                    </div>
+                  </div>
+
+                  <div class="quick-shop-modal__actions">
+                    <button class="quick-shop-modal__btn quick-shop-modal__btn--primary" type="button" data-quick-shop-add {% unless quick_shop_default_available %}disabled{% endunless %}>
+                      {{ quick_shop_add_label }}
+                    </button>
+                    <button class="quick-shop-modal__btn quick-shop-modal__btn--secondary" type="button" data-quick-shop-checkout {% unless quick_shop_default_available %}disabled{% endunless %}>
+                      {{ quick_shop_checkout_label }}
+                    </button>
+                  </div>
+                  <p class="quick-shop-modal__feedback" data-quick-shop-feedback role="status" aria-live="polite"></p>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </article>
