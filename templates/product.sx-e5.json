@@ -713,7 +713,7 @@
       "name": "Floating CTA",
       "settings": {
         "button_text": "Find a Dealer",
-        "link": "shopify://pages/find-a-dealer",
+        "link": "",
         "aria_label": "",
         "position": "bc",
         "offset_x": 16,
