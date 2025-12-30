@@ -425,7 +425,7 @@
         "card_text": "#ffffff",
         "accent": "rgba(255,255,255,.16)",
         "card_radius": 16,
-        "footnote": "",
+        "footnote": "For off road use only.",
         "button_text": "More Info",
         "button_link": "",
         "button_style": "pill"
@@ -824,6 +824,15 @@
             "row_content": "<p>Comprehensive warranty protects customers from defective parts.</p><p>Battery - 24 months</p><p>Motor - 24 months</p><p>Controller - 24 months</p><p>Charger - 24 months</p><p>F/R wheel without tire - 10000km</p><p>Front suspension fork - 6 months or 3000km</p><p>Rear shock - 6 months or 3000km</p><p>Display - 12 months</p><p>Chain - 1500km</p><p>Sprocket - 5000km</p><p>Saddle - 12 months</p><p>Harness - 12 months</p><p>Disc rotor - Lifetime</p><p>Speed mode button - 12 months</p><p>Emergency power off switch - 12 months</p><p>Front brake assembly (without brake pads) - 12 months</p><p>Rear brake assembly (without brake pads) - 12 months</p><p> </p>",
             "page": ""
           }
+        },
+        "collapsible_row_jTLXWG": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Return Policy",
+            "icon": "none",
+            "row_content": "<p>Unopened items in original packaging can be returned 30 days after the product is received. </p>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -834,7 +843,8 @@
         "collapsible_row_gd7LTA",
         "collapsible_row_6c9RpP",
         "collapsible_row_8akbMd",
-        "collapsible_row_KqHBPw"
+        "collapsible_row_KqHBPw",
+        "collapsible_row_jTLXWG"
       ],
       "name": "t:sections.collapsible_content.presets.name",
       "settings": {
