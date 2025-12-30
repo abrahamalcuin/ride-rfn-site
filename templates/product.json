@@ -622,7 +622,6 @@
     },
     "floating_cta_gznNXT": {
       "type": "floating_cta",
-      "disabled": true,
       "name": "Floating CTA (ORDER BUTTON)",
       "settings": {
         "button_text": "Order Now",
@@ -665,6 +664,7 @@
     },
     "floating_cta_qybKXt": {
       "type": "floating_cta",
+      "disabled": true,
       "name": "Floating CTA (FIND DEALER)",
       "settings": {
         "button_text": "Find a Dealer",
