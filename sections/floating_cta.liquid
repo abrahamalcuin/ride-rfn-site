@@ -37,18 +37,22 @@
   {%- assign z_index = section.settings.z_index | default: 9999 | plus: 0 -%}
   {%- assign width_px = section.settings.width_px | default: 0 | plus: 0 -%}
   {%- assign dynamic_checkout_enabled = false -%}
+  {%- assign cta_triggers_modal = false -%}
   {%- assign initial_variant = nil -%}
   {%- assign initial_checkout_qty = 1 -%}
   {%- if product and section.settings.link == blank -%}
     {%- assign initial_variant = product.selected_or_first_available_variant -%}
     {%- if initial_variant -%}
-      {%- assign dynamic_checkout_enabled = true -%}
+      {%- assign cta_triggers_modal = true -%}
       {%- assign initial_checkout_qty = initial_variant.quantity_rule.min | default: 1 -%}
     {%- endif -%}
   {%- endif -%}
   {%- assign button_disabled = false -%}
   {%- assign initial_href = section.settings.link | default: '#' -%}
   {%- assign button_state_class = '' -%}
+  {%- if cta_triggers_modal -%}
+    {%- assign initial_href = '#' -%}
+  {%- endif -%}
   {%- if dynamic_checkout_enabled -%}
     {%- if initial_variant and initial_variant.available -%}
       {%- assign initial_href = routes.cart_url | append: '/' | append: initial_variant.id | append: ':' | append: initial_checkout_qty | append: '?checkout' -%}
@@ -140,7 +144,7 @@
             <a
               class="floating-cta__btn{{ button_state_class }}"
               href="{{ initial_href | default: '#' }}"
-              data-product-modal-trigger
+              {% if cta_triggers_modal %}data-product-modal-trigger{% endif %}
               {% if dynamic_checkout_enabled %}
                 data-dynamic-checkout
                 data-section-id="{{ section.id }}"
