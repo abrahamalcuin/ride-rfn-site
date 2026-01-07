@@ -119,7 +119,7 @@
             "spec_4_metric": "",
             "spec_4_hint": "",
             "order_button_label": "Order Now",
-            "order_button_link": "shopify://pages/shipping-policy",
+            "order_button_link": "",
             "learn_button_label": "",
             "learn_button_link": ""
           }
