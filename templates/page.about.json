@@ -20,6 +20,7 @@
     "image-banner": {
       "type": "image-banner",
       "settings": {
+        "image": "shopify://shop_images/RFN_26_MX_range_128.jpg",
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "image_behavior": "none",
