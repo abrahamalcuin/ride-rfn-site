@@ -1,1 +1,128 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"padding_top":28,"padding_bottom":28}},"image-banner":{"type":"image-banner","settings":{"image_overlay_opacity":0,"image_height":"medium","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":true,"color_scheme":"scheme-1","stack_images_on_mobile":true,"mobile_content_alignment":"center","show_text_below":true}},"rich-text":{"type":"rich-text","blocks":{"heading":{"type":"heading","settings":{"heading":"RICH TEXT","heading_size":"h0"}},"text":{"type":"text","settings":{"text":"<p>Introduce your team by providing an overview of what they do, when they joined, and how their expertise shapes your brand. <\/p>"}},"button":{"type":"button","disabled":true,"settings":{"button_label":"Button label","button_link":"","button_style_secondary":false,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["heading","text","button"],"settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-1","full_width":true,"padding_top":0,"padding_bottom":0}},"multicolumn":{"type":"multicolumn","blocks":{"column-1":{"type":"column","settings":{"title":"TEAM MEMBER NAME","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}},"column-2":{"type":"column","settings":{"title":"TEAM MEMBER NAME","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}},"column-3":{"type":"column","settings":{"title":"TEAM MEMBER NAME","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}}},"block_order":["column-1","column-2","column-3"],"settings":{"title":"","heading_size":"h0","image_width":"full","image_ratio":"square","button_label":"","button_link":"","columns_desktop":3,"column_alignment":"left","background_style":"none","color_scheme":"scheme-1","columns_mobile":"1","swipe_on_mobile":false,"padding_top":0,"padding_bottom":0}},"multicolumn-1":{"type":"multicolumn","blocks":{"column-1":{"type":"column","settings":{"title":"TEAM MEMBER","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}},"column-2":{"type":"column","settings":{"title":"TEAM MEMBER","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}}},"block_order":["column-1","column-2"],"settings":{"title":"","heading_size":"h1","image_width":"full","image_ratio":"square","button_label":"","button_link":"","columns_desktop":2,"column_alignment":"left","background_style":"none","color_scheme":"scheme-2","columns_mobile":"1","swipe_on_mobile":false,"padding_top":0,"padding_bottom":0}},"multicolumn-2":{"type":"multicolumn","blocks":{"column-1":{"type":"column","settings":{"title":"TEAM MEMBER","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}},"column-2":{"type":"column","settings":{"title":"TEAM MEMBER","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}},"column-3":{"type":"column","settings":{"title":"TEAM MEMBER","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}},"column-4":{"type":"column","settings":{"title":"TEAM MEMBER","text":"<p>Describe this team member's expertise and unique skills. Consider adding an image to your column to represent this team member. <\/p>","link_label":"","link":""}}},"block_order":["column-1","column-2","column-3","column-4"],"settings":{"title":"","heading_size":"h1","image_width":"full","image_ratio":"square","button_label":"","button_link":"","columns_desktop":4,"column_alignment":"left","background_style":"none","color_scheme":"scheme-1","columns_mobile":"1","swipe_on_mobile":false,"padding_top":0,"padding_bottom":0}}},"order":["main","image-banner","rich-text","multicolumn","multicolumn-1","multicolumn-2"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "image-banner": {
+      "type": "image-banner",
+      "settings": {
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "ABOUT US",
+            "heading_size": "h0"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>We're Ride RFN - Utah and Idaho's official distribution of the RFN Warrior Series.</strong> Our goal is to bring cutting edge distribution of the Warrior Series bikes and parts to dealerships in the region. <br/><br/>We believe that the RFN Warrior Series is the biggest step for electric dirt bikes in the last handful of years. Most electric dirt bikes out there are nothing more than a mountain bike with a battery and motor on it - a fun combination but when it comes down to doing any kind of serious trail or track riding, those bikes just don't cut it. The RFN Warrior series is ready to hit the trail or track stock - and dominate your friends gas dirt bikes.</p><p> </p><p><strong>We're owned and operated by Kickin Bikes LLC</strong>, a dirt bike distribution company out of Orem, Utah. Here's our story. </p><p>My name is <strong>Austin Jonas</strong>, and I’m 22 years old. I’ve been running Kickin Bikes since I was just 12, but my story starts even earlier.</p><p>At 10 years old, I would beg my dad to borrow his laptop to scroll Craigslist for used dirt bikes I couldn’t afford. After a year of dreaming every night of having a dirt bike in my parents garage and saving every penny of my allowance, I finally bought my first bike for $200. It didn’t even run - but with some help from a family friend, we got it roaring. That first day riding it around the dirt track down the street from my house lit a fire in me that hasn’t gone out since.</p><p>By 12, I had already devoured business books and Amazon courses, trying to learn how to make more money to get a better dirt bike. I was then selling simple kitchen products on Amazon. One day it occurred to me - I should sell what I love. I told my dad I wanted to try selling dirt bikes. I had found a small 49cc 2-stroke dirt bike from a factory in China and begged him to let me take a chance. He didn’t think they’d sell, but he didn’t want to put out the flame he saw in me. With the help of my uncle in China, I ordered six of them, got them through customs, and two months later—they were gone. Sold. My first real win.</p><p>Life was good! I spent my teenage years riding dirt bikes, mountain biking, and playing hockey. But at 14, the factory I was working with suddenly couldn’t export to the U.S. anymore. It was a devastating blow. I wasn’t done working, though—I lied about my age and got a job at a local pizza shop with a few of my buddies because I loved working, even if my job sucked.</p><p>When I turned 16, I got word from the factory that they could bring bikes into the U.S. again. From there, I dove headfirst into sourcing, learning everything I could about finding and importing high-quality dirt bikes from China. Through high school, I became completely obsessed with business-taking courses, studying late into the night, and reading book after book. I couldn’t help myself. The thrill of building something real was too strong. While my friends were watching TV or playing Call of Duty, I was pouring over business courses.</p><p>Fast forward another 6 years, and I’m almost 23. What started as a tiny experiment has grown into <strong>Kickin Bikes - a full-scale dealership and distribution company</strong>. I owe so much to my father, who believed in me and guided me, and to my friends who have spent countless hours assembling bikes, turning wrenches, and helping me sell. Kickin Bikes is not just my story - it’s ours.</p><p>Over the last decade, I’ve learned something bigger than profit margins. Money matters, but it doesn’t make me happy. What does? Seeing kids get <strong>OFF SCREENS and ON BIKES</strong>. I hate seeing childhood wasted in video games and TV shows. I believe every kid should have the chance to spend time outside, exploring, riding, and testing their limits the way I did. That’s why I keep my prices fair and often sacrifice profit margins—because my dream is simple:</p><p><strong>One day, every kid in this country will have access to a dirt bike.</strong></p><p>And that’s what Kickin Bikes is here to make happen.</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn-1": {
+      "type": "multicolumn",
+      "blocks": {
+        "column-1": {
+          "type": "column",
+          "settings": {
+            "title": "Austin Jonas",
+            "text": "<p>Outdoor recreation enthusiast - loves to dirt bike, mountain bike, rock climb, ski, and more. Believer and follower of Jesus Christ. Has been importing dirt bikes from China for the last decade.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column-2": {
+          "type": "column",
+          "settings": {
+            "title": "Alcuin Abraham",
+            "text": "<p>Master programmer and tech support. 23 years old from Mindanao, Philippines currently living in Idaho.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column-1",
+        "column-2"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 2,
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image-banner",
+    "rich-text",
+    "multicolumn-1"
+  ]
+}
