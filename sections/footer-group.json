@@ -11,21 +11,74 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "varg_style_footer_mYfRJT": {
+      "type": "varg-style-footer",
+      "blocks": {
+        "link_column_P6NzRM": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Warrior series",
+            "menu": "warrior-footer-menu"
+          }
+        },
+        "link_column_84aDha": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Company",
+            "menu": ""
+          }
+        },
+        "link_column_YtEc9W": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Support",
+            "menu": ""
+          }
+        },
+        "link_column_mqRpjF": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Account",
+            "menu": ""
+          }
+        }
+      },
+      "block_order": [
+        "link_column_P6NzRM",
+        "link_column_84aDha",
+        "link_column_YtEc9W",
+        "link_column_mqRpjF"
+      ],
+      "name": "VARG style footer",
+      "settings": {
+        "background_color": "#1f1f21",
+        "border_color": "#1a1a1a",
+        "heading_color": "#ffffff",
+        "link_color": "#f0f0f0",
+        "link_hover_color": "#ffffff",
+        "heading_font_family": "",
+        "heading_font_size": 17,
+        "heading_opacity": 100,
+        "heading_letter_spacing": 3,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
     "17610006604d8153a0": {
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_258bcb8_eqDTza": {
           "type": "ai_gen_block_258bcb8",
           "settings": {
-            "link_1_text": "Support",
+            "link_1_text": "",
             "link_1_url": "shopify://pages/contact",
-            "link_2_text": "About Us",
+            "link_2_text": "",
             "link_2_url": "https://ride-rfn.com/pages/about-us",
-            "link_3_text": "Privacy Policy",
+            "link_3_text": "",
             "link_3_url": "shopify://pages/data-sharing-opt-out",
-            "link_4_text": "Contact Us",
+            "link_4_text": "",
             "link_4_url": "shopify://pages/contact",
-            "link_5_text": "Dealer Application",
+            "link_5_text": "",
             "link_5_url": "https://www.kickinbikes.com/pages/become-a-dealer-1",
             "link_color": "#ffffff",
             "link_font_size": 16,
@@ -69,6 +122,7 @@
     }
   },
   "order": [
+    "varg_style_footer_mYfRJT",
     "17610006604d8153a0",
     "footer"
   ]
