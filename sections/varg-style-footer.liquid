@@ -9,6 +9,17 @@
   assign text_color = section.settings.link_color
   assign hover_color = section.settings.link_hover_color
   assign border_color = section.settings.border_color
+  assign heading_font = section.settings.heading_font_family
+  if heading_font == blank
+    assign heading_font = 'var(--font-heading-family, var(--font-body-family))'
+  endif
+  assign heading_opacity_setting = section.settings.heading_opacity
+  if heading_opacity_setting == blank
+    assign heading_opacity_setting = 80
+  endif
+  assign heading_opacity = heading_opacity_setting | times: 0.01
+  assign heading_font_size = section.settings.heading_font_size | default: 14
+  assign heading_letter_spacing = section.settings.heading_letter_spacing | default: 3
 -%}
 
 {%- style -%}
@@ -29,22 +40,30 @@
   .section-{{ section.id }} .varg-footer__inner {
     max-width: var(--page-width, 120rem);
     margin: 0 auto;
+    text-align: center;
   }
 
   .section-{{ section.id }} .varg-footer__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: clamp(1.5rem, 3vw, 3.25rem);
+    justify-content: center;
+    justify-items: center;
+  }
+
+  .section-{{ section.id }} .varg-footer__column {
+    text-align: center;
   }
 
   .section-{{ section.id }} .varg-footer__heading {
     margin: 0 0 1.4rem;
-    font-family: var(--font-heading-family, var(--font-body-family));
+    font-family: {{ heading_font }};
     font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.18em;
+    font-size: {{ heading_font_size }}px;
+    letter-spacing: {{ heading_letter_spacing }}px;
     text-transform: uppercase;
     color: {{ heading_color }};
+    opacity: {{ heading_opacity }};
   }
 
   .section-{{ section.id }} .varg-footer__menu {
@@ -54,6 +73,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    align-items: center;
   }
 
   .section-{{ section.id }} .varg-footer__link {
@@ -145,6 +165,42 @@
       "default": "#ffffff"
     },
     {
+      "type": "text",
+      "id": "heading_font_family",
+      "label": "Heading font family",
+      "info": "Enter a CSS font-family stack. Leave blank to inherit the global heading font."
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "heading_opacity",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Heading opacity",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading letter spacing",
+      "default": 3
+    },
+    {
       "type": "range",
       "id": "padding_top",
       "min": 0,
@@ -202,38 +258,36 @@
       ]
     }
   ],
-  "default": {
-    "blocks": [
-      {
-        "type": "link_column",
-        "settings": {
-          "heading": "Varg"
-        }
-      },
-      {
-        "type": "link_column",
-        "settings": {
-          "heading": "Company"
-        }
-      },
-      {
-        "type": "link_column",
-        "settings": {
-          "heading": "Support"
-        }
-      },
-      {
-        "type": "link_column",
-        "settings": {
-          "heading": "Account"
-        }
-      }
-    ]
-  },
   "presets": [
     {
       "name": "VARG style footer",
-      "category": "Footer"
+      "category": "Footer",
+      "blocks": [
+        {
+          "type": "link_column",
+          "settings": {
+            "heading": "Varg"
+          }
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "heading": "Company"
+          }
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "heading": "Support"
+          }
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "heading": "Account"
+          }
+        }
+      ]
     }
   ]
 }
