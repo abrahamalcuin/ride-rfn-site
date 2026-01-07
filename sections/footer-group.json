@@ -39,7 +39,7 @@
           "type": "link_column",
           "settings": {
             "heading": "Account",
-            "menu": ""
+            "menu": "account"
           }
         }
       },
