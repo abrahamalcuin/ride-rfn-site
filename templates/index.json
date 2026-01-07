@@ -147,6 +147,7 @@
         },
         "product_specs_PYTa3g": {
           "type": "product_specs",
+          "disabled": true,
           "settings": {
             "product": "test-sale",
             "learn_more_link": "",

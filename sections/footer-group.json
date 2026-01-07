@@ -52,7 +52,7 @@
       "name": "VARG style footer",
       "settings": {
         "background_color": "#1f1f21",
-        "border_color": "#1a1a1a",
+        "border_color": "#484444",
         "heading_color": "#ffffff",
         "link_color": "#f0f0f0",
         "link_hover_color": "#ffffff",
@@ -64,15 +64,31 @@
         "heading_font_size": 17,
         "heading_opacity": 100,
         "heading_letter_spacing": 3,
-        "padding_top": 44,
+        "padding_top": 48,
         "padding_bottom": 44
       }
     },
     "17610006604d8153a0": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_ef4928a_XQaQ3K": {
+          "type": "ai_gen_block_ef4928a",
+          "settings": {
+            "copyright_text": "© October 10, 2025 KICKIN BIKES LLC",
+            "text_size": 14,
+            "text_color": "#ffffff",
+            "logo": "shopify://shop_images/ChatGPT_Image_Oct_2_2025_07_35_05_PM.png",
+            "logo_width": 160,
+            "background_color": "#1f1f21",
+            "padding_vertical": 20,
+            "padding_horizontal": 40,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        },
         "ai_gen_block_258bcb8_eqDTza": {
           "type": "ai_gen_block_258bcb8",
+          "disabled": true,
           "settings": {
             "link_1_text": "",
             "link_1_url": "shopify://pages/contact",
@@ -87,8 +103,7 @@
             "link_color": "#ffffff",
             "link_font_size": 16,
             "link_spacing": 32,
-            "logo": "shopify://shop_images/ChatGPT_Image_Oct_2_2025_07_35_05_PM.png",
-            "logo_width": 150,
+            "logo_width": 50,
             "copyright_text": "© October 10, 2025 KICKIN BIKES LLC",
             "copyright_color": "#ffffff",
             "copyright_font_size": 14,
@@ -102,6 +117,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_ef4928a_XQaQ3K",
         "ai_gen_block_258bcb8_eqDTza"
       ],
       "settings": {}
