@@ -20,7 +20,6 @@
     "image-banner": {
       "type": "image-banner",
       "settings": {
-        "image": "shopify://shop_images/RFN_26_MX_range_128.jpg",
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "image_behavior": "none",
@@ -81,6 +80,7 @@
       "blocks": {
         "column-1": {
           "type": "column",
+          "disabled": true,
           "settings": {
             "title": "Austin Jonas",
             "text": "<p>Outdoor recreation enthusiast - loves to dirt bike, mountain bike, rock climb, ski, and more. Believer and follower of Jesus Christ. Has been importing dirt bikes from China for the last decade.</p>",
@@ -90,6 +90,7 @@
         },
         "column-2": {
           "type": "column",
+          "disabled": true,
           "settings": {
             "title": "Alcuin Abraham",
             "text": "<p>Master programmer and tech support. 23 years old from Mindanao, Philippines currently living in Idaho.</p>",
