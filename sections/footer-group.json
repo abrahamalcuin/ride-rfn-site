@@ -32,7 +32,7 @@
           "type": "link_column",
           "settings": {
             "heading": "Support",
-            "menu": ""
+            "menu": "support"
           }
         },
         "link_column_mqRpjF": {
@@ -56,6 +56,10 @@
         "heading_color": "#ffffff",
         "link_color": "#f0f0f0",
         "link_hover_color": "#ffffff",
+        "link_font_family": "",
+        "link_font_size": 18,
+        "link_letter_spacing": 0,
+        "link_opacity": 100,
         "heading_font_family": "",
         "heading_font_size": 17,
         "heading_opacity": 100,
