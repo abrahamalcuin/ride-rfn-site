@@ -20,6 +20,17 @@
   assign heading_opacity = heading_opacity_setting | times: 0.01
   assign heading_font_size = section.settings.heading_font_size | default: 14
   assign heading_letter_spacing = section.settings.heading_letter_spacing | default: 3
+  assign link_font = section.settings.link_font_family
+  if link_font == blank
+    assign link_font = 'var(--font-body-family, var(--font-heading-family))'
+  endif
+  assign link_font_size = section.settings.link_font_size | default: 15
+  assign link_letter_spacing = section.settings.link_letter_spacing | default: 0
+  assign link_opacity_setting = section.settings.link_opacity
+  if link_opacity_setting == blank
+    assign link_opacity_setting = 100
+  endif
+  assign link_opacity = link_opacity_setting | times: 0.01
 -%}
 
 {%- style -%}
@@ -79,9 +90,12 @@
   .section-{{ section.id }} .varg-footer__link {
     color: {{ text_color }};
     text-decoration: none;
-    font-size: 0.95rem;
+    font-family: {{ link_font }};
+    font-size: {{ link_font_size }}px;
+    letter-spacing: {{ link_letter_spacing }}px;
     line-height: 1.45;
     transition: color 150ms ease;
+    opacity: {{ link_opacity }};
   }
 
   .section-{{ section.id }} .varg-footer__link:hover,
@@ -163,6 +177,42 @@
       "id": "link_hover_color",
       "label": "Link hover",
       "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "link_font_family",
+      "label": "Link font family",
+      "info": "Enter a CSS font-family stack. Leave blank to inherit the global body font."
+    },
+    {
+      "type": "range",
+      "id": "link_font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Link font size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "link_letter_spacing",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Link letter spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "link_opacity",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Link opacity",
+      "default": 100
     },
     {
       "type": "text",
