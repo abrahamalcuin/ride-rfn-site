@@ -216,6 +216,61 @@
         "learn_button_border": "#ffffff80"
       }
     },
+    "slideshow_6wFyJV": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_eqhzgc": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC04693_1_35e6dfba-3dd1-4bd3-b9a0-973f92b6c7cf.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "Why It’s Okay to Give Kids Dirt Bikes",
+            "heading_size": "h2",
+            "subheading": "(And Why It’s One of the Best Gifts You Can Give)",
+            "button_label": "Read More",
+            "link": "shopify://blogs/news/why-it-s-okay-to-give-kids-dirt-bikes-and-why-it-s-one-of-the-best-gifts-you-can-give",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "bottom-right",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-4"
+          }
+        },
+        "slide_MCAKJd": {
+          "type": "slide",
+          "settings": {
+            "image_overlay_opacity": 0,
+            "heading": "Image slide",
+            "heading_size": "h1",
+            "subheading": "Tell your brand's story through images",
+            "button_label": "Button label",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_eqhzgc",
+        "slide_MCAKJd"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
     "custom_highlight_css_dFMJEG": {
       "type": "custom_highlight_css",
       "custom_css": [],
@@ -241,6 +296,7 @@
   "order": [
     "fullscreen_autoplay_vid_AfbPnP",
     "featured_collection_hAQfCp",
+    "slideshow_6wFyJV",
     "custom_highlight_css_dFMJEG",
     "product_modal_overlay_AtmGhb"
   ]
