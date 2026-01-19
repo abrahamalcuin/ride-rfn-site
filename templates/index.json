@@ -182,7 +182,7 @@
         "title": "Warrior series bikes",
         "description": "",
         "show_price": true,
-        "background_color": "#000000",
+        "background_color": "#1f1f21",
         "text_color": "#ffffff",
         "padding_vertical": 120,
         "padding_horizontal": 24,
@@ -216,6 +216,30 @@
         "learn_button_border": "#ffffff80"
       }
     },
+    "rich_text_BPWTBa": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_PR9qPq": {
+          "type": "heading",
+          "settings": {
+            "heading": "Blogs",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_PR9qPq"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "slideshow_6wFyJV": {
       "type": "slideshow",
       "blocks": {
@@ -234,30 +258,12 @@
             "box_align": "bottom-right",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
-            "color_scheme": "scheme-4"
-          }
-        },
-        "slide_MCAKJd": {
-          "type": "slide",
-          "settings": {
-            "image_overlay_opacity": 0,
-            "heading": "Image slide",
-            "heading_size": "h1",
-            "subheading": "Tell your brand's story through images",
-            "button_label": "Button label",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
+            "color_scheme": "scheme-2"
           }
         }
       },
       "block_order": [
-        "slide_eqhzgc",
-        "slide_MCAKJd"
+        "slide_eqhzgc"
       ],
       "name": "t:sections.slideshow.presets.name",
       "settings": {
@@ -296,6 +302,7 @@
   "order": [
     "fullscreen_autoplay_vid_AfbPnP",
     "featured_collection_hAQfCp",
+    "rich_text_BPWTBa",
     "slideshow_6wFyJV",
     "custom_highlight_css_dFMJEG",
     "product_modal_overlay_AtmGhb"
