@@ -20,6 +20,25 @@
     "dealer_map_4ef8bY": {
       "type": "dealer-map",
       "blocks": {
+        "dealer_xrLPQe": {
+          "type": "dealer",
+          "settings": {
+            "name": "Karl Malone Powersports",
+            "address_line1": "1379 W 3300 S, Salt Lake City, UT 84119",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "+18019728725",
+            "email": "",
+            "website_url": "",
+            "latitude": "40.698580380505476",
+            "longitude": "-111.93100184232772",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
         "dealer_wA8Pmx": {
           "type": "dealer",
           "settings": {
@@ -212,6 +231,7 @@
         }
       },
       "block_order": [
+        "dealer_xrLPQe",
         "dealer_wA8Pmx",
         "dealer_bUtLe8",
         "dealer_RJWUTE",
