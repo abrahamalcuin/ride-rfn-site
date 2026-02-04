@@ -1,1 +1,233 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"padding_top":28,"padding_bottom":28}},"dealer_map_4ef8bY":{"type":"dealer-map","blocks":{"dealer_RJWUTE":{"type":"dealer","settings":{"name":"Cutler's","address_line1":"271 N State St, Orem UT 84057, USA","address_line2":"","city":"","state":"","postal_code":"","country":"","phone":"(801) 224-5005","email":"","website_url":"","latitude":"40.307247656729906","longitude":"-111.69896754626737","directions_url":"","notes":""}},"dealer_TjWJpC":{"type":"dealer","settings":{"name":"Edge Motorsports","address_line1":"14301 Minuteman Dr, Draper, UT 84020, USA","address_line2":"","city":"City","state":"","postal_code":"","country":"","phone":"(801) 495-3278","email":"","website_url":"","latitude":"40.49704386024535","longitude":"-111.89250312389785","directions_url":"","notes":""}},"dealer_q4XfKB":{"type":"dealer","settings":{"name":"Charged Cycles Works","address_line1":"261 River Bend Way Ste 3, North Salt Lake, UT 84054, USA","address_line2":"","city":"City","state":"","postal_code":"","country":"","phone":"(801) 449-1050","email":"","website_url":"","latitude":"40.84394577162458","longitude":"-111.94318885996098","directions_url":"https:\/\/www.google.com\/maps\/dir\/40.8355336,-111.9443871","notes":""}},"dealer_BxVe7c":{"type":"dealer","settings":{"name":"Ron's Tire and Motorsport - Idaho Falls","address_line1":"1255 N Holmes Ave, Idaho Falls, ID 83401, USA","address_line2":"","city":"City","state":"","postal_code":"","country":"","phone":"(208) 523-9942","email":"","website_url":"https:\/\/ronstireandmotorsports.com","latitude":"43.514785775633605","longitude":"-112.0277725111842","directions_url":"https:\/\/www.google.com\/maps\/dir\/43.5072211,-112.0245077","notes":""}},"dealer_iqbyNi":{"type":"dealer","settings":{"name":"SUPREME POWER SPORTS - Lewiston","address_line1":"1905 Main St, Lewiston, ID 83501, USA","address_line2":"","city":"City","state":"","postal_code":"","country":"","phone":"(208)-743-9496","email":"","website_url":"https:\/\/www.supremepowersports.com\/","latitude":"46.42243891377253","longitude":"-117.00386764124268","directions_url":"https:\/\/www.google.com\/maps\/dir\/46.4169066,-117.0036929","notes":""}},"dealer_UJamUf":{"type":"dealer","settings":{"name":"SUPREME POWER SPORTS - Potlatch","address_line1":"5531 Hwy 95, Potlatch, ID 83855, USA","address_line2":"","city":"City","state":"","postal_code":"","country":"","phone":"208.875.0307","email":"","website_url":"https:\/\/www.supremepowersports.com\/","latitude":"46.93298131557783","longitude":"-116.93379753401786","directions_url":"https:\/\/www.google.com\/maps\/dir\/46.9296114,-116.9332795","notes":""}},"dealer_pziTGm":{"type":"dealer","settings":{"name":"SUPREME POWER SPORTS - Priest River","address_line1":"5710 US-2, Priest River, ID 83856, USA","address_line2":"","city":"City","state":"","postal_code":"","country":"","phone":"208.448.1414","email":"","website_url":"","latitude":"48.18539408728942","longitude":"-116.91883513716883","directions_url":"https:\/\/www.google.com\/maps\/dir\/48.180273,-116.9186605","notes":""}},"dealer_Mbw6qm":{"type":"dealer","settings":{"name":"Big Pine Sports","address_line1":"340 N Milburn Rd, Fairview, UT 84629","address_line2":"","city":"City","state":"","postal_code":"","country":"","phone":"(435) 427-3338","email":"","website_url":"https:\/\/bigpinesports.com\/","latitude":"39.63353503455435","longitude":"-111.43887381152103","directions_url":"https:\/\/maps.app.goo.gl\/17vGpLEoYb8c5gx47","notes":""}}},"block_order":["dealer_RJWUTE","dealer_TjWJpC","dealer_q4XfKB","dealer_BxVe7c","dealer_iqbyNi","dealer_UJamUf","dealer_pziTGm","dealer_Mbw6qm"],"name":"Dealer map","settings":{"heading":"Our Dealers.","heading_size":1.5,"heading_weight":500,"heading_color":"#f5f5f5","text":"<p>Use the search bar or your location to find the dealer nearest to you!<\/p>","subtitle_size":1,"subtitle_color":"#bcbcbc","heading_alignment":"center","map_height":700,"header_offset":136,"default_zoom":9,"list_max_height":700,"section_padding":"40px 0","content_max_width":"1200px","panel_background":"#111111","panel_text":"#ffffff","button_background":"#ffffff","button_text":"#000000"}}},"order":["main","dealer_map_4ef8bY"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "dealer_map_4ef8bY": {
+      "type": "dealer-map",
+      "blocks": {
+        "dealer_UYDicX": {
+          "type": "dealer",
+          "settings": {
+            "name": "Dealer name",
+            "address_line1": "123 Main Street",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "",
+            "email": "",
+            "website_url": "",
+            "latitude": "43.81338430742124",
+            "longitude": "-111.78706031690652",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
+        "dealer_RJWUTE": {
+          "type": "dealer",
+          "settings": {
+            "name": "Cutler's",
+            "address_line1": "271 N State St, Orem UT 84057, USA",
+            "address_line2": "",
+            "city": "",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "(801) 224-5005",
+            "email": "",
+            "website_url": "",
+            "latitude": "40.307247656729906",
+            "longitude": "-111.69896754626737",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
+        "dealer_TjWJpC": {
+          "type": "dealer",
+          "settings": {
+            "name": "Edge Motorsports",
+            "address_line1": "14301 Minuteman Dr, Draper, UT 84020, USA",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "(801) 495-3278",
+            "email": "",
+            "website_url": "",
+            "latitude": "40.49704386024535",
+            "longitude": "-111.89250312389785",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
+        "dealer_q4XfKB": {
+          "type": "dealer",
+          "settings": {
+            "name": "Charged Cycles Works",
+            "address_line1": "261 River Bend Way Ste 3, North Salt Lake, UT 84054, USA",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "(801) 449-1050",
+            "email": "",
+            "website_url": "",
+            "latitude": "40.84394577162458",
+            "longitude": "-111.94318885996098",
+            "directions_url": "https://www.google.com/maps/dir/40.8355336,-111.9443871",
+            "notes": ""
+          }
+        },
+        "dealer_BxVe7c": {
+          "type": "dealer",
+          "settings": {
+            "name": "Ron's Tire and Motorsport - Idaho Falls",
+            "address_line1": "1255 N Holmes Ave, Idaho Falls, ID 83401, USA",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "(208) 523-9942",
+            "email": "",
+            "website_url": "https://ronstireandmotorsports.com",
+            "latitude": "43.514785775633605",
+            "longitude": "-112.0277725111842",
+            "directions_url": "https://www.google.com/maps/dir/43.5072211,-112.0245077",
+            "notes": ""
+          }
+        },
+        "dealer_iqbyNi": {
+          "type": "dealer",
+          "settings": {
+            "name": "SUPREME POWER SPORTS - Lewiston",
+            "address_line1": "1905 Main St, Lewiston, ID 83501, USA",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "(208)-743-9496",
+            "email": "",
+            "website_url": "https://www.supremepowersports.com/",
+            "latitude": "46.42243891377253",
+            "longitude": "-117.00386764124268",
+            "directions_url": "https://www.google.com/maps/dir/46.4169066,-117.0036929",
+            "notes": ""
+          }
+        },
+        "dealer_UJamUf": {
+          "type": "dealer",
+          "settings": {
+            "name": "SUPREME POWER SPORTS - Potlatch",
+            "address_line1": "5531 Hwy 95, Potlatch, ID 83855, USA",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "208.875.0307",
+            "email": "",
+            "website_url": "https://www.supremepowersports.com/",
+            "latitude": "46.93298131557783",
+            "longitude": "-116.93379753401786",
+            "directions_url": "https://www.google.com/maps/dir/46.9296114,-116.9332795",
+            "notes": ""
+          }
+        },
+        "dealer_pziTGm": {
+          "type": "dealer",
+          "settings": {
+            "name": "SUPREME POWER SPORTS - Priest River",
+            "address_line1": "5710 US-2, Priest River, ID 83856, USA",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "208.448.1414",
+            "email": "",
+            "website_url": "",
+            "latitude": "48.18539408728942",
+            "longitude": "-116.91883513716883",
+            "directions_url": "https://www.google.com/maps/dir/48.180273,-116.9186605",
+            "notes": ""
+          }
+        },
+        "dealer_Mbw6qm": {
+          "type": "dealer",
+          "settings": {
+            "name": "Big Pine Sports",
+            "address_line1": "340 N Milburn Rd, Fairview, UT 84629",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "(435) 427-3338",
+            "email": "",
+            "website_url": "https://bigpinesports.com/",
+            "latitude": "39.63353503455435",
+            "longitude": "-111.43887381152103",
+            "directions_url": "https://maps.app.goo.gl/17vGpLEoYb8c5gx47",
+            "notes": ""
+          }
+        }
+      },
+      "block_order": [
+        "dealer_UYDicX",
+        "dealer_RJWUTE",
+        "dealer_TjWJpC",
+        "dealer_q4XfKB",
+        "dealer_BxVe7c",
+        "dealer_iqbyNi",
+        "dealer_UJamUf",
+        "dealer_pziTGm",
+        "dealer_Mbw6qm"
+      ],
+      "name": "Dealer map",
+      "settings": {
+        "heading": "Our Dealers.",
+        "heading_size": 1.5,
+        "heading_weight": 500,
+        "heading_color": "#f5f5f5",
+        "text": "<p>Use the search bar or your location to find the dealer nearest to you!</p>",
+        "subtitle_size": 1,
+        "subtitle_color": "#bcbcbc",
+        "heading_alignment": "center",
+        "map_height": 700,
+        "header_offset": 136,
+        "default_zoom": 9,
+        "list_max_height": 700,
+        "section_padding": "40px 0",
+        "content_max_width": "1200px",
+        "panel_background": "#111111",
+        "panel_text": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text": "#000000"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "dealer_map_4ef8bY"
+  ]
+}
