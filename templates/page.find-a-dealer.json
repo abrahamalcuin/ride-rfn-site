@@ -20,6 +20,44 @@
     "dealer_map_4ef8bY": {
       "type": "dealer-map",
       "blocks": {
+        "dealer_wA8Pmx": {
+          "type": "dealer",
+          "settings": {
+            "name": "USA Motortoys",
+            "address_line1": "1005 Goshen Canyon Rd, Mona, UT 84645",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "+18017967416",
+            "email": "",
+            "website_url": "",
+            "latitude": "39.83105995735643",
+            "longitude": "-111.88103586931086",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
+        "dealer_bUtLe8": {
+          "type": "dealer",
+          "settings": {
+            "name": "R&R Motorsports",
+            "address_line1": "2080 S 1500 E, Vernal, UT 84078",
+            "address_line2": "",
+            "city": "City",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "+14357818818",
+            "email": "",
+            "website_url": "",
+            "latitude": "40.42567296456706",
+            "longitude": "-109.50009362698316",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
         "dealer_RJWUTE": {
           "type": "dealer",
           "settings": {
@@ -174,6 +212,8 @@
         }
       },
       "block_order": [
+        "dealer_wA8Pmx",
+        "dealer_bUtLe8",
         "dealer_RJWUTE",
         "dealer_TjWJpC",
         "dealer_q4XfKB",
