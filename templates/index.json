@@ -223,7 +223,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/DSC04693_1_35e6dfba-3dd1-4bd3-b9a0-973f92b6c7cf.jpg",
-            "image_overlay_opacity": 0,
+            "image_overlay_opacity": 20,
             "heading": "Why It’s Okay to Give Kids Dirt Bikes",
             "heading_size": "h2",
             "subheading": "(And Why It’s One of the Best Gifts You Can Give)",

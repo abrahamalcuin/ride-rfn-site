@@ -20,25 +20,6 @@
     "dealer_map_4ef8bY": {
       "type": "dealer-map",
       "blocks": {
-        "dealer_UYDicX": {
-          "type": "dealer",
-          "settings": {
-            "name": "Dealer name",
-            "address_line1": "123 Main Street",
-            "address_line2": "",
-            "city": "City",
-            "state": "",
-            "postal_code": "",
-            "country": "",
-            "phone": "",
-            "email": "",
-            "website_url": "",
-            "latitude": "43.81338430742124",
-            "longitude": "-111.78706031690652",
-            "directions_url": "",
-            "notes": ""
-          }
-        },
         "dealer_RJWUTE": {
           "type": "dealer",
           "settings": {
@@ -193,7 +174,6 @@
         }
       },
       "block_order": [
-        "dealer_UYDicX",
         "dealer_RJWUTE",
         "dealer_TjWJpC",
         "dealer_q4XfKB",
