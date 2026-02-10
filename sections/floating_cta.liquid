@@ -36,11 +36,12 @@
   {%- assign open_new = section.settings.open_new | default: false -%}
   {%- assign z_index = section.settings.z_index | default: 9999 | plus: 0 -%}
   {%- assign width_px = section.settings.width_px | default: 0 | plus: 0 -%}
+  {%- assign enable_modal = section.settings.enable_modal | default: true -%}
   {%- assign dynamic_checkout_enabled = false -%}
   {%- assign cta_triggers_modal = false -%}
   {%- assign initial_variant = nil -%}
   {%- assign initial_checkout_qty = 1 -%}
-  {%- if product and section.settings.link == blank -%}
+  {%- if enable_modal and product and section.settings.link == blank -%}
     {%- assign initial_variant = product.selected_or_first_available_variant -%}
     {%- if initial_variant -%}
       {%- assign cta_triggers_modal = true -%}
@@ -313,6 +314,7 @@
   "settings": [
     { "type": "text", "id": "button_text", "label": "Button text", "default": "Shop Now" },
     { "type": "url",  "id": "link", "label": "Button link" },
+    { "type": "checkbox", "id": "enable_modal", "label": "Open product modal when no button link is set", "default": true },
     { "type": "text", "id": "aria_label", "label": "ARIA label (accessibility)" },
 
     { "type": "header", "content": "Layout & Position" },

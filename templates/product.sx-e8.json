@@ -770,6 +770,15 @@
         "button_text_color": "#111111"
       }
     },
+    "product_modal_overlay_sWEUZF": {
+      "type": "product_modal_overlay",
+      "name": "Product modal",
+      "settings": {
+        "product": "2026-rfn-warrior-e8-youth-teen-electric-dirt-bike-60v-8-000w-pre-order",
+        "add_button_text": "Add to cart",
+        "checkout_button_text": "Checkout now"
+      }
+    },
     "collapsible_content_KhkhbB": {
       "type": "collapsible-content",
       "blocks": {
@@ -971,6 +980,7 @@
     "slideshow_HP9Dan",
     "floating_cta_XfYkRL",
     "floating_cta_YB7bmy",
+    "product_modal_overlay_sWEUZF",
     "collapsible_content_KhkhbB",
     "main"
   ]

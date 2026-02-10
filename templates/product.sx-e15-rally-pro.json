@@ -638,6 +638,15 @@
         "button_text_color": "#111111"
       }
     },
+    "product_modal_overlay_vwRXn6": {
+      "type": "product_modal_overlay",
+      "name": "Product modal",
+      "settings": {
+        "product": "2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order",
+        "add_button_text": "Add to cart",
+        "checkout_button_text": "Checkout now"
+      }
+    },
     "slideshow_jVcz7R": {
       "type": "slideshow",
       "blocks": {
@@ -989,6 +998,7 @@
     "rich_text_6TVaXH",
     "floating_cta_W8kVPx",
     "floating_cta_xcAJE7",
+    "product_modal_overlay_vwRXn6",
     "slideshow_jVcz7R",
     "collapsible_content_GkYAc7",
     "related-products",

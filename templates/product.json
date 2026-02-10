@@ -705,6 +705,15 @@
         "button_text_color": "#111111"
       }
     },
+    "product_modal_overlay_XBo0i2": {
+      "type": "product_modal_overlay",
+      "name": "Product modal",
+      "settings": {
+        "product": "",
+        "add_button_text": "Add to cart",
+        "checkout_button_text": "Checkout now"
+      }
+    },
     "rich_text_ntYFTK": {
       "type": "rich-text",
       "blocks": {
@@ -989,6 +998,7 @@
     "fullscreen_autoplay_vid_9yfWfM",
     "floating_cta_gznNXT",
     "floating_cta_qybKXt",
+    "product_modal_overlay_XBo0i2",
     "rich_text_ntYFTK",
     "slideshow_d7niXh",
     "collapsible_content_L7dA47",
