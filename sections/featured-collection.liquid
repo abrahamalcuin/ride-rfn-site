@@ -892,6 +892,18 @@
         body.classList.remove('quick-shop-locked');
       };
 
+      const detachModalToBody = (modal) => {
+        if (!modal || modal.dataset.quickShopDetached === 'true') return;
+        const placeholder = document.createElement('span');
+        placeholder.setAttribute('data-quick-shop-anchor', modal.id || '');
+        placeholder.hidden = true;
+        if (modal.parentNode) {
+          modal.parentNode.insertBefore(placeholder, modal);
+        }
+        body.appendChild(modal);
+        modal.dataset.quickShopDetached = 'true';
+      };
+
       const clampQuantity = (value, min) => {
         const parsed = parseInt(value, 10);
         if (!Number.isFinite(parsed) || parsed < min) return min;
@@ -916,6 +928,7 @@
       quickShopModals.forEach((modal) => {
         const modalId = modal.id;
         if (!modalId) return;
+        detachModalToBody(modal);
         const triggers = Array.from(root.querySelectorAll(`[data-quick-shop-open="${modalId}"]`));
         if (!triggers.length) return;
 
