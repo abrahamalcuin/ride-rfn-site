@@ -247,7 +247,8 @@
     color: {{ section.settings.learn_button_text }};
     border: 1px solid {{ section.settings.learn_button_border }};
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal {
+  .featured-collection--{{ section.id }} .quick-shop-modal,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] {
     position: fixed;
     inset: 0;
     display: none;
@@ -256,18 +257,22 @@
     z-index: 14000;
     padding: clamp(12px, 4vw, 32px);
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal.is-open {
+  .featured-collection--{{ section.id }} .quick-shop-modal.is-open,
+  .quick-shop-modal[data-section-id="{{ section.id }}"].is-open {
     display: flex;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal[hidden] {
+  .featured-collection--{{ section.id }} .quick-shop-modal[hidden],
+  .quick-shop-modal[data-section-id="{{ section.id }}"][hidden] {
     display: none !important;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__backdrop {
+  .featured-collection--{{ section.id }} .quick-shop-modal__backdrop,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__backdrop {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.65);
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__dialog {
+  .featured-collection--{{ section.id }} .quick-shop-modal__dialog,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__dialog {
     position: relative;
     background: #ffffff;
     color: #111111;
@@ -283,7 +288,8 @@
     z-index: 1;
     overflow-y: auto;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__close {
+  .featured-collection--{{ section.id }} .quick-shop-modal__close,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__close {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -300,17 +306,20 @@
     font-size: 1.35rem;
     transition: background 0.18s ease, transform 0.18s ease;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__close:hover {
+  .featured-collection--{{ section.id }} .quick-shop-modal__close:hover,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__close:hover {
     background: rgba(0, 0, 0, 0.15);
     transform: scale(1.05);
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__content {
+  .featured-collection--{{ section.id }} .quick-shop-modal__content,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__content {
     display: grid;
     grid-template-columns: minmax(0, 45%) minmax(0, 55%);
     gap: 32px;
     align-items: flex-start;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__media {
+  .featured-collection--{{ section.id }} .quick-shop-modal__media,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__media {
     width: 100%;
     background: #f5f5f5;
     border-radius: 16px;
@@ -320,12 +329,14 @@
     justify-content: center;
     aspect-ratio: 4 / 5;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__media img {
+  .featured-collection--{{ section.id }} .quick-shop-modal__media img,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__media-placeholder {
+  .featured-collection--{{ section.id }} .quick-shop-modal__media-placeholder,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__media-placeholder {
     width: 100%;
     height: 100%;
     background: repeating-linear-gradient(
@@ -336,43 +347,51 @@
       #fafafa 24px
     );
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__info {
+  .featured-collection--{{ section.id }} .quick-shop-modal__info,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__info {
     flex: 1 1 280px;
     display: flex;
     flex-direction: column;
     gap: 18px;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__title {
+  .featured-collection--{{ section.id }} .quick-shop-modal__title,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__title {
     margin: 0;
     font-size: clamp(1.4rem, 2.6vw, 2rem);
     font-weight: 600;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__price {
+  .featured-collection--{{ section.id }} .quick-shop-modal__price,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__price {
     font-size: 1.6rem;
     font-weight: 600;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__field {
+  .featured-collection--{{ section.id }} .quick-shop-modal__field,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__field {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__label {
+  .featured-collection--{{ section.id }} .quick-shop-modal__label,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__label {
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: rgba(17, 17, 17, 0.7);
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__select {
+  .featured-collection--{{ section.id }} .quick-shop-modal__select,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__select {
     border-radius: 10px;
     border: 1px solid rgba(17, 17, 17, 0.25);
     padding: 10px 12px;
     font-size: 1rem;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__field--quantity .quick-shop-modal__label {
+  .featured-collection--{{ section.id }} .quick-shop-modal__field--quantity .quick-shop-modal__label,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__field--quantity .quick-shop-modal__label {
     margin-bottom: 2px;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__quantity {
+  .featured-collection--{{ section.id }} .quick-shop-modal__quantity,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__quantity {
     display: inline-flex;
     align-items: center;
     border-radius: 999px;
@@ -380,7 +399,8 @@
     overflow: hidden;
     width: fit-content;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__quantity button {
+  .featured-collection--{{ section.id }} .quick-shop-modal__quantity button,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__quantity button {
     width: 42px;
     height: 42px;
     border: none;
@@ -390,7 +410,8 @@
     cursor: pointer;
     color: inherit;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__quantity input {
+  .featured-collection--{{ section.id }} .quick-shop-modal__quantity input,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__quantity input {
     width: 70px;
     height: 42px;
     border: none;
@@ -399,12 +420,14 @@
     font-weight: 600;
     color: inherit;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__actions {
+  .featured-collection--{{ section.id }} .quick-shop-modal__actions,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__btn {
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__btn {
     flex: 1 1 220px;
     padding: 14px 20px;
     border-radius: 999px;
@@ -413,25 +436,30 @@
     cursor: pointer;
     transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__btn--primary {
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn--primary,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__btn--primary {
     background: #111111;
     color: #ffffff;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__btn--secondary {
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn--secondary,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__btn--secondary {
     background: #ffffff;
     color: #111111;
     border: 1px solid rgba(17, 17, 17, 0.2);
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__btn:disabled {
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn:disabled,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__btn:not(:disabled):hover {
+  .featured-collection--{{ section.id }} .quick-shop-modal__btn:not(:disabled):hover,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__btn:not(:disabled):hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
   }
-  .featured-collection--{{ section.id }} .quick-shop-modal__feedback {
+  .featured-collection--{{ section.id }} .quick-shop-modal__feedback,
+  .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__feedback {
     min-height: 1.2rem;
     font-size: 0.9rem;
     color: rgba(17, 17, 17, 0.78);
@@ -441,38 +469,46 @@
     touch-action: none;
   }
   @media (max-width: 900px) {
-    .featured-collection--{{ section.id }} .quick-shop-modal__dialog {
+    .featured-collection--{{ section.id }} .quick-shop-modal__dialog,
+    .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__dialog {
       width: 94vw;
       padding: 24px;
       max-height: 92vh;
     }
-    .featured-collection--{{ section.id }} .quick-shop-modal__content {
+    .featured-collection--{{ section.id }} .quick-shop-modal__content,
+    .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__content {
       grid-template-columns: 1fr;
       gap: 24px;
     }
-    .featured-collection--{{ section.id }} .quick-shop-modal__media {
+    .featured-collection--{{ section.id }} .quick-shop-modal__media,
+    .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__media {
       width: 100%;
       aspect-ratio: 1 / 1;
     }
   }
   @media (max-width: 600px) {
-    .featured-collection--{{ section.id }} .quick-shop-modal {
+    .featured-collection--{{ section.id }} .quick-shop-modal,
+    .quick-shop-modal[data-section-id="{{ section.id }}"] {
       align-items: flex-start;
     }
-    .featured-collection--{{ section.id }} .quick-shop-modal__dialog {
+    .featured-collection--{{ section.id }} .quick-shop-modal__dialog,
+    .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__dialog {
       padding: 20px;
       border-radius: 14px;
       width: 100%;
       max-height: 92vh;
     }
-    .featured-collection--{{ section.id }} .quick-shop-modal__close {
+    .featured-collection--{{ section.id }} .quick-shop-modal__close,
+    .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__close {
       top: 10px;
       right: 10px;
     }
-    .featured-collection--{{ section.id }} .quick-shop-modal__actions {
+    .featured-collection--{{ section.id }} .quick-shop-modal__actions,
+    .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__actions {
       flex-direction: column;
     }
-    .featured-collection--{{ section.id }} .quick-shop-modal__btn {
+    .featured-collection--{{ section.id }} .quick-shop-modal__btn,
+    .quick-shop-modal[data-section-id="{{ section.id }}"] .quick-shop-modal__btn {
       flex: 1 1 auto;
       width: 100%;
     }
