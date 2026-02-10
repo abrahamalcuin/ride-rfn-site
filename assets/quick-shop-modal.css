@@ -1,0 +1,266 @@
+.quick-shop-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 14000;
+  padding: clamp(12px, 4vw, 32px);
+}
+
+.quick-shop-modal.is-open {
+  display: flex;
+}
+
+.quick-shop-modal[hidden] {
+  display: none !important;
+}
+
+.quick-shop-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.quick-shop-modal__dialog {
+  position: relative;
+  background: #ffffff;
+  color: #111111;
+  border-radius: 18px;
+  max-width: 960px;
+  width: min(90vw, 920px);
+  max-height: 92vh;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.quick-shop-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.08);
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.quick-shop-modal__close:hover {
+  background: rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.quick-shop-modal__content {
+  display: grid;
+  grid-template-columns: minmax(0, 45%) minmax(0, 55%);
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.quick-shop-modal__media {
+  width: 100%;
+  background: #f5f5f5;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 5;
+}
+
+.quick-shop-modal__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quick-shop-modal__media-placeholder {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    135deg,
+    #f0f0f0 0,
+    #f0f0f0 12px,
+    #fafafa 12px,
+    #fafafa 24px
+  );
+}
+
+.quick-shop-modal__info {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #111111;
+}
+
+.quick-shop-modal__title {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-weight: 600;
+  color: #111111;
+}
+
+.quick-shop-modal__price {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.quick-shop-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quick-shop-modal__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.7);
+}
+
+.quick-shop-modal__field--quantity .quick-shop-modal__label {
+  margin-bottom: 2px;
+}
+
+.quick-shop-modal__select {
+  border-radius: 10px;
+  border: 1px solid rgba(17, 17, 17, 0.25);
+  padding: 10px 12px;
+  font-size: 1rem;
+}
+
+.quick-shop-modal__quantity {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 17, 17, 0.2);
+  overflow: hidden;
+  width: fit-content;
+}
+
+.quick-shop-modal__quantity button {
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: transparent;
+  font-size: 1.35rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: inherit;
+}
+
+.quick-shop-modal__quantity input {
+  width: 70px;
+  height: 42px;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.quick-shop-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.quick-shop-modal__btn {
+  flex: 1 1 220px;
+  padding: 14px 20px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.quick-shop-modal__btn--primary {
+  background: #111111;
+  color: #ffffff;
+}
+
+.quick-shop-modal__btn--secondary {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid rgba(17, 17, 17, 0.2);
+}
+
+.quick-shop-modal__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.quick-shop-modal__btn:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.quick-shop-modal__feedback {
+  min-height: 1.2rem;
+  font-size: 0.9rem;
+  color: rgba(17, 17, 17, 0.78);
+}
+
+body.quick-shop-locked {
+  overflow: hidden;
+  touch-action: none;
+}
+
+@media (max-width: 900px) {
+  .quick-shop-modal__dialog {
+    width: 94vw;
+    padding: 24px;
+  }
+
+  .quick-shop-modal__content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .quick-shop-modal__media {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .quick-shop-modal {
+    align-items: flex-start;
+  }
+
+  .quick-shop-modal__dialog {
+    padding: 20px;
+    border-radius: 14px;
+    width: 100%;
+    max-height: 92vh;
+  }
+
+  .quick-shop-modal__close {
+    top: 10px;
+    right: 10px;
+  }
+
+  .quick-shop-modal__actions {
+    flex-direction: column;
+  }
+
+  .quick-shop-modal__btn {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
