@@ -254,6 +254,7 @@
     align-items: center;
     justify-content: center;
     z-index: 14000;
+    padding: clamp(12px, 4vw, 32px);
   }
   .featured-collection--{{ section.id }} .quick-shop-modal.is-open {
     display: flex;
@@ -271,14 +272,16 @@
     background: #ffffff;
     color: #111111;
     border-radius: 18px;
-    max-width: 880px;
-    width: min(94vw, 840px);
-    padding: 28px;
+    max-width: 960px;
+    width: min(90vw, 920px);
+    max-height: 92vh;
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
     box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
     z-index: 1;
+    overflow-y: auto;
   }
   .featured-collection--{{ section.id }} .quick-shop-modal__close {
     position: absolute;
@@ -302,14 +305,13 @@
     transform: scale(1.05);
   }
   .featured-collection--{{ section.id }} .quick-shop-modal__content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 45%) minmax(0, 55%);
+    gap: 32px;
     align-items: flex-start;
   }
   .featured-collection--{{ section.id }} .quick-shop-modal__media {
-    flex: 0 0 clamp(240px, 32vw, 360px);
-    width: clamp(240px, 32vw, 360px);
+    width: 100%;
     background: #f5f5f5;
     border-radius: 16px;
     overflow: hidden;
@@ -441,22 +443,27 @@
   @media (max-width: 900px) {
     .featured-collection--{{ section.id }} .quick-shop-modal__dialog {
       width: 94vw;
-      padding: 22px;
+      padding: 24px;
+      max-height: 92vh;
     }
     .featured-collection--{{ section.id }} .quick-shop-modal__content {
-      flex-direction: column;
-      align-items: stretch;
+      grid-template-columns: 1fr;
+      gap: 24px;
     }
     .featured-collection--{{ section.id }} .quick-shop-modal__media {
       width: 100%;
-      flex: 0 0 auto;
       aspect-ratio: 1 / 1;
     }
   }
   @media (max-width: 600px) {
+    .featured-collection--{{ section.id }} .quick-shop-modal {
+      align-items: flex-start;
+    }
     .featured-collection--{{ section.id }} .quick-shop-modal__dialog {
-      padding: 18px;
+      padding: 20px;
       border-radius: 14px;
+      width: 100%;
+      max-height: 92vh;
     }
     .featured-collection--{{ section.id }} .quick-shop-modal__close {
       top: 10px;
