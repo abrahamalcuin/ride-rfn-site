@@ -310,10 +310,6 @@ h2,
   font-size: calc(var(--font-heading-scale) * 2rem);
 }
 
-.quick-shop-modal__title,
-.quick-shop-modal__title *,
-.quick-shop-modal__info,
-.quick-shop-modal__info *,
 .quick-shop-modal__title-text {
   color: #111111 !important;
   -webkit-text-fill-color: #111111 !important;
