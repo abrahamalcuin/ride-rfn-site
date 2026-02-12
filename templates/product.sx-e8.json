@@ -691,6 +691,7 @@
       "settings": {
         "button_text": "Order Now",
         "link": "",
+        "enable_modal": true,
         "aria_label": "",
         "position": "bc",
         "offset_x": 16,
@@ -706,8 +707,8 @@
         "header_align": "left",
         "header_chip_color": "#2a2a2a",
         "show_header_icon": true,
-        "price_text": "$5,799",
-        "compare_price_text": "$6,375",
+        "price_text": "$5,699",
+        "compare_price_text": "",
         "compare_price_size": 14,
         "date_text": "",
         "finance_text": "+ Shipping/Tax",
@@ -734,6 +735,7 @@
       "settings": {
         "button_text": "Find a Dealer",
         "link": "shopify://pages/find-a-dealer",
+        "enable_modal": true,
         "aria_label": "",
         "position": "bc",
         "offset_x": 16,
