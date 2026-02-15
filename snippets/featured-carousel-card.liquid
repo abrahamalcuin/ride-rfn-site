@@ -24,11 +24,27 @@
 {% assign quick_shop_add_label = section.settings.quick_shop_add_label | default: 'Add to cart' %}
 {% assign quick_shop_checkout_label = section.settings.quick_shop_checkout_label | default: 'Checkout now' %}
 {% assign quick_shop_modal_id = 'quick-modal-' | append: section.id | append: '-' | append: product.id %}
+{% assign product_page_url = '' %}
+{% if product and product.url %}
+  {% assign product_page_url = product.url %}
+{% endif %}
+{% if product_page_url == blank and product_block and product_block.settings.product %}
+  {% assign block_product = product_block.settings.product %}
+  {% if block_product and block_product.url %}
+    {% assign product_page_url = block_product.url %}
+  {% elsif block_product != blank %}
+    {% assign block_product_handle = block_product.handle | default: block_product %}
+    {% assign product_page_url = routes.root_url | append: '/products/' | append: block_product_handle %}
+  {% endif %}
+{% endif %}
+{% if product_page_url == blank and product and product.handle %}
+  {% assign product_page_url = routes.root_url | append: '/products/' | append: product.handle %}
+{% endif %}
 
 <li class="fc-carousel__slide" data-index="{{ index }}"{% if product_block %} {{ product_block.shopify_attributes }}{% endif %} style="--fc-media-scale: {{ media_scale }}">
   <article class="fc-card">
     <div class="fc-card__inner">
-      <a class="fc-card__media" href="{{ product.url }}">
+      <a class="fc-card__media" href="{{ product_page_url }}">
         {% if preview_image %}
           <img src="{{ preview_image | image_url: width: 1600 }}" alt="{{ preview_image.alt | default: product.title | escape }}">
         {% else %}
@@ -38,7 +54,7 @@
         {% endif %}
       </a>
       <div class="fc-card__content">
-        <a class="fc-card__details-link" href="{{ product.url }}">
+        <a class="fc-card__details-link" href="{{ product_page_url }}">
           <div class="fc-card__header">
             <h3 class="fc-card__title">{{ product.title }}</h3>
             {% if section.settings.show_price and product.price %}
