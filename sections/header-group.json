@@ -13,7 +13,6 @@
   "sections": {
     "rolling_announcement": {
       "type": "rolling-announcement-bar",
-      "custom_css": [],
       "settings": {
         "enable_bar": true,
         "message": "UTAH AND IDAHO'S OFFICIAL DISTRIBUTOR",

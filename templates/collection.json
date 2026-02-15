@@ -1,1 +1,45 @@
-{"sections":{"product_hero_banner_bcqjmf":{"type":"product_hero_banner","name":"Product hero banner","settings":{"eyebrow":"","custom_title":"","richtext":"","show_price":true,"description_words":35,"hero_image":"shopify:\/\/shop_images\/20240114__BE14.425.5.png","media_overlay_color":"#000000","media_overlay_opacity":30,"nav_collection":"","wrap_navigation":false,"nav_prev_label":"Previous","nav_next_label":"Next","content_alignment":"center","hero_min_height":640,"padding_top":100,"padding_bottom":100,"padding_horizontal":60,"content_gap":18,"text_color":"#FFFFFF","background_color":"#1f1d1d","fade_color":"#000000","fade_opacity":70,"transition_duration":260}},"banner":{"type":"main-collection-banner","settings":{"show_collection_description":false,"show_collection_image":false,"color_scheme":"scheme-1"}},"product-grid":{"type":"main-collection-product-grid","settings":{"products_per_page":16,"columns_desktop":4,"columns_mobile":"1","color_scheme":"scheme-1","image_ratio":"portrait","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"quick_add":"none","enable_filtering":true,"filter_type":"drawer","enable_sorting":true,"padding_top":0,"padding_bottom":40}}},"order":["product_hero_banner_bcqjmf","banner","product-grid"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "1",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "drawer",
+        "enable_sorting": true,
+        "padding_top": 0,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid"
+  ]
+}
