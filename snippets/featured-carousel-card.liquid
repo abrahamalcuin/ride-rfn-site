@@ -28,7 +28,7 @@
 <li class="fc-carousel__slide" data-index="{{ index }}"{% if product_block %} {{ product_block.shopify_attributes }}{% endif %} style="--fc-media-scale: {{ media_scale }}">
   <article class="fc-card">
     <div class="fc-card__inner">
-      <div class="fc-card__media">
+      <a class="fc-card__media" href="{{ product.url }}">
         {% if preview_image %}
           <img src="{{ preview_image | image_url: width: 1600 }}" alt="{{ preview_image.alt | default: product.title | escape }}">
         {% else %}
@@ -36,58 +36,60 @@
             {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
           </div>
         {% endif %}
-      </div>
+      </a>
       <div class="fc-card__content">
-        <div class="fc-card__header">
-          <h3 class="fc-card__title">{{ product.title }}</h3>
-          {% if section.settings.show_price and product.price %}
-            <p class="fc-card__price">{{ product.price | money_with_currency }}</p>
-          {% endif %}
-        </div>
-
-        {% capture specs_markup %}
-          {% for spec_index in (1..4) %}
-            {% assign spec_index_str = spec_index | append: '' %}
-            {% assign metric_key = 'spec_' | append: spec_index | append: '_metric' %}
-            {% assign hint_key = 'spec_' | append: spec_index | append: '_hint' %}
-            {% assign spec_override = overrides | where: 'settings.position', spec_index_str | first %}
-
-            {% assign metric = '' %}
-            {% assign hint = '' %}
-
-            {% if spec_override %}
-              {% assign metric = spec_override.settings.metric %}
-              {% assign hint = spec_override.settings.hint %}
-            {% elsif product_block %}
-              {% assign metric = product_block.settings[metric_key] %}
-              {% assign hint = product_block.settings[hint_key] %}
-            {% else %}
-              {% assign metric = section.settings[metric_key] %}
-              {% assign hint = section.settings[hint_key] %}
+        <a class="fc-card__details-link" href="{{ product.url }}">
+          <div class="fc-card__header">
+            <h3 class="fc-card__title">{{ product.title }}</h3>
+            {% if section.settings.show_price and product.price %}
+              <p class="fc-card__price">{{ product.price | money_with_currency }}</p>
             {% endif %}
-
-            {% if metric != blank or hint != blank %}
-              <div class="fc-card__spec">
-                {% if metric != blank %}
-                  <span class="fc-card__spec-title">{{ metric }}</span>
-                {% endif %}
-                {% if hint != blank %}
-                  <span class="fc-card__spec-subtitle">{{ hint }}</span>
-                {% endif %}
-              </div>
-            {% endif %}
-          {% endfor %}
-        {% endcapture %}
-
-        {% assign specs_markup_trimmed = specs_markup | strip %}
-        {% if specs_markup_trimmed != '' %}
-          <div class="fc-card__specs">
-            {{ specs_markup_trimmed }}
           </div>
-        {% endif %}
+
+          {% capture specs_markup %}
+            {% for spec_index in (1..4) %}
+              {% assign spec_index_str = spec_index | append: '' %}
+              {% assign metric_key = 'spec_' | append: spec_index | append: '_metric' %}
+              {% assign hint_key = 'spec_' | append: spec_index | append: '_hint' %}
+              {% assign spec_override = overrides | where: 'settings.position', spec_index_str | first %}
+
+              {% assign metric = '' %}
+              {% assign hint = '' %}
+
+              {% if spec_override %}
+                {% assign metric = spec_override.settings.metric %}
+                {% assign hint = spec_override.settings.hint %}
+              {% elsif product_block %}
+                {% assign metric = product_block.settings[metric_key] %}
+                {% assign hint = product_block.settings[hint_key] %}
+              {% else %}
+                {% assign metric = section.settings[metric_key] %}
+                {% assign hint = section.settings[hint_key] %}
+              {% endif %}
+
+              {% if metric != blank or hint != blank %}
+                <div class="fc-card__spec">
+                  {% if metric != blank %}
+                    <span class="fc-card__spec-title">{{ metric }}</span>
+                  {% endif %}
+                  {% if hint != blank %}
+                    <span class="fc-card__spec-subtitle">{{ hint }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endcapture %}
+
+          {% assign specs_markup_trimmed = specs_markup | strip %}
+          {% if specs_markup_trimmed != '' %}
+            <div class="fc-card__specs">
+              {{ specs_markup_trimmed }}
+            </div>
+          {% endif %}
+        </a>
 
 {% assign learn_label = section.settings.learn_button_label | default: 'Learn More' %}
-{% assign learn_link = section.settings.default_learn_link %}
+{% assign learn_link = '' %}
 
 {% if product_block %}
   {% if product_block.settings.learn_button_label != blank %}
@@ -100,10 +102,6 @@
   {% endif %}
 {% endif %}
 
-{% if learn_link == blank %}
-  {% assign learn_link = product.url %}
-{% endif %}
-
 <div class="fc-card__buttons">
   <button
     type="button"
@@ -112,9 +110,11 @@
   >
     {{ quick_shop_label }}
   </button>
-  <a class="fc-button fc-button--secondary" href="{{ learn_link }}">
-    {{ learn_label }}
-  </a>
+  {% if learn_link != blank %}
+    <a class="fc-button fc-button--secondary" href="{{ learn_link }}">
+      {{ learn_label }}
+    </a>
+  {% endif %}
 </div>
 
 {% assign quick_shop_default_variant = first_variant %}
