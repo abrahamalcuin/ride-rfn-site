@@ -20,6 +20,35 @@
     "blocks_YkkezE": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_e3bd6bc_eJYg8d": {
+          "type": "ai_gen_block_e3bd6bc",
+          "name": "Collection search",
+          "settings": {
+            "placeholder_text": "Search products...",
+            "desktop_width_percent": 80,
+            "input_padding": 16,
+            "input_font_size": 16,
+            "input_border_thickness": 1,
+            "input_border_radius": 4,
+            "input_bg_color": "#2a2a2c",
+            "input_text_color": "#ffffff",
+            "input_border_color": "#444444",
+            "input_focus_border_color": "#e3fc02",
+            "placeholder_color": "#999999",
+            "icon_color": "#999999",
+            "no_results_text": "No products match your search.",
+            "results_font_size": 14,
+            "results_text_color": "#cccccc",
+            "product_card_border_radius": 8,
+            "product_card_bg_color": "#2a2a2c",
+            "product_card_border_color": "#3a3a3c",
+            "product_title_color": "#ffffff",
+            "product_title_font_size": 16,
+            "product_price_color": "#e3fc02",
+            "product_price_font_size": 14
+          },
+          "blocks": {}
+        },
         "ai_gen_block_81f7780_NWzfY4": {
           "type": "ai_gen_block_81f7780",
           "settings": {
@@ -47,6 +76,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_e3bd6bc_eJYg8d",
         "ai_gen_block_81f7780_NWzfY4"
       ],
       "name": "Collection search",
