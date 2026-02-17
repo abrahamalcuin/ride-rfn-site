@@ -1,6 +1,561 @@
+{% doc %}
+  @prompt
+    Create a fully functional collection search block with real-time filtering that actually works to filter products within the current collection. The search should display at 80% width on mobile devices and match a dark theme aesthetic with proper search functionality that filters products as the user types.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-search-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: 20px 0;
+  }
+
+  .ai-collection-search-container-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-collection-search-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+  }
+
+  .ai-collection-search-input-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .ai-collection-search-input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.input_padding }}px;
+    padding-right: 50px;
+    background-color: {{ block.settings.input_bg_color }};
+    color: {{ block.settings.input_text_color }};
+    border: {{ block.settings.input_border_thickness }}px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: {{ block.settings.input_font_size }}px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-collection-search-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.placeholder_color }};
+    opacity: 0.7;
+  }
+
+  .ai-collection-search-input-{{ ai_gen_id }}:focus {
+    border-color: {{ block.settings.input_focus_border_color }};
+  }
+
+  .ai-collection-search-icon-{{ ai_gen_id }} {
+    position: absolute;
+    right: {{ block.settings.input_padding }}px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: {{ block.settings.icon_color }};
+    pointer-events: none;
+  }
+
+  .ai-collection-search-clear-{{ ai_gen_id }} {
+    position: absolute;
+    right: calc({{ block.settings.input_padding }}px + 30px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: none;
+    color: {{ block.settings.icon_color }};
+    opacity: 0.6;
+  }
+
+  .ai-collection-search-clear-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-collection-search-clear-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-collection-search-results-{{ ai_gen_id }} {
+    margin-top: 20px;
+  }
+
+  .ai-collection-search-count-{{ ai_gen_id }} {
+    color: {{ block.settings.results_text_color }};
+    font-size: {{ block.settings.results_font_size }}px;
+    margin-bottom: 15px;
+  }
+
+  .ai-collection-search-no-results-{{ ai_gen_id }} {
+    color: {{ block.settings.results_text_color }};
+    font-size: {{ block.settings.results_font_size }}px;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .ai-collection-search-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .ai-collection-search-product-{{ ai_gen_id }} {
+    background-color: {{ block.settings.product_card_bg_color }};
+    border: 1px solid {{ block.settings.product_card_border_color }};
+    border-radius: {{ block.settings.product_card_border_radius }}px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-collection-search-product-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-collection-search-product-{{ ai_gen_id }}.hidden {
+    display: none;
+  }
+
+  .ai-collection-search-product-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .ai-collection-search-product-image-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-collection-search-product-info-{{ ai_gen_id }} {
+    padding: 15px;
+  }
+
+  .ai-collection-search-product-title-{{ ai_gen_id }} {
+    color: {{ block.settings.product_title_color }};
+    font-size: {{ block.settings.product_title_font_size }}px;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .ai-collection-search-product-price-{{ ai_gen_id }} {
+    color: {{ block.settings.product_price_color }};
+    font-size: {{ block.settings.product_price_font_size }}px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-search-container-{{ ai_gen_id }} {
+      width: 80%;
+    }
+
+    .ai-collection-search-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+  }
+{% endstyle %}
+
+<collection-search-{{ ai_gen_id }}
+  class="ai-collection-search-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+  data-collection-handle="{{ collection.handle }}"
+>
+  <div class="ai-collection-search-container-{{ ai_gen_id }}">
+    <div class="ai-collection-search-wrapper-{{ ai_gen_id }}">
+      <div class="ai-collection-search-input-wrapper-{{ ai_gen_id }}">
+        <input
+          type="text"
+          class="ai-collection-search-input-{{ ai_gen_id }}"
+          placeholder="{{ block.settings.placeholder_text }}"
+          aria-label="Search products in this collection"
+          autocomplete="off"
+        >
+        <button
+          type="button"
+          class="ai-collection-search-clear-{{ ai_gen_id }}"
+          aria-label="Clear search"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <svg
+          class="ai-collection-search-icon-{{ ai_gen_id }}"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </div>
+
+      <div class="ai-collection-search-results-{{ ai_gen_id }}">
+        <div class="ai-collection-search-count-{{ ai_gen_id }}"></div>
+        <div class="ai-collection-search-no-results-{{ ai_gen_id }}" style="display: none;">
+          {{ block.settings.no_results_text }}
+        </div>
+        <div class="ai-collection-search-grid-{{ ai_gen_id }}">
+          {% if collection.products.size > 0 %}
+            {% for product in collection.products %}
+              <div
+                class="ai-collection-search-product-{{ ai_gen_id }}"
+                data-product-title="{{ product.title | downcase }}"
+                data-product-vendor="{{ product.vendor | downcase }}"
+                data-product-type="{{ product.type | downcase }}"
+                data-product-tags="{{ product.tags | join: ',' | downcase }}"
+              >
+                <a
+                  href="{{ product.url }}"
+                  class="ai-collection-search-product-link-{{ ai_gen_id }}"
+                >
+                  {% if product.featured_image %}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 500 }}"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-collection-search-product-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                      width="500"
+                      height="500"
+                    >
+                  {% else %}
+                    <div class="ai-collection-search-product-image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                  <div class="ai-collection-search-product-info-{{ ai_gen_id }}">
+                    <h3 class="ai-collection-search-product-title-{{ ai_gen_id }}">
+                      {{ product.title }}
+                    </h3>
+                    <p class="ai-collection-search-product-price-{{ ai_gen_id }}">
+                      {{ product.price | money }}
+                    </p>
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="ai-collection-search-no-results-{{ ai_gen_id }}" style="display: block;">
+              No products found in this collection.
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</collection-search-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CollectionSearch{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.input = this.querySelector('.ai-collection-search-input-{{ ai_gen_id }}');
+        this.clearButton = this.querySelector('.ai-collection-search-clear-{{ ai_gen_id }}');
+        this.products = this.querySelectorAll('.ai-collection-search-product-{{ ai_gen_id }}');
+        this.countElement = this.querySelector('.ai-collection-search-count-{{ ai_gen_id }}');
+        this.noResultsElement = this.querySelector('.ai-collection-search-no-results-{{ ai_gen_id }}');
+        this.totalProducts = this.products.length;
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+        this.updateCount(this.totalProducts);
+      }
+
+      setupEventListeners() {
+        this.input.addEventListener('input', () => {
+          this.handleSearch();
+        });
+
+        this.clearButton.addEventListener('click', () => {
+          this.clearSearch();
+        });
+
+        this.input.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            this.clearSearch();
+          }
+        });
+      }
+
+      handleSearch() {
+        const searchTerm = this.input.value.toLowerCase().trim();
+
+        if (searchTerm.length > 0) {
+          this.clearButton.classList.add('active');
+        } else {
+          this.clearButton.classList.remove('active');
+        }
+
+        let visibleCount = 0;
+
+        this.products.forEach((product) => {
+          const title = product.dataset.productTitle || '';
+          const vendor = product.dataset.productVendor || '';
+          const type = product.dataset.productType || '';
+          const tags = product.dataset.productTags || '';
+
+          const searchableText = `${title} ${vendor} ${type} ${tags}`;
+
+          if (searchTerm === '' || searchableText.includes(searchTerm)) {
+            product.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            product.classList.add('hidden');
+          }
+        });
+
+        this.updateCount(visibleCount);
+
+        if (visibleCount === 0 && searchTerm.length > 0) {
+          this.noResultsElement.style.display = 'block';
+        } else {
+          this.noResultsElement.style.display = 'none';
+        }
+      }
+
+      clearSearch() {
+        this.input.value = '';
+        this.clearButton.classList.remove('active');
+        this.products.forEach((product) => {
+          product.classList.remove('hidden');
+        });
+        this.updateCount(this.totalProducts);
+        this.noResultsElement.style.display = 'none';
+        this.input.focus();
+      }
+
+      updateCount(count) {
+        if (count === this.totalProducts) {
+          this.countElement.textContent = `Showing all ${this.totalProducts} product${this.totalProducts !== 1 ? 's' : ''}`;
+        } else {
+          this.countElement.textContent = `Showing ${count} of ${this.totalProducts} product${this.totalProducts !== 1 ? 's' : ''}`;
+        }
+      }
+    }
+
+    customElements.define('collection-search-{{ ai_gen_id }}', CollectionSearch{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Collection search",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Search input"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Placeholder text",
+      "default": "Search products..."
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "input_padding",
+      "label": "Input padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "input_font_size",
+      "label": "Input font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "input_border_thickness",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Background color",
+      "default": "#2a2a2c"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Border color",
+      "default": "#444444"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_border_color",
+      "label": "Focus border color",
+      "default": "#e3fc02"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Results"
+    },
+    {
+      "type": "text",
+      "id": "no_results_text",
+      "label": "No results text",
+      "default": "No products match your search."
+    },
+    {
+      "type": "range",
+      "id": "results_font_size",
+      "label": "Results text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "results_text_color",
+      "label": "Results text color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Product cards"
+    },
+    {
+      "type": "range",
+      "id": "product_card_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "product_card_bg_color",
+      "label": "Background color",
+      "default": "#2a2a2c"
+    },
+    {
+      "type": "color",
+      "id": "product_card_border_color",
+      "label": "Border color",
+      "default": "#3a3a3c"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "product_title_font_size",
+      "label": "Title font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Price color",
+      "default": "#e3fc02"
+    },
+    {
+      "type": "range",
+      "id": "product_price_font_size",
+      "label": "Price font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection search"
+    }
+  ]
+}
 {% endschema %}
