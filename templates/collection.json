@@ -32,7 +32,7 @@
             "input_bg_color": "#2a2a2c",
             "input_text_color": "#ffffff",
             "input_border_color": "#444444",
-            "input_focus_border_color": "#e3fc02",
+            "input_focus_border_color": "#ffffff",
             "placeholder_color": "#999999",
             "icon_color": "#999999",
             "no_results_text": "No products match your search.",
@@ -57,6 +57,7 @@
     },
     "product-grid": {
       "type": "main-collection-product-grid",
+      "disabled": true,
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
