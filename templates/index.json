@@ -277,6 +277,43 @@
         "add_button_text": "Add to cart",
         "checkout_button_text": "Checkout now"
       }
+    },
+    "1771295374a9dcf60d": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_e3bd6bc_gt37iV": {
+          "type": "ai_gen_block_e3bd6bc",
+          "settings": {
+            "placeholder_text": "Search products...",
+            "desktop_width_percent": 80,
+            "input_padding": 16,
+            "input_font_size": 16,
+            "input_border_thickness": 1,
+            "input_border_radius": 4,
+            "input_bg_color": "#2a2a2c",
+            "input_text_color": "#ffffff",
+            "input_border_color": "#444444",
+            "input_focus_border_color": "#ffffff",
+            "placeholder_color": "#999999",
+            "icon_color": "#999999",
+            "no_results_text": "No products match your search.",
+            "results_font_size": 14,
+            "results_text_color": "#cccccc",
+            "product_card_border_radius": 8,
+            "product_card_bg_color": "#2a2a2c",
+            "product_card_border_color": "#3a3a3c",
+            "product_title_color": "#ffffff",
+            "product_title_font_size": 16,
+            "product_price_color": "#e3fc02",
+            "product_price_font_size": 14
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_e3bd6bc_gt37iV"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -284,6 +321,7 @@
     "featured_collection_hAQfCp",
     "slideshow_6wFyJV",
     "custom_highlight_css_dFMJEG",
-    "product_modal_overlay_AtmGhb"
+    "product_modal_overlay_AtmGhb",
+    "1771295374a9dcf60d"
   ]
 }
