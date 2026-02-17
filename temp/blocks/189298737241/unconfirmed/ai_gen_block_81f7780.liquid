@@ -1,6 +1,456 @@
+{% doc %}
+  @prompt
+    generate a catalog searchbar for this catalog page I'm in
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-search-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-collection-search-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+  }
+
+  .ai-collection-search-input-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .ai-collection-search-input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.input_padding }}px {{ block.settings.input_padding | times: 2 }}px;
+    padding-left: {{ block.settings.input_padding | times: 3 }}px;
+    background-color: {{ block.settings.input_bg_color }};
+    color: {{ block.settings.input_text_color }};
+    border: {{ block.settings.input_border_width }}px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: {{ block.settings.input_font_size }}px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-collection-search-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.placeholder_color }};
+    opacity: 0.7;
+  }
+
+  .ai-collection-search-input-{{ ai_gen_id }}:focus {
+    border-color: {{ block.settings.input_focus_border_color }};
+  }
+
+  .ai-collection-search-icon-{{ ai_gen_id }} {
+    position: absolute;
+    left: {{ block.settings.input_padding }}px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    color: {{ block.settings.icon_color }};
+    pointer-events: none;
+  }
+
+  .ai-collection-search-clear-{{ ai_gen_id }} {
+    position: absolute;
+    right: {{ block.settings.input_padding }}px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: none;
+    color: {{ block.settings.icon_color }};
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-collection-search-clear-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-collection-search-clear-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-collection-search-clear-{{ ai_gen_id }} svg {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+  }
+
+  .ai-collection-search-results-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.results_spacing }}px;
+  }
+
+  .ai-collection-search-count-{{ ai_gen_id }} {
+    font-size: {{ block.settings.count_font_size }}px;
+    color: {{ block.settings.count_text_color }};
+    margin-bottom: {{ block.settings.results_spacing | divided_by: 2 }}px;
+  }
+
+  .ai-collection-search-no-results-{{ ai_gen_id }} {
+    text-align: center;
+    padding: {{ block.settings.input_padding | times: 2 }}px;
+    color: {{ block.settings.count_text_color }};
+    font-size: {{ block.settings.input_font_size }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-search-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<collection-search-{{ ai_gen_id }}
+  class="ai-collection-search-{{ ai_gen_id }}"
+  data-collection-handle="{{ collection.handle }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-collection-search-wrapper-{{ ai_gen_id }}">
+    <div class="ai-collection-search-input-wrapper-{{ ai_gen_id }}">
+      <svg
+        class="ai-collection-search-icon-{{ ai_gen_id }}"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+
+      <input
+        type="text"
+        class="ai-collection-search-input-{{ ai_gen_id }}"
+        placeholder="{{ block.settings.placeholder_text }}"
+        aria-label="Search products in this collection"
+        autocomplete="off"
+      >
+
+      <button
+        type="button"
+        class="ai-collection-search-clear-{{ ai_gen_id }}"
+        aria-label="Clear search"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    {% if block.settings.show_result_count %}
+      <div class="ai-collection-search-results-{{ ai_gen_id }}">
+        <div class="ai-collection-search-count-{{ ai_gen_id }}"></div>
+      </div>
+    {% endif %}
+  </div>
+</collection-search-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CollectionSearch{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.input = this.querySelector('.ai-collection-search-input-{{ ai_gen_id }}');
+        this.clearButton = this.querySelector('.ai-collection-search-clear-{{ ai_gen_id }}');
+        this.countElement = this.querySelector('.ai-collection-search-count-{{ ai_gen_id }}');
+        this.collectionHandle = this.dataset.collectionHandle;
+        this.allProducts = [];
+        this.productCards = [];
+      }
+
+      connectedCallback() {
+        this.loadProducts();
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.input.addEventListener('input', () => {
+          this.handleSearch();
+        });
+
+        if (this.clearButton) {
+          this.clearButton.addEventListener('click', () => {
+            this.input.value = '';
+            this.handleSearch();
+            this.input.focus();
+          });
+        }
+      }
+
+      loadProducts() {
+        this.productCards = Array.from(document.querySelectorAll('.product-card-wrapper, .card-wrapper, .grid__item'));
+        
+        this.allProducts = this.productCards.map(card => {
+          const titleElement = card.querySelector('.card__heading, .card-information__text, h3, .product-card__title');
+          const vendorElement = card.querySelector('.caption-with-letter-spacing, .product-card__vendor');
+          const priceElement = card.querySelector('.price, .product-card__price');
+          
+          return {
+            element: card,
+            title: titleElement ? titleElement.textContent.trim().toLowerCase() : '',
+            vendor: vendorElement ? vendorElement.textContent.trim().toLowerCase() : '',
+            price: priceElement ? priceElement.textContent.trim().toLowerCase() : ''
+          };
+        });
+
+        this.updateCount(this.allProducts.length);
+      }
+
+      handleSearch() {
+        const query = this.input.value.toLowerCase().trim();
+
+        if (query === '') {
+          this.clearButton.classList.remove('active');
+          this.showAllProducts();
+          this.updateCount(this.allProducts.length);
+          return;
+        }
+
+        this.clearButton.classList.add('active');
+
+        const matchedProducts = this.allProducts.filter(product => {
+          return product.title.includes(query) || 
+                 product.vendor.includes(query) || 
+                 product.price.includes(query);
+        });
+
+        this.allProducts.forEach(product => {
+          if (matchedProducts.includes(product)) {
+            product.element.style.display = '';
+          } else {
+            product.element.style.display = 'none';
+          }
+        });
+
+        this.updateCount(matchedProducts.length);
+      }
+
+      showAllProducts() {
+        this.allProducts.forEach(product => {
+          product.element.style.display = '';
+        });
+      }
+
+      updateCount(count) {
+        if (this.countElement) {
+          const query = this.input.value.trim();
+          if (query === '') {
+            this.countElement.textContent = '';
+          } else if (count === 0) {
+            this.countElement.textContent = 'No products found';
+          } else if (count === 1) {
+            this.countElement.textContent = '1 product found';
+          } else {
+            this.countElement.textContent = count + ' products found';
+          }
+        }
+      }
+    }
+
+    customElements.define('collection-search-{{ ai_gen_id }}', CollectionSearch{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Collection search",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Search input"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Placeholder text",
+      "default": "Search products..."
+    },
+    {
+      "type": "range",
+      "id": "input_padding",
+      "label": "Input padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "input_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "input_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input background",
+      "default": "#1f1f21"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_border_color",
+      "label": "Focus border",
+      "default": "#e3fc02"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "count_text_color",
+      "label": "Result count text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Results"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_result_count",
+      "label": "Show result count",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "count_font_size",
+      "label": "Count font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "results_spacing",
+      "label": "Results spacing",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection search"
+    }
+  ]
+}
 {% endschema %}
