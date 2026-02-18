@@ -542,14 +542,29 @@
         "text_YfQiQr": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Dominant in its class - the RFN Warrior SX-E15 Plus is the next evolution of electric motocross performance.</strong></p><p>With it's debut at this years Redbull TKO Enduro Race in Tennessee, this bike has been proven as a champion level bike from the beginning. Being AMA certified, this bike is ready to race right out of the box!</p><p>For years, motocross bikes have remained greatly unchanged—same frames, same power delivery, same limits. The SX-E15 Plus breaks that mold with cutting-edge electric performance and a design focused on serious racers ready to elevate their skills.</p><p>Powered by an advanced <strong>74V system and a true 15,000 Watt Peak Power</strong>, the SX-E15 Plus delivers explosive torque, seamless throttle response, and enough power to beat the crap out of 250cc gas bikes. With no clutch, no gears, and no exhaust heat, riders experience pure focus and precision on every lap. Battery swaps take less than 90 seconds, keeping you on the track longer with <strong>zero emissions</strong> and <strong>minimal maintenance</strong>. That means no more messy oil changes and no more leaky gas cans. </p><p>Every detail—from its <strong>lightweight chromoly frame</strong> to its <strong>fully adjustable race suspension </strong>-<strong> </strong>was fine-tuned to perform at the highest level. Riders can customize every aspect of their setup through the <strong>RFN mobile app -</strong>adjust top speed, torque, regenerative braking, and power mapping in seconds.</p><p>The <strong>Warrior SX-E15</strong> isn’t just another bike in the 125cc class - it’s the future of it. Designed to dominate the track, and conquer on trails, the SX-E15 has proven to be the ultimate upgrade.</p>"
+            "text": "<p><strong>The fastest production electric dirt bike in its class — built for riders who want 250cc performance without gas, noise, or maintenance.</strong></p><p>✔ 61 MPH Top Speed<br/>✔ 74V Samsung 40Ah Battery<br/>✔ True 15kW Peak Power<br/>✔ 21\"/18\" Full-Size Wheels<br/>✔ AMA Certified<br/>✔ Utah & Idaho Official Distributor<br/>✔ Replacement parts warehoused in Orem, Utah<br/>✔ 10+ dealerships in Utah and Idaho</p><p>With it's debut at this years Redbull TKO Enduro Race in Tennessee, this bike has been proven as a champion level bike from the beginning. Being AMA certified, this bike is ready to race right out of the box!</p><p></p>"
+          }
+        },
+        "heading_g7FqJd": {
+          "type": "heading",
+          "settings": {
+            "heading": "The SX-E15 Plus is built for riders who want real 250cc-level performance — without the noise, maintenance, or hassle of gas.",
+            "heading_size": "h2"
+          }
+        },
+        "text_Eqk3aK": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The SX-E15 Plus delivers instant torque the moment you twist the throttle.</p><p>No gears.<br/><br/>No clutch.<br/><br/>No power band.</p><p>Just smooth, controlled acceleration that’s easier to ride and harder to stall than a gas bike. Whether you’re climbing hills or launching out of corners, power is always there — instantly.</p>"
           }
         }
       },
       "block_order": [
         "heading_3teEMT",
         "heading_MaMfad",
-        "text_YfQiQr"
+        "text_YfQiQr",
+        "heading_g7FqJd",
+        "text_Eqk3aK"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
