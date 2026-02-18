@@ -557,6 +557,12 @@
           "settings": {
             "text": "<p>The SX-E15 Plus delivers instant torque the moment you twist the throttle.</p><p>No gears.<br/><br/>No clutch.<br/><br/>No power band.</p><p>Just smooth, controlled acceleration that <strong>offers a better ride than any gas bike on the market in the technical single track of the mountains. </strong>Once you ride the SX-E15 Plus, your gas bike will sit in the garage.<br/><br/>\"Surprisingly controllable in whoops and bumps. The acceleration is really even. Better than any of the other E-Moto's I've tried\" - Brad K., Utah</p>"
           }
+        },
+        "text_KEHqHc": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>Less Maintenance means More Riding!</h4><p>• No oil changes<br/><br/>• No top-end rebuilds<br/><br/>• No fuel mixing<br/><br/>• No hot exhaust<br/><br/>• Minimal maintenance</p><p>With up to 50 miles of range and 2–4 hour charging, you spend more time riding and less time in the garage. Throw the bike in the back of your truck and go!</p>"
+          }
         }
       },
       "block_order": [
@@ -564,7 +570,8 @@
         "heading_MaMfad",
         "text_YfQiQr",
         "heading_g7FqJd",
-        "text_Eqk3aK"
+        "text_Eqk3aK",
+        "text_KEHqHc"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
