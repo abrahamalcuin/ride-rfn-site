@@ -528,7 +528,7 @@
         "heading_3teEMT": {
           "type": "heading",
           "settings": {
-            "heading": "2026 RFN Warrior Pro SX‑E15 Plus - Built for the Rocky Mountains",
+            "heading": "2026 RFN Warrior Pro SX‑E15 Plus",
             "heading_size": "h1"
           }
         },
@@ -542,7 +542,7 @@
         "text_YfQiQr": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>The fastest production electric dirt bike in its class — built for riders who want 250cc performance without gas, noise, or maintenance.</strong></p><h4>✔<strong> 61 MPH Top Speed<br/>✔ 74V Samsung 40Ah Battery<br/>✔ True 15kW Peak Power<br/>✔ 21\"/18\" Full-Size Wheels<br/>✔ AMA Certified<br/>✔ Utah & Idaho Official Distributor<br/>✔ Replacement parts warehoused in Orem, Utah<br/>✔ 10+ dealerships in Utah and Idaho</strong></h4><p>With it's debut at this years Redbull TKO Enduro Race in Tennessee, this bike has been proven as a champion level bike from the beginning. Being AMA certified, this bike is ready to race right out of the box!</p><p></p>"
+            "text": "<p><strong>The fastest production electric dirt bike in its class — built for riders who want 250cc performance without gas, noise, or maintenance.</strong></p><p>✔<strong> 61 MPH Top Speed<br/>✔ 74V Samsung 40Ah Battery<br/>✔ True 15kW Peak Power<br/>✔ 21\"/18\" Full-Size Wheels<br/>✔ AMA Certified<br/>✔ Utah & Idaho Official Distributor<br/>✔ Replacement parts warehoused in Orem, Utah<br/>✔ 10+ dealerships in Utah and Idaho</strong></p><p>With it's debut at this years Redbull TKO Enduro Race in Tennessee, this bike has been proven as a champion level bike from the beginning. Being AMA certified, this bike is ready to race right out of the box!</p><p></p>"
           }
         },
         "heading_g7FqJd": {
@@ -576,7 +576,7 @@
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
-        "content_alignment": "center",
+        "content_alignment": "left",
         "color_scheme": "",
         "full_width": true,
         "padding_top": 40,
