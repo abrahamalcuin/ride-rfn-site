@@ -715,6 +715,10 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
+    "1771442225ea7d5038": {
+      "type": "_blocks",
+      "settings": {}
+    },
     "floating_cta_XfYkRL": {
       "type": "floating_cta",
       "name": "Floating CTA (Order Now)",
@@ -1010,6 +1014,7 @@
     "rich_text_GGyf9A",
     "related-products",
     "slideshow_HP9Dan",
+    "1771442225ea7d5038",
     "floating_cta_XfYkRL",
     "floating_cta_YB7bmy",
     "product_modal_overlay_sWEUZF",
