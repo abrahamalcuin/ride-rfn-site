@@ -152,14 +152,48 @@ summary.list-menu__item { padding-right: 2.7rem; }
     gap: clamp(.4rem, 1vw, 1.2rem);
   }
 
-  .header--custom-3col .header__right .header__icon {
-    display: inline-flex;
-    align-items: center;
-  }
+.header--custom-3col .header__right .header__icon {
+  display: inline-flex;
+  align-items: center;
+}
 
-  .header--fullscreen .header__left,
-  .header--fullscreen .header__center,
-  .header--fullscreen .header__right { align-self: start !important; }
+.header__icon--search {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.header__icon--search > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.header__icon--search .svg-wrapper {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__icon--search svg {
+  width: 48px;
+  height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+}
+
+.header--fullscreen .header__left,
+.header--fullscreen .header__center,
+.header--fullscreen .header__right { align-self: start !important; }
   .header--fullscreen header-drawer { align-self: start; }
 }
 
@@ -337,9 +371,10 @@ summary.list-menu__item { padding-right: 2.7rem; }
     if localization.available_countries.size > 1 and section.settings.enable_country_selector or section.settings.enable_language_selector and localization.available_languages.size > 1
       assign localization_forms = true
     endif
+    assign header_search_input_id = 'HeaderSearch-' | append: section.id
   -%}
 
-  <!-- HEADER: menu left, logo centered, icons right. Search removed. -->
+  <!-- HEADER: menu left, logo centered, icons right -->
   <header class="header header--custom-3col header--mobile-{{ section.settings.mobile_logo_position }} {% if section.settings.header_fullscreen %}header--fullscreen header--edge{% else %}page-width{% endif %}{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
       if section.settings.menu != blank
@@ -418,6 +453,8 @@ summary.list-menu__item { padding-right: 2.7rem; }
           </localization-form>
         {%- endif -%}
       </div>
+
+      {%- render 'header-search', input_id: header_search_input_id -%}
 
       {%- if shop.customer_accounts_enabled -%}
         <a
