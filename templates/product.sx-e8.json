@@ -522,6 +522,58 @@
         "mobile_horizontal_alignment": "inherit"
       }
     },
+    "1771442509844dda9e": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d5ee09e_6RDBiH": {
+          "type": "ai_gen_block_d5ee09e",
+          "settings": {
+            "desktop_width_percent": 100,
+            "image_width": 45,
+            "content_gap": 40,
+            "padding": 40,
+            "background_color": "#666666",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "heading_size": 32,
+            "text_size": 16,
+            "text_spacing": 20,
+            "image_border_radius": 0,
+            "controls_spacing": 40,
+            "button_color": "#ffffff",
+            "button_text_color": "#1f1f21",
+            "button_hover_color": "#ffffff",
+            "dot_color": "#666666",
+            "dot_active_color": "#ffffff",
+            "autoplay": false,
+            "autoplay_speed": 5,
+            "slide_1_image": "shopify://shop_images/frame_bg_666666.png",
+            "slide_1_heading": "Advanced Frame Geometry",
+            "slide_1_text": "<p>Precision-engineered from aerospace-grade aluminum and built for extreme riding, the SX-E15 Plus frame combines lightweight construction with race-level rigidity. The reduced weight means less rider fatigue over long motos or trail days, while the stiff chassis delivers sharper cornering response and precise control through technical sections. Its high-strength alloy construction also increases durability, so it holds up when the terrain gets rough and the pace stays high.</p>",
+            "slide_2_image": "shopify://shop_images/motor_bg_666666_fixed_1.png",
+            "slide_2_heading": "Direct Drive Motor - Class First",
+            "slide_2_text": "<p>Powered by the world’s first direct-drive axial flux motor. By eliminating multi-stage gearing, more energy goes straight to the rear wheel — delivering more power and torque to the tire than competitors rated at the same output.</p>",
+            "slide_3_image": "shopify://shop_images/Warrior_Pro_SX-E15_bg_666666.jpg",
+            "slide_3_heading": "Smart Control — Precise Command",
+            "slide_3_text": "<p>Industrly leading throttle control with advanced real-time control architecture. The E15 controller continuously adjusts power delivery based on throttle input. The result is smoother acceleration, cleaner drive out of corners, and controlled traction in technical terrain and on whoops.</p>",
+            "slide_4_image": "shopify://shop_images/RFN_26_MX_range_12.jpg",
+            "slide_4_heading": "Fully Adjustable Suspension",
+            "slide_4_text": "<p>Fully adjustable rebound and damping let you fine-tune the bike to your speed, terrain, and riding style. Whether you're on a smooth track boosting jumps or a gnarly rock garden, the forks and shock deliver consistent, predictable performance under load, improving corner stability, traction, and control when the pace picks up.</p>",
+            "slide_5_image": "shopify://shop_images/RFN_26_MX_range_23.jpg",
+            "slide_5_heading": "Race-Worthy Brakes",
+            "slide_5_text": "<p>With safety in mind, the SX-E15 is equipped with high-performance braking components built for steep descents and hard charging into corners. Strong initial bite and consistent stopping power deliver precise control on entry, while balanced modulation allows you to brake later with greater confidence through technical sections and high-speed terrain all while keeping the brakes from overheating.</p>",
+            "slide_6_image": "shopify://shop_images/RFN_26_MX_range_10.jpg",
+            "slide_6_heading": "Unmatched Control",
+            "slide_6_text": "<p>Know exactly how your bike will respond. Five selectable power modes let you transform the ride from a full-power machine to a smooth, controlled learning platform. A reverse function makes tight maneuvering effortless without unnecessary fatigue, while the safety tether adds an extra layer of protection for both rider and surroundings. The LCD display keeps critical ride data front and center, so you’re always informed and in command.</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d5ee09e_6RDBiH"
+      ],
+      "settings": {}
+    },
     "rich_text_GGyf9A": {
       "type": "rich-text",
       "blocks": {
@@ -714,58 +766,6 @@
         "show_text_below": true,
         "accessibility_info": "Slideshow about our brand"
       }
-    },
-    "1771442509844dda9e": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_d5ee09e_6RDBiH": {
-          "type": "ai_gen_block_d5ee09e",
-          "settings": {
-            "desktop_width_percent": 100,
-            "image_width": 45,
-            "content_gap": 40,
-            "padding": 40,
-            "background_color": "#666666",
-            "heading_color": "#ffffff",
-            "text_color": "#ffffff",
-            "heading_size": 32,
-            "text_size": 16,
-            "text_spacing": 20,
-            "image_border_radius": 0,
-            "controls_spacing": 40,
-            "button_color": "#ffffff",
-            "button_text_color": "#1f1f21",
-            "button_hover_color": "#ffffff",
-            "dot_color": "#666666",
-            "dot_active_color": "#ffffff",
-            "autoplay": false,
-            "autoplay_speed": 5,
-            "slide_1_image": "shopify://shop_images/frame_bg_666666.png",
-            "slide_1_heading": "Advanced Frame Geometry",
-            "slide_1_text": "<p>Precision-engineered from aerospace-grade aluminum and built for extreme riding, the SX-E15 Plus frame combines lightweight construction with race-level rigidity. The reduced weight means less rider fatigue over long motos or trail days, while the stiff chassis delivers sharper cornering response and precise control through technical sections. Its high-strength alloy construction also increases durability, so it holds up when the terrain gets rough and the pace stays high.</p>",
-            "slide_2_image": "shopify://shop_images/motor_bg_666666_fixed_1.png",
-            "slide_2_heading": "Direct Drive Motor - Class First",
-            "slide_2_text": "<p>Powered by the world’s first direct-drive axial flux motor. By eliminating multi-stage gearing, more energy goes straight to the rear wheel — delivering more power and torque to the tire than competitors rated at the same output.</p>",
-            "slide_3_image": "shopify://shop_images/Warrior_Pro_SX-E15_bg_666666.jpg",
-            "slide_3_heading": "Smart Control — Precise Command",
-            "slide_3_text": "<p>Industrly leading throttle control with advanced real-time control architecture. The E15 controller continuously adjusts power delivery based on throttle input. The result is smoother acceleration, cleaner drive out of corners, and controlled traction in technical terrain and on whoops.</p>",
-            "slide_4_image": "shopify://shop_images/RFN_26_MX_range_12.jpg",
-            "slide_4_heading": "Fully Adjustable Suspension",
-            "slide_4_text": "<p>Ergonomically designed for maximum comfort during long rides, with adjustable features for every rider.</p>",
-            "slide_5_image": "shopify://shop_images/RFN_26_MX_range_23.jpg",
-            "slide_5_heading": "Safety First",
-            "slide_5_text": "<p>Equipped with advanced safety features including responsive braking systems and stability control.</p>",
-            "slide_6_image": "shopify://shop_images/RFN_26_MX_range_10.jpg",
-            "slide_6_heading": "Unmatched Control",
-            "slide_6_text": ""
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_d5ee09e_6RDBiH"
-      ],
-      "settings": {}
     },
     "1771442225ea7d5038": {
       "type": "_blocks",
@@ -1063,10 +1063,10 @@
     "360_image_selection_KQfnjp",
     "specs_board_Pjmf7Y",
     "fullscreen_autoplay_vid_dVjEqi",
+    "1771442509844dda9e",
     "rich_text_GGyf9A",
     "related-products",
     "slideshow_HP9Dan",
-    "1771442509844dda9e",
     "1771442225ea7d5038",
     "floating_cta_XfYkRL",
     "floating_cta_YB7bmy",
