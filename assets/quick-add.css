@@ -9,6 +9,11 @@
   margin: 0 1.3rem 1rem;
 }
 
+.product-card-wrapper .quick-add,
+.product-card-wrapper .card--card .quick-add {
+  margin: 1rem 0 0;
+}
+
 .quick-add-modal {
   box-sizing: border-box;
   opacity: 0;
