@@ -52,12 +52,12 @@
       "block_order": [
         "ai_gen_block_e3bd6bc_7FQax3"
       ],
+      "disabled": true,
       "name": "Collection search",
       "settings": {}
     },
     "product-grid": {
       "type": "main-collection-product-grid",
-      "disabled": true,
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
