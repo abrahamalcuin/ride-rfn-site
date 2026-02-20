@@ -870,6 +870,15 @@
     "collapsible_content_KhkhbB": {
       "type": "collapsible-content",
       "blocks": {
+        "collapsible_row_XmfbYt": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Specifications",
+            "icon": "none",
+            "row_content": "<p>✔<strong> 61 MPH Top Speed<br/></strong>✔ <strong>50 Mile Range<br/></strong>✔ <strong>5 Power Modes<br/></strong>✔ <strong>Reverse<br/></strong>✔ <strong>Fully Adjustable Suspension<br/>✔ 74V Samsung 40Ah Battery<br/>✔ True 15kW Peak Power<br/>✔ 21\"/18\" Full-Size Wheels<br/>✔ Utah & Idaho Official Distributor</strong></p>",
+            "page": ""
+          }
+        },
         "collapsible_row_zCgkLR": {
           "type": "collapsible_row",
           "settings": {
@@ -879,21 +888,12 @@
             "page": ""
           }
         },
-        "collapsible_row_XmfbYt": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Race Winning Power",
-            "icon": "none",
-            "row_content": "<p>With a true 15kW peak output (similar feel to a 250cc 4-stroke, but instant power rather than having a power band), putting it head-to-head with gas bikes. With no shifting required, instant torque launches you up climbs and across terrain at speeds up to 61 mph (98 kph).</p>",
-            "page": ""
-          }
-        },
         "collapsible_row_ieAYRR": {
           "type": "collapsible_row",
           "settings": {
             "heading": "Premium Samsung Battery",
             "icon": "none",
-            "row_content": "<p>74V 40Ah pack delivers class-leading power, reliability, and range. Built to withstand thousands of charge cycles, with quick-swap capability for all-day riding.</p>",
+            "row_content": "<p>74V 40Ah pack delivers class-leading power, reliability, and range. Built to withstand thousands of charge cycles, with quick-swap capability for all-day riding. The battery is resilient and has 5-10 years of life.</p>",
             "page": ""
           }
         },
@@ -909,9 +909,9 @@
         "collapsible_row_qNbkUQ": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Ride anywhere from Trail to Track",
+            "heading": "After Purchase Support",
             "icon": "none",
-            "row_content": "<p>From gnarly backcountry singletrack to competitive motocross gates, the SX-E15 Plus is built for riders chasing the toughest terrain and the top step of the podium.</p>",
+            "row_content": "<p><strong>✔ Replacement parts warehoused in Orem, Utah<br/>✔ 10+ dealerships in Utah and Idaho</strong></p>",
             "page": ""
           }
         },
@@ -953,8 +953,8 @@
         }
       },
       "block_order": [
-        "collapsible_row_zCgkLR",
         "collapsible_row_XmfbYt",
+        "collapsible_row_zCgkLR",
         "collapsible_row_ieAYRR",
         "collapsible_row_zRybE6",
         "collapsible_row_qNbkUQ",
