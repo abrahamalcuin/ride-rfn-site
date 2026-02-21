@@ -607,13 +607,7 @@
         "text_Eqk3aK": {
           "type": "text",
           "settings": {
-            "text": "<p>The SX-E15 Plus delivers instant torque the moment you twist the throttle.</p><ul><li>No gears.<br/></li><li>No clutch.<br/></li><li>No power band.</li></ul><p>Just smooth, controlled acceleration that <strong>offers a better ride than any gas bike on the market in the technical single track of the mountains. </strong>Once you ride the SX-E15 Plus, your gas bike will sit in the garage.<br/><br/>\"This is the most predictable and stable e-moto in its class. If you’re coming from a moto background, the throttle linearity feels right at home. The control you have on this bike straight out of the box sets it apart from everything else in the field.\" - Brad K., Utah</p>"
-          }
-        },
-        "text_KEHqHc": {
-          "type": "text",
-          "settings": {
-            "text": "<h3>Less Maintenance means More Riding!</h3><p>• No oil changes<br/><br/>• No top-end rebuilds<br/><br/>• No fuel mixing<br/><br/>• No hot exhaust<br/><br/>• Minimal maintenance</p><p>With up to 50 miles of range and 2–4 hour charging, you spend more time riding and less time in the garage. Throw the bike in the back of your truck and go!</p><h3>Most electric dirt bikes are just a mountain bike with a motor and battery strapped on it. The SX-E15 Plus is a true dirt bike.</h3><p>• Full-size 21” front / 18” rear wheels<br/><br/>• 36.2” seat height for proper rider position<br/><br/>• Fully adjustable race suspension<br/><br/>• 205 lbs ready-to-ride weight<br/><br/>• Regenerative braking for added control</p><p>• Double piston moto brakes</p><p>• Chromoly race frame</p><p>This is real geometry. Real suspension. Real capability.</p><p>Track or trail — it’s ready.</p>"
+            "text": "<p>Instant torque. No clutch. No shifting. No power band.<br/><br/>Just smooth, predictable acceleration and total control — especially in tight, technical singletrack where gas bikes wear you out.</p><p>Up to 50 miles of range and fast 2–4 hour charging means more trail time and less garage time. No oil changes. No jetting. No warm-ups. Just load it up and ride.</p><p>The SX-E15 Plus is built for riders who’d rather spend their time on the mountain than working on their bike.</p><p>Once you ride it, your gas bike becomes the backup.</p>"
           }
         }
       },
@@ -622,8 +616,7 @@
         "heading_MaMfad",
         "text_YfQiQr",
         "heading_g7FqJd",
-        "text_Eqk3aK",
-        "text_KEHqHc"
+        "text_Eqk3aK"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
