@@ -900,15 +900,6 @@
             "page": ""
           }
         },
-        "collapsible_row_zCgkLR": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Redbull TKO Contender",
-            "icon": "none",
-            "row_content": "<p>Competed and completed top 15 over the rigorous three-day event at Red Bull TKO in Tenessee. Proven performance against the world’s best. After 19 months of research, $2M in development, and pro-rider testing at RFN’s private track, this bike is proven to compete with the best.</p>",
-            "page": ""
-          }
-        },
         "collapsible_row_ieAYRR": {
           "type": "collapsible_row",
           "settings": {
@@ -975,7 +966,6 @@
       },
       "block_order": [
         "collapsible_row_XmfbYt",
-        "collapsible_row_zCgkLR",
         "collapsible_row_ieAYRR",
         "collapsible_row_zRybE6",
         "collapsible_row_qNbkUQ",
