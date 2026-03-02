@@ -58,6 +58,51 @@
         "mobile_horizontal_alignment": "center"
       }
     },
+    "1772492561ff929fff": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_6f48cf6_BtN34N": {
+          "type": "ai_gen_block_6f48cf6",
+          "settings": {
+            "desktop_width_percent": 100,
+            "slide_height": 500,
+            "content_padding": 60,
+            "border_radius": 0,
+            "background_color": "#666666",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "heading_size": 36,
+            "body_size": 16,
+            "button_size": 50,
+            "button_offset": 20,
+            "button_background": "#ffffff",
+            "button_hover_background": "#ffffff",
+            "button_color": "#1f1f21",
+            "dot_color": "#ffffff",
+            "slide_1_image": "shopify://shop_images/Warrior_Pro_SX-E15_Page_1_Image_0001.jpg",
+            "slide_1_heading": "Slide 1 Heading",
+            "slide_1_body": "<p>Add your slide content here. Describe your product, service, or message.</p>",
+            "slide_2_heading": "Slide 2 Heading",
+            "slide_2_body": "<p>Add your slide content here. Describe your product, service, or message.</p>",
+            "slide_3_heading": "Slide 3 Heading",
+            "slide_3_body": "<p>Add your slide content here. Describe your product, service, or message.</p>",
+            "slide_4_heading": "Slide 4 Heading",
+            "slide_4_body": "<p>Add your slide content here. Describe your product, service, or message.</p>",
+            "slide_5_heading": "Slide 5 Heading",
+            "slide_5_body": "<p>Add your slide content here. Describe your product, service, or message.</p>",
+            "slide_6_heading": "Slide 6 Heading",
+            "slide_6_body": "<p>Add your slide content here. Describe your product, service, or message.</p>",
+            "slide_7_heading": "Slide 7 Heading",
+            "slide_7_body": "<p>Add your slide content here. Describe your product, service, or message.</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_6f48cf6_BtN34N"
+      ],
+      "settings": {}
+    },
     "featured_collection_hAQfCp": {
       "type": "featured-collection",
       "blocks": {
@@ -304,6 +349,7 @@
   },
   "order": [
     "fullscreen_autoplay_vid_AfbPnP",
+    "1772492561ff929fff",
     "featured_collection_hAQfCp",
     "slideshow_6wFyJV",
     "custom_highlight_css_dFMJEG",

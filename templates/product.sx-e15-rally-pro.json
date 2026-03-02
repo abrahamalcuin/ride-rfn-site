@@ -522,6 +522,54 @@
         "mobile_horizontal_alignment": "inherit"
       }
     },
+    "17724924267f56a5f2": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5f6414f_zrDtD6": {
+          "type": "ai_gen_block_5f6414f",
+          "settings": {
+            "desktop_width_percent": 100,
+            "padding": 40,
+            "content_gap": 40,
+            "text_padding": 20,
+            "text_spacing": 15,
+            "border_radius": 0,
+            "image_border_radius": 0,
+            "background_color": "#1f1f21",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "heading_size": 32,
+            "text_size": 16,
+            "button_size": 50,
+            "button_offset": 20,
+            "button_background": "#ffffff",
+            "button_hover_background": "#e3fc02",
+            "button_color": "#1f1f21",
+            "dot_color": "#ffffff",
+            "dot_active_color": "#e3fc02",
+            "slide_1_heading": "Slide 1 Heading",
+            "slide_1_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
+            "slide_2_heading": "Slide 2 Heading",
+            "slide_2_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
+            "slide_3_heading": "Slide 3 Heading",
+            "slide_3_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
+            "slide_4_heading": "Slide 4 Heading",
+            "slide_4_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
+            "slide_5_heading": "Slide 5 Heading",
+            "slide_5_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
+            "slide_6_heading": "Slide 6 Heading",
+            "slide_6_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
+            "slide_7_heading": "Slide 7 Heading",
+            "slide_7_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5f6414f_zrDtD6"
+      ],
+      "settings": {}
+    },
     "rich_text_6TVaXH": {
       "type": "rich-text",
       "blocks": {
@@ -997,6 +1045,7 @@
     "360_image_selection_Tzaz49",
     "specs_board_G6dWQ7",
     "fullscreen_autoplay_vid_xYRCnd",
+    "17724924267f56a5f2",
     "rich_text_6TVaXH",
     "floating_cta_W8kVPx",
     "floating_cta_xcAJE7",
