@@ -1,0 +1,1089 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "360_image_selection_KQfnjp": {
+      "type": "360_image_selection",
+      "blocks": {
+        "frame_tz6jiU": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E08.png"
+          }
+        },
+        "frame_BdtbVj": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E09.png"
+          }
+        },
+        "frame_3hNVJK": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E10.png"
+          }
+        },
+        "frame_GBRCtH": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E11.png"
+          }
+        },
+        "frame_rY8fLV": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E12.png"
+          }
+        },
+        "frame_bWBX7P": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E13.png"
+          }
+        },
+        "frame_w8Jmhx": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E14.png"
+          }
+        },
+        "frame_EdHCxh": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E15.png"
+          }
+        },
+        "frame_RAg9pH": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E16.png"
+          }
+        },
+        "frame_CWiiGi": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E17.png"
+          }
+        },
+        "frame_hyGPGq": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E18.png"
+          }
+        },
+        "frame_eDMNWP": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E19.png"
+          }
+        },
+        "frame_tNbDN6": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E20.png"
+          }
+        },
+        "frame_mfiaR4": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E21.png"
+          }
+        },
+        "frame_ybQdeW": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E22.png"
+          }
+        },
+        "frame_kgQHNW": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E23.png"
+          }
+        },
+        "frame_KUeUhx": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E24.png"
+          }
+        },
+        "frame_fK9ETH": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E25.png"
+          }
+        },
+        "frame_VmXMeT": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E26.png"
+          }
+        },
+        "frame_B6YibP": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E27.png"
+          }
+        },
+        "frame_jdj3ML": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E28.png"
+          }
+        },
+        "frame_rGaRYT": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E29.png"
+          }
+        },
+        "frame_XqNkpj": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E30.png"
+          }
+        },
+        "frame_P4dDRC": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E31.png"
+          }
+        },
+        "frame_TVL76H": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E32.png"
+          }
+        },
+        "frame_yhRcNH": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E33.png"
+          }
+        },
+        "frame_7bcjNj": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E34.png"
+          }
+        },
+        "frame_rALHY4": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E35.png"
+          }
+        },
+        "frame_Wee6PW": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E36.png"
+          }
+        },
+        "frame_DRiwLD": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E37.png"
+          }
+        },
+        "frame_NtDy4c": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E38.png"
+          }
+        },
+        "frame_C7TprG": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E39.png"
+          }
+        },
+        "frame_hpHBgL": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E40.png"
+          }
+        },
+        "frame_tzefen": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E41.png"
+          }
+        },
+        "frame_LEB4kp": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E42.png"
+          }
+        },
+        "frame_zRynQx": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E43.png"
+          }
+        },
+        "frame_KCh7ac": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E44.png"
+          }
+        },
+        "frame_pfrWMV": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E45.png"
+          }
+        },
+        "frame_RLRLRP": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E46.png"
+          }
+        },
+        "frame_XiRDmP": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E47.png"
+          }
+        },
+        "frame_khm7RV": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E48.png"
+          }
+        },
+        "frame_r3t9fY": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E01.png"
+          }
+        },
+        "frame_7Ah3R4": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E02.png"
+          }
+        },
+        "frame_9dhNx9": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E03.png"
+          }
+        },
+        "frame_q7NmQN": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E04.png"
+          }
+        },
+        "frame_UTXA4a": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E05.png"
+          }
+        },
+        "frame_yBJ4cX": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E06.png"
+          }
+        },
+        "frame_ikbwnG": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/Warrior_E07.png"
+          }
+        }
+      },
+      "block_order": [
+        "frame_tz6jiU",
+        "frame_BdtbVj",
+        "frame_3hNVJK",
+        "frame_GBRCtH",
+        "frame_rY8fLV",
+        "frame_bWBX7P",
+        "frame_w8Jmhx",
+        "frame_EdHCxh",
+        "frame_RAg9pH",
+        "frame_CWiiGi",
+        "frame_hyGPGq",
+        "frame_eDMNWP",
+        "frame_tNbDN6",
+        "frame_mfiaR4",
+        "frame_ybQdeW",
+        "frame_kgQHNW",
+        "frame_KUeUhx",
+        "frame_fK9ETH",
+        "frame_VmXMeT",
+        "frame_B6YibP",
+        "frame_jdj3ML",
+        "frame_rGaRYT",
+        "frame_XqNkpj",
+        "frame_P4dDRC",
+        "frame_TVL76H",
+        "frame_yhRcNH",
+        "frame_7bcjNj",
+        "frame_rALHY4",
+        "frame_Wee6PW",
+        "frame_DRiwLD",
+        "frame_NtDy4c",
+        "frame_C7TprG",
+        "frame_hpHBgL",
+        "frame_tzefen",
+        "frame_LEB4kp",
+        "frame_zRynQx",
+        "frame_KCh7ac",
+        "frame_pfrWMV",
+        "frame_RLRLRP",
+        "frame_XiRDmP",
+        "frame_khm7RV",
+        "frame_r3t9fY",
+        "frame_7Ah3R4",
+        "frame_9dhNx9",
+        "frame_q7NmQN",
+        "frame_UTXA4a",
+        "frame_yBJ4cX",
+        "frame_ikbwnG"
+      ],
+      "name": "360 Image Viewer",
+      "settings": {
+        "header_text": "DRAG TO ROTATE",
+        "header_size": 28,
+        "header_align": "center",
+        "bg_text": "SX-E15+",
+        "bg_text_size": 260,
+        "bg_text_size_mobile": 80,
+        "bg_text_color": "#ffffff",
+        "bg_text_opacity": 100,
+        "show_hint": true,
+        "viewer_background": "#ffffff80",
+        "frame_fit": "contain",
+        "sprite_url": "",
+        "sprite_cols": 12,
+        "sprite_rows": 6,
+        "base_url": "",
+        "urls_text": "",
+        "query": "",
+        "frame_count": 72,
+        "first_frame_index": "1",
+        "pad": 4,
+        "ext": "webp",
+        "frame_width": 1500,
+        "frame_height": 1000,
+        "width": "100%",
+        "height": "500px",
+        "height_mobile": "300px",
+        "autoplay": false,
+        "speed": 76,
+        "sensitivity": 8,
+        "reverse": false,
+        "autoplay_direction": "1",
+        "preload": 8,
+        "alt": "360 image"
+      }
+    },
+    "specs_board_Pjmf7Y": {
+      "type": "specs_board",
+      "blocks": {
+        "spec_bVtTFi": {
+          "type": "spec",
+          "settings": {
+            "pre_text": "",
+            "value": "74V",
+            "unit": "40 aH",
+            "label": "Battery"
+          }
+        },
+        "spec_iPHPEX": {
+          "type": "spec",
+          "settings": {
+            "pre_text": "",
+            "value": "61",
+            "unit": "mph",
+            "label": "Top Speed"
+          }
+        },
+        "spec_6nQwti": {
+          "type": "spec",
+          "settings": {
+            "pre_text": "",
+            "value": "15",
+            "unit": "KW",
+            "label": "True Peak Power"
+          }
+        },
+        "spec_cT43Vf": {
+          "type": "spec",
+          "settings": {
+            "pre_text": "",
+            "value": "205",
+            "unit": "LBS",
+            "label": "Weight"
+          }
+        },
+        "spec_D9Vttp": {
+          "type": "spec",
+          "settings": {
+            "pre_text": "",
+            "value": "50",
+            "unit": "Mile",
+            "label": "Range"
+          }
+        },
+        "spec_LMhLb9": {
+          "type": "spec",
+          "settings": {
+            "pre_text": "",
+            "value": "2-4",
+            "unit": "HOUR",
+            "label": "Charging Time"
+          }
+        }
+      },
+      "block_order": [
+        "spec_bVtTFi",
+        "spec_iPHPEX",
+        "spec_6nQwti",
+        "spec_cT43Vf",
+        "spec_D9Vttp",
+        "spec_LMhLb9"
+      ],
+      "name": "Specs Board",
+      "settings": {
+        "pad_top": 48,
+        "pad_bottom": 48,
+        "max_width": 1200,
+        "gap_x": 24,
+        "gap_y": 24,
+        "heading_1": "Bigger Wheels, Better ride",
+        "heading_2": "The Ultimate Electric dirt bike",
+        "card_bg": "#1a1a1a",
+        "card_text": "#ffffff",
+        "accent": "rgba(255,255,255,.16)",
+        "card_radius": 16,
+        "footnote": "For off-road use only.",
+        "button_text": "More Info",
+        "button_link": "",
+        "button_style": "pill"
+      }
+    },
+    "fullscreen_autoplay_vid_dVjEqi": {
+      "type": "Fullscreen_autoplay_vid",
+      "name": "Fullscreen Autoplay Video",
+      "settings": {
+        "desktop_video": "shopify://files/videos/SOCIALS _ FACEBOOK _ ADS LANDSCAPE.mp4",
+        "mobile_video": "shopify://files/videos/SOCIALS _ FACEBOOK _ ADS LANDSCAPE.mp4",
+        "overlay_color": "#000000",
+        "overlay_opacity": 40,
+        "text_color": "#ffffff",
+        "padding_top": 32,
+        "padding_right": 32,
+        "padding_bottom": 32,
+        "padding_left": 32,
+        "padding_top_mobile": 20,
+        "padding_right_mobile": 16,
+        "padding_bottom_mobile": 20,
+        "padding_left_mobile": 16,
+        "content_bg_color": "#000000",
+        "content_bg_opacity": 0,
+        "content_bg_blur": 0,
+        "heading_font_family": "inherit",
+        "heading_font_size": 48,
+        "subheading_font_family": "inherit",
+        "subheading_font_size": 20,
+        "button_font_family": "inherit",
+        "button_font_size": 16,
+        "button_margin_top": 20,
+        "heading": "",
+        "subheading": "",
+        "cta_link": "",
+        "cta_label": "",
+        "cta_secondary_link": "",
+        "cta_secondary_label": "",
+        "button_style_mode": "theme",
+        "button_pill": true,
+        "button_radius_px": 24,
+        "button_bg_color": "#111111",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#111111",
+        "button_border_width": 0,
+        "button_shadow": false,
+        "button_opacity": 100,
+        "button_hover_opacity": 90,
+        "vertical_alignment": "center",
+        "horizontal_alignment": "center",
+        "mobile_vertical_alignment": "inherit",
+        "mobile_horizontal_alignment": "inherit"
+      }
+    },
+    "1771442509844dda9e": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d5ee09e_6RDBiH": {
+          "type": "ai_gen_block_d5ee09e",
+          "settings": {
+            "desktop_width_percent": 100,
+            "image_width": 45,
+            "content_gap": 40,
+            "padding": 40,
+            "background_color": "#666666",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "heading_size": 32,
+            "text_size": 16,
+            "text_spacing": 20,
+            "image_border_radius": 0,
+            "controls_spacing": 40,
+            "button_color": "#ffffff",
+            "button_text_color": "#1f1f21",
+            "button_hover_color": "#ffffff",
+            "dot_color": "#666666",
+            "dot_active_color": "#ffffff",
+            "autoplay": false,
+            "autoplay_speed": 5,
+            "slide_1_image": "shopify://shop_images/frame_bg_666666.png",
+            "slide_1_heading": "Advanced Frame Geometry",
+            "slide_1_text": "<p>Precision-engineered from aerospace-grade aluminum and built for extreme riding, the SX-E15 Plus frame combines lightweight construction with race-level rigidity. The reduced weight means less rider fatigue over long motos or trail days, while the stiff chassis delivers sharper cornering response and precise control through technical sections. Its high-strength alloy construction also increases durability, so it holds up when the terrain gets rough and the pace stays high.</p>",
+            "slide_2_image": "shopify://shop_images/motor_bg_666666_fixed_1.png",
+            "slide_2_heading": "Direct Drive Motor - First in Class",
+            "slide_2_text": "<p>Powered by the world’s first direct-drive axial flux motor. By eliminating multi-stage gearing, more energy goes straight to the rear wheel — delivering more power and torque to the tire than competitors rated at the same output.</p>",
+            "slide_3_image": "shopify://shop_images/Warrior_Pro_SX-E15_bg_666666.jpg",
+            "slide_3_heading": "Smart Control — Precise Command",
+            "slide_3_text": "<p>Industrly leading throttle control with advanced real-time control architecture. The E15 controller continuously adjusts power delivery based on throttle input. The result is smoother acceleration, cleaner drive out of corners, and controlled traction in technical terrain and on whoops.</p>",
+            "slide_4_image": "shopify://shop_images/RFN_26_MX_range_12.jpg",
+            "slide_4_heading": "Fully Adjustable Suspension",
+            "slide_4_text": "<p>Fully adjustable rebound and damping let you fine-tune the bike to your speed, terrain, and riding style. Whether you're on a smooth track boosting jumps or a gnarly rock garden, the forks and shock deliver consistent, predictable performance under load, improving corner stability, traction, and control when the pace picks up.</p>",
+            "slide_5_image": "shopify://shop_images/RFN_26_MX_range_23.jpg",
+            "slide_5_heading": "Race-Worthy Brakes",
+            "slide_5_text": "<p>With safety in mind, the SX-E15 is equipped with high-performance braking components built for steep descents and hard charging into corners. Strong initial bite and consistent stopping power deliver precise control on entry, while balanced modulation allows you to brake later with greater confidence through technical sections and high-speed terrain all while keeping the brakes from overheating.</p>",
+            "slide_6_image": "shopify://shop_images/RFN_26_MX_range_10.jpg",
+            "slide_6_heading": "Unmatched Control",
+            "slide_6_text": "<p>Know exactly how your bike will respond. Five selectable power modes let you transform the ride from a full-power machine to a smooth, controlled learning platform. A reverse function makes tight maneuvering effortless without unnecessary fatigue, while the safety tether adds an extra layer of protection for both rider and surroundings. The LCD display keeps critical ride data front and center, so you’re always informed and in command.</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d5ee09e_6RDBiH"
+      ],
+      "settings": {}
+    },
+    "17717161732402c7eb": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_bc29716_i3n83J": {
+          "type": "ai_gen_block_bc29716",
+          "settings": {
+            "video_title_1": "SX-E15 Plus / Stark Varg Race",
+            "video_url_1": "lgAwhSeJRgE",
+            "video_title_2": "SX-E15 at Redbull TKO",
+            "video_url_2": "2IN6rQURYEw",
+            "video_title_3": "SX-E15 Review at the track!",
+            "video_url_3": "MrCcH-lyNis",
+            "desktop_width_percent": 100,
+            "gap": 40,
+            "video_border_radius": 0,
+            "title_size": 24,
+            "title_color": "#ffffff",
+            "title_alignment": "center",
+            "title_spacing": 15
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_bc29716_i3n83J"
+      ],
+      "settings": {}
+    },
+    "rich_text_GGyf9A": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_3teEMT": {
+          "type": "heading",
+          "settings": {
+            "heading": "2026 RFN Warrior Pro SX‑E15 Plus",
+            "heading_size": "h1"
+          }
+        },
+        "heading_MaMfad": {
+          "type": "heading",
+          "settings": {
+            "heading": "61 MPH • 74V • 15kW • Full-Size 21/18 Wheels",
+            "heading_size": "h2"
+          }
+        },
+        "text_YfQiQr": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>The fastest production electric dirt bike in its class. Delivering true 250cc trail performance and 85cc track capability without gas, noise, or constant maintenance.</strong></p><p><strong>Proven at the Red Bull TKO Enduro and race-ready straight out of the box.</strong></p>"
+          }
+        },
+        "heading_g7FqJd": {
+          "type": "heading",
+          "settings": {
+            "heading": "Made for riders who want real 250cc-level performance — without the hassle",
+            "heading_size": "h2"
+          }
+        },
+        "text_Eqk3aK": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Instant torque. No clutch. No shifting. No power band.<br/><br/>Just smooth, predictable acceleration and total control — especially in tight, technical singletrack where gas bikes wear you out.</p><p>Up to 50 miles of range and fast 2–4 hour charging means more trail time and less garage time. No oil changes. No jetting. No warm-ups. Just load it up and ride.</p><p>The SX-E15 Plus is built for riders who’d rather spend their time on the mountain than working on their bike.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3teEMT",
+        "heading_MaMfad",
+        "text_YfQiQr",
+        "heading_g7FqJd",
+        "text_Eqk3aK"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "heading": "YOU MAY ALSO LIKE",
+        "heading_size": "h1",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 0,
+        "padding_bottom": 40
+      }
+    },
+    "slideshow_HP9Dan": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_a3k8gn": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/e15_1.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        },
+        "slide_dqqAcp": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/e15_3.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        },
+        "slide_NHfENK": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/IMG_8397.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        },
+        "slide_FzkRmi": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/WarriorTrackLineup.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        },
+        "slide_aXDbJF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/e15_4.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_a3k8gn",
+        "slide_dqqAcp",
+        "slide_NHfENK",
+        "slide_FzkRmi",
+        "slide_aXDbJF"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "1771442225ea7d5038": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "floating_cta_XfYkRL": {
+      "type": "floating_cta",
+      "name": "Floating CTA (Order Now)",
+      "settings": {
+        "button_text": "Order Now",
+        "link": "",
+        "enable_modal": true,
+        "aria_label": "",
+        "position": "bc",
+        "offset_x": 16,
+        "offset_y": 16,
+        "width_px": 0,
+        "shape": "pill",
+        "card_radius": 18,
+        "card_pad_x": 20,
+        "card_pad_y": 16,
+        "card_max_w": 520,
+        "header_text": "",
+        "header_size": 12,
+        "header_align": "left",
+        "header_chip_color": "#2a2a2a",
+        "show_header_icon": true,
+        "price_text": "$5,699",
+        "compare_price_text": "",
+        "compare_price_size": 14,
+        "date_text": "",
+        "finance_text": "+ Shipping/Tax",
+        "bg_text": "",
+        "bg_text_size": 160,
+        "bg_text_color": "#000000",
+        "bg_text_opacity": 100,
+        "visibility": "all",
+        "show_delay": 0,
+        "show_scroll_percent": 0,
+        "open_new": false,
+        "z_index": 9999,
+        "bg_color": "#111111",
+        "card_bg_opacity": 0,
+        "text_color": "#ffffff",
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#111111"
+      }
+    },
+    "floating_cta_YB7bmy": {
+      "type": "floating_cta",
+      "disabled": true,
+      "name": "Floating CTA",
+      "settings": {
+        "button_text": "Find a Dealer",
+        "link": "shopify://pages/find-a-dealer",
+        "enable_modal": true,
+        "aria_label": "",
+        "position": "bc",
+        "offset_x": 16,
+        "offset_y": 16,
+        "width_px": 0,
+        "shape": "pill",
+        "card_radius": 18,
+        "card_pad_x": 20,
+        "card_pad_y": 16,
+        "card_max_w": 520,
+        "header_text": "",
+        "header_size": 12,
+        "header_align": "left",
+        "header_chip_color": "#2a2a2a",
+        "show_header_icon": true,
+        "price_text": "$5,649",
+        "compare_price_text": "",
+        "compare_price_size": 14,
+        "date_text": "",
+        "finance_text": "",
+        "bg_text": "",
+        "bg_text_size": 160,
+        "bg_text_color": "#000000",
+        "bg_text_opacity": 100,
+        "visibility": "all",
+        "show_delay": 0,
+        "show_scroll_percent": 0,
+        "open_new": false,
+        "z_index": 9999,
+        "bg_color": "#111111",
+        "card_bg_opacity": 0,
+        "text_color": "#ffffff",
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#111111"
+      }
+    },
+    "product_modal_overlay_sWEUZF": {
+      "type": "product_modal_overlay",
+      "name": "Product modal",
+      "settings": {
+        "product": "2026-rfn-warrior-pro-sx-e15-plus-74v-15-000w-adult-electric-dirt-bike-21-18-wheels-pre-order",
+        "add_button_text": "Add to cart",
+        "checkout_button_text": "Checkout now"
+      }
+    },
+    "collapsible_content_KhkhbB": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_XmfbYt": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Specifications",
+            "icon": "none",
+            "row_content": "<p><strong>Performance</strong></p><ul><li>Top Speed: <strong>61 MPH</strong></li><li>Range: <strong>Up to 50 miles</strong></li><li>Power Modes: <strong>5</strong></li><li>Reverse: <strong>Yes</strong></li><li>Peak Power: <strong>15 kW</strong></li></ul><p><strong>Powertrain</strong></p><ul><li>Battery: <strong>74V Samsung 40Ah</strong></li><li>Regenerative Braking: <strong>Yes</strong></li><li>No oil changes</li><li>No top-end rebuilds</li><li>No fuel mixing</li></ul><p><strong>Chassis & Suspension</strong></p><ul><li>Frame: <strong>Chromoly race frame</strong></li><li>Front Suspension: <strong>Fully adjustable race suspension</strong></li><li>Rear Suspension: <strong>Fully adjustable race suspension</strong></li><li>Wheels: <strong>21” front / 18” rear (full-size)</strong></li><li>Brakes: <strong>Double-piston moto brakes</strong></li></ul><p><strong>Ergonomics & Weight</strong></p><ul><li>Seat Height: <strong>36.2”</strong></li><li>Weight (Ready-to-Ride): <strong>205 lbs</strong></li></ul><p><strong>Other</strong></p><ul><li>Real moto geometry & capability</li><li>Track or trail ready</li><li>Minimal maintenance</li><li>Designed for true dirt bike performance</li></ul>",
+            "page": ""
+          }
+        },
+        "collapsible_row_ieAYRR": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Premium Samsung Battery",
+            "icon": "none",
+            "row_content": "<p>74V 40Ah pack delivers class-leading power, reliability, and range. Built to withstand thousands of charge cycles, with quick-swap capability for all-day riding. The battery is resilient and has 5-10 years of life.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_zRybE6": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Plus-Sized 21\"/18\" Wheels",
+            "icon": "none",
+            "row_content": "<p>The first AMA Certified electric dirt bike in it's class with plus sized wheels!</p><p>Bigger wheels mean better rolling efficiency, smoother handling over rocks, roots, and logs, and a taller 36.2\" seat height for riders who want maximum control and capability.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_qNbkUQ": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "After Purchase Support",
+            "icon": "none",
+            "row_content": "<p><strong>✔ Replacement parts warehoused in Orem, Utah<br/>✔ 10+ dealerships in Utah and Idaho</strong></p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_YNffC7": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Regenerative Braking ",
+            "icon": "none",
+            "row_content": "<p>Allows the battery to charge while decelerating or coasting down hill.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_7XBEWL": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "RFN App",
+            "icon": "none",
+            "row_content": "<p>See stats, control top speeds, and customize all settings from your phone.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_9jE3An": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Warranty",
+            "icon": "none",
+            "row_content": "<p>Comprehensive warranty protects customers from defective parts.</p><p>Battery - 24 months</p><p>Motor - 24 months</p><p>Controller - 24 months</p><p>Charger - 24 months</p><p>F/R wheel without tire - 10000km</p><p>Front suspension fork - 6 months or 3000km</p><p>Rear shock - 6 months or 3000km</p><p>Display - 12 months</p><p>Chain - 1500km</p><p>Sprocket - 5000km</p><p>Saddle - 12 months</p><p>Harness - 12 months</p><p>Disc rotor - Lifetime</p><p>Speed mode button - 12 months</p><p>Emergency power off switch - 12 months</p><p>Front brake assembly (without brake pads) - 12 months</p><p>Rear brake assembly (without brake pads) - 12 months</p><p> </p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_8DLKzm": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Return Policy",
+            "icon": "none",
+            "row_content": "<p>Unopened items in original packaging can be returned 30 days after the product is received. </p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_XmfbYt",
+        "collapsible_row_ieAYRR",
+        "collapsible_row_zRybE6",
+        "collapsible_row_qNbkUQ",
+        "collapsible_row_YNffC7",
+        "collapsible_row_7XBEWL",
+        "collapsible_row_9jE3An",
+        "collapsible_row_8DLKzm"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "PRODUCT SPECS",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "row",
+        "container_color_scheme": "",
+        "color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "product-rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "product-rating",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "share"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    }
+  },
+  "order": [
+    "360_image_selection_KQfnjp",
+    "specs_board_Pjmf7Y",
+    "fullscreen_autoplay_vid_dVjEqi",
+    "1771442509844dda9e",
+    "17717161732402c7eb",
+    "rich_text_GGyf9A",
+    "related-products",
+    "slideshow_HP9Dan",
+    "1771442225ea7d5038",
+    "floating_cta_XfYkRL",
+    "floating_cta_YB7bmy",
+    "product_modal_overlay_sWEUZF",
+    "collapsible_content_KhkhbB",
+    "main"
+  ]
+}
