@@ -462,7 +462,7 @@
         "gap_x": 24,
         "gap_y": 24,
         "heading_1": "the king of electric dirt bikes",
-        "heading_2": "RFN Warrior sx-E15",
+        "heading_2": "RFN Warrior PRO SX-E15",
         "card_bg": "#1a1a1a",
         "card_text": "#ffffff",
         "accent": "rgba(255,255,255,.16)",
@@ -524,21 +524,23 @@
     },
     "17724924267f56a5f2": {
       "type": "_blocks",
+      "settings": {}
+    },
+    "17724946041ecbaa54": {
+      "type": "_blocks",
       "blocks": {
-        "ai_gen_block_5f6414f_zrDtD6": {
-          "type": "ai_gen_block_5f6414f",
+        "ai_gen_block_27c36f2_7HcDgF": {
+          "type": "ai_gen_block_27c36f2",
           "settings": {
             "desktop_width_percent": 100,
-            "padding": 40,
-            "content_gap": 40,
-            "text_padding": 20,
-            "text_spacing": 15,
+            "image_width": 70,
+            "image_padding": 20,
+            "content_padding": 40,
             "border_radius": 0,
-            "image_border_radius": 0,
             "background_color": "#1f1f21",
             "heading_color": "#ffffff",
             "text_color": "#ffffff",
-            "heading_size": 32,
+            "heading_size": 36,
             "text_size": 16,
             "button_size": 50,
             "button_offset": 20,
@@ -546,27 +548,26 @@
             "button_hover_background": "#e3fc02",
             "button_color": "#1f1f21",
             "dot_color": "#ffffff",
-            "dot_active_color": "#e3fc02",
-            "slide_1_heading": "Slide 1 Heading",
-            "slide_1_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
-            "slide_2_heading": "Slide 2 Heading",
-            "slide_2_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
-            "slide_3_heading": "Slide 3 Heading",
-            "slide_3_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
-            "slide_4_heading": "Slide 4 Heading",
-            "slide_4_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
-            "slide_5_heading": "Slide 5 Heading",
-            "slide_5_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
-            "slide_6_heading": "Slide 6 Heading",
-            "slide_6_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>",
-            "slide_7_heading": "Slide 7 Heading",
-            "slide_7_text": "<p>Add your slide content here. Describe your product, feature, or message.</p>"
+            "slide_1_heading": "Slide 1 heading",
+            "slide_1_text": "<p>Add your slide content here.</p>",
+            "slide_2_heading": "Slide 2 heading",
+            "slide_2_text": "<p>Add your slide content here.</p>",
+            "slide_3_heading": "Slide 3 heading",
+            "slide_3_text": "<p>Add your slide content here.</p>",
+            "slide_4_heading": "Slide 4 heading",
+            "slide_4_text": "<p>Add your slide content here.</p>",
+            "slide_5_heading": "Slide 5 heading",
+            "slide_5_text": "<p>Add your slide content here.</p>",
+            "slide_6_heading": "Slide 6 heading",
+            "slide_6_text": "<p>Add your slide content here.</p>",
+            "slide_7_heading": "Slide 7 heading",
+            "slide_7_text": "<p>Add your slide content here.</p>"
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_5f6414f_zrDtD6"
+        "ai_gen_block_27c36f2_7HcDgF"
       ],
       "settings": {}
     },
@@ -816,9 +817,9 @@
         "collapsible_row_dabaKM": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Race Winning Power",
+            "heading": "Specifications",
             "icon": "none",
-            "row_content": "<p>With a true 15kW peak output, rivaling a 250cc gas bike, with no shifting required. Instant torque means effortless climbs, corners, and acceleration up to 56 mph (90 kph).</p>",
+            "row_content": "<p><strong>Performance</strong></p><ul><li>Top Speed: <strong>61 MPH</strong></li><li>Range: <strong>Up to 50 miles</strong></li><li>Power Modes: <strong>5</strong></li><li>Reverse: <strong>Yes</strong></li><li>Peak Power: <strong>15 kW</strong></li></ul><p><strong>Powertrain</strong></p><ul><li>Battery: <strong>74V Samsung 40Ah</strong></li><li>Regenerative Braking: <strong>Yes</strong></li><li>No oil changes</li><li>No top-end rebuilds</li><li>No fuel mixing</li></ul><p><strong>Chassis & Suspension</strong></p><ul><li>Frame: <strong>Chromoly race frame</strong></li><li>Front Suspension: <strong>Fully adjustable race suspension</strong></li><li>Rear Suspension: <strong>Fully adjustable race suspension</strong></li><li>Wheels: <strong>21” front / 18” rear (full-size)</strong></li><li>Brakes: <strong>Double-piston moto brakes</strong></li></ul><p><strong>Ergonomics & Weight</strong></p><ul><li>Seat Height: <strong>36.2”</strong></li><li>Weight (Ready-to-Ride): <strong>205 lbs</strong></li></ul><p><strong>Other</strong></p><ul><li>Real moto geometry & capability</li><li>Track or trail ready</li><li>Minimal maintenance</li><li>Designed for true dirt bike performance</li></ul>",
             "page": ""
           }
         },
@@ -1046,6 +1047,7 @@
     "specs_board_G6dWQ7",
     "fullscreen_autoplay_vid_xYRCnd",
     "17724924267f56a5f2",
+    "17724946041ecbaa54",
     "rich_text_6TVaXH",
     "floating_cta_W8kVPx",
     "floating_cta_xcAJE7",
