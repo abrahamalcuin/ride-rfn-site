@@ -818,6 +818,35 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
+    "1772496331bf2bac78": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_cf3d065_rxPiDG": {
+          "type": "ai_gen_block_cf3d065",
+          "settings": {
+            "header_text": "Click to expand",
+            "header_font_size": 18,
+            "text_color": "#ffffff",
+            "columns_desktop": 4,
+            "columns_mobile": "2",
+            "grid_gap": 16,
+            "desktop_width_percent": 100,
+            "image_border_radius": 0,
+            "lightbox_border_radius": 0,
+            "image_1": "shopify://shop_images/E15_HE_electric.jpg",
+            "image_2": "shopify://shop_images/RFN_Harrys_place_14.jpg",
+            "image_3": "shopify://shop_images/RFN_Harrys_place_19.jpg",
+            "image_4": "shopify://shop_images/RFN_Harrys_place_26.jpg",
+            "image_5": "shopify://shop_images/RFN_Harrys_place_10.jpg"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_cf3d065_rxPiDG"
+      ],
+      "settings": {}
+    },
     "collapsible_content_GkYAc7": {
       "type": "collapsible-content",
       "blocks": {
@@ -1060,6 +1089,7 @@
     "floating_cta_xcAJE7",
     "product_modal_overlay_vwRXn6",
     "slideshow_jVcz7R",
+    "1772496331bf2bac78",
     "collapsible_content_GkYAc7",
     "related-products",
     "main"
