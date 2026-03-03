@@ -1,6 +1,564 @@
+{% doc %}
+  @prompt
+    add a section where it has 4 rows and for columns of expandable pictures. give me the option to add/reduce the number of columns. at the top say "click to expand". When clicked, expand the image. allow customers to click between images when expanded.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-expandable-gallery-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 20px 0;
+  }
+
+  .ai-expandable-gallery__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 20px;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.header_font_size }}px;
+    font-weight: 600;
+  }
+
+  .ai-expandable-gallery__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-expandable-gallery__item-{{ ai_gen_id }} {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-expandable-gallery__item-{{ ai_gen_id }}:hover {
+    transform: scale(1.05);
+  }
+
+  .ai-expandable-gallery__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-expandable-gallery__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #1f1f21;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-expandable-gallery__placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-expandable-gallery__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #ffffff;
+    opacity: 0.7;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .ai-expandable-gallery__lightbox-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-expandable-gallery__lightbox-{{ ai_gen_id }}.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .ai-expandable-gallery__lightbox-content-{{ ai_gen_id }} {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-expandable-gallery__lightbox-image-{{ ai_gen_id }} {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: {{ block.settings.lightbox_border_radius }}px;
+  }
+
+  .ai-expandable-gallery__lightbox-close-{{ ai_gen_id }} {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 10001;
+  }
+
+  .ai-expandable-gallery__lightbox-close-{{ ai_gen_id }}:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 10001;
+  }
+
+  .ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}--prev {
+    left: 20px;
+  }
+
+  .ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}--next {
+    right: 20px;
+  }
+
+  .ai-expandable-gallery__lightbox-counter-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-expandable-gallery__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+
+    .ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }} {
+      width: 40px;
+      height: 40px;
+    }
+
+    .ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}--prev {
+      left: 10px;
+    }
+
+    .ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}--next {
+      right: 10px;
+    }
+  }
+{% endstyle %}
+
+<expandable-gallery-{{ ai_gen_id }} class="ai-expandable-gallery-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-expandable-gallery__header-{{ ai_gen_id }}">
+    {{ block.settings.header_text }}
+  </div>
+
+  <div class="ai-expandable-gallery__grid-{{ ai_gen_id }}">
+    {% for i in (1..16) %}
+      {% liquid
+        assign image_key = 'image_' | append: i
+        assign image = block.settings[image_key]
+      %}
+      
+      <div class="ai-expandable-gallery__item-{{ ai_gen_id }}" data-index="{{ forloop.index0 }}">
+        {% if image %}
+          <img
+            src="{{ image | image_url: width: 800 }}"
+            alt="{{ image.alt | escape }}"
+            loading="lazy"
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+            class="ai-expandable-gallery__image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-expandable-gallery__placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-expandable-gallery__empty-state-{{ ai_gen_id }}">
+              Add image {{ i }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="ai-expandable-gallery__lightbox-{{ ai_gen_id }}" role="dialog" aria-modal="true" aria-label="Image gallery lightbox">
+    <button class="ai-expandable-gallery__lightbox-close-{{ ai_gen_id }}" aria-label="Close lightbox">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <button class="ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }} ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}--prev" aria-label="Previous image">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    <div class="ai-expandable-gallery__lightbox-content-{{ ai_gen_id }}">
+      <img src="" alt="" class="ai-expandable-gallery__lightbox-image-{{ ai_gen_id }}">
+    </div>
+
+    <button class="ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }} ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}--next" aria-label="Next image">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+
+    <div class="ai-expandable-gallery__lightbox-counter-{{ ai_gen_id }}">
+      <span class="current">1</span> / <span class="total">16</span>
+    </div>
+  </div>
+</expandable-gallery-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ExpandableGallery{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.images = [];
+        this.currentIndex = 0;
+      }
+
+      connectedCallback() {
+        this.lightbox = this.querySelector('.ai-expandable-gallery__lightbox-{{ ai_gen_id }}');
+        this.lightboxImage = this.querySelector('.ai-expandable-gallery__lightbox-image-{{ ai_gen_id }}');
+        this.closeButton = this.querySelector('.ai-expandable-gallery__lightbox-close-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}--prev');
+        this.nextButton = this.querySelector('.ai-expandable-gallery__lightbox-nav-{{ ai_gen_id }}--next');
+        this.counter = this.querySelector('.ai-expandable-gallery__lightbox-counter-{{ ai_gen_id }}');
+        this.items = this.querySelectorAll('.ai-expandable-gallery__item-{{ ai_gen_id }}');
+
+        this.collectImages();
+        this.setupEventListeners();
+      }
+
+      collectImages() {
+        this.items.forEach((item) => {
+          const img = item.querySelector('.ai-expandable-gallery__image-{{ ai_gen_id }}');
+          if (img) {
+            this.images.push({
+              src: img.src,
+              alt: img.alt
+            });
+          }
+        });
+      }
+
+      setupEventListeners() {
+        this.items.forEach((item, index) => {
+          const img = item.querySelector('.ai-expandable-gallery__image-{{ ai_gen_id }}');
+          if (img) {
+            item.addEventListener('click', () => {
+              this.openLightbox(index);
+            });
+          }
+        });
+
+        this.closeButton.addEventListener('click', () => {
+          this.closeLightbox();
+        });
+
+        this.prevButton.addEventListener('click', () => {
+          this.showPrevious();
+        });
+
+        this.nextButton.addEventListener('click', () => {
+          this.showNext();
+        });
+
+        this.lightbox.addEventListener('click', (e) => {
+          if (e.target === this.lightbox) {
+            this.closeLightbox();
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (!this.lightbox.classList.contains('active')) return;
+
+          if (e.key === 'Escape') {
+            this.closeLightbox();
+          } else if (e.key === 'ArrowLeft') {
+            this.showPrevious();
+          } else if (e.key === 'ArrowRight') {
+            this.showNext();
+          }
+        });
+      }
+
+      openLightbox(index) {
+        if (this.images.length === 0) return;
+        
+        this.currentIndex = index;
+        this.updateLightboxImage();
+        this.lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeLightbox() {
+        this.lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      showPrevious() {
+        this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+        this.updateLightboxImage();
+      }
+
+      showNext() {
+        this.currentIndex = (this.currentIndex + 1) % this.images.length;
+        this.updateLightboxImage();
+      }
+
+      updateLightboxImage() {
+        const image = this.images[this.currentIndex];
+        this.lightboxImage.src = image.src;
+        this.lightboxImage.alt = image.alt;
+        this.counter.querySelector('.current').textContent = this.currentIndex + 1;
+        this.counter.querySelector('.total').textContent = this.images.length;
+      }
+    }
+
+    customElements.define('expandable-gallery-{{ ai_gen_id }}', ExpandableGallery{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Expandable image gallery",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "header_text",
+      "label": "Header text",
+      "default": "Click to expand"
+    },
+    {
+      "type": "range",
+      "id": "header_font_size",
+      "label": "Header font size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 4,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "lightbox_border_radius",
+      "label": "Lightbox border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Image 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Image 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_9",
+      "label": "Image 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_10",
+      "label": "Image 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_11",
+      "label": "Image 11"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_12",
+      "label": "Image 12"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_13",
+      "label": "Image 13"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_14",
+      "label": "Image 14"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_15",
+      "label": "Image 15"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_16",
+      "label": "Image 16"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Expandable image gallery"
+    }
+  ]
+}
 {% endschema %}
