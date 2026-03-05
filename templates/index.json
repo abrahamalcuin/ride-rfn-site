@@ -137,8 +137,8 @@
         "product_specs_hHKmkp": {
           "type": "product_specs",
           "settings": {
-            "product": "2026-rfn-warrior-e8-youth-teen-electric-dirt-bike-60v-8-000w-pre-order",
-            "card_link": "shopify://products/2026-rfn-warrior-e8-youth-teen-electric-dirt-bike-60v-8-000w-pre-order",
+            "product": "2026-e8",
+            "card_link": "shopify://products/2026-e8",
             "learn_more_link": "shopify://products/2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
             "media_zoom_override_enable": true,
             "media_zoom_override": 24,
@@ -153,7 +153,7 @@
             "order_button_label": "Order Now",
             "order_button_link": "",
             "learn_button_label": "",
-            "learn_button_link": "shopify://products/2026-rfn-warrior-e8-youth-teen-electric-dirt-bike-60v-8-000w-pre-order"
+            "learn_button_link": "shopify://products/2026-e8"
           }
         },
         "product_specs_xGQjBx": {
