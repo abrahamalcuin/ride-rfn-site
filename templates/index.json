@@ -115,9 +115,9 @@
         "product_specs_VKQBcD": {
           "type": "product_specs",
           "settings": {
-            "product": "2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
-            "card_link": "shopify://products/2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
-            "learn_more_link": "shopify://products/2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
+            "product": "2026-e5",
+            "card_link": "shopify://products/2026-e5",
+            "learn_more_link": "shopify://products/2026-e5",
             "media_zoom_override_enable": true,
             "media_zoom_override": 0,
             "spec_1_metric": "37.5 MPH",
@@ -139,7 +139,7 @@
           "settings": {
             "product": "2026-e8",
             "card_link": "shopify://products/2026-e8",
-            "learn_more_link": "shopify://products/2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
+            "learn_more_link": "shopify://products/2026-e5",
             "media_zoom_override_enable": true,
             "media_zoom_override": 24,
             "spec_1_metric": "52.1 MPH",
@@ -343,7 +343,7 @@
       "type": "product_modal_overlay",
       "name": "Product modal",
       "settings": {
-        "product": "2026-rfn-warrior-e5-kids-youth-electric-dirt-bike-5kw-48v-pre-order",
+        "product": "2026-e5",
         "add_button_text": "Add to cart",
         "checkout_button_text": "Checkout now"
       }
