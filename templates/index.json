@@ -159,9 +159,9 @@
         "product_specs_xGQjBx": {
           "type": "product_specs",
           "settings": {
-            "product": "2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order",
-            "card_link": "shopify://products/2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order",
-            "learn_more_link": "shopify://products/2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order",
+            "product": "2026-e15",
+            "card_link": "shopify://products/2026-e15",
+            "learn_more_link": "shopify://products/2026-e15",
             "media_zoom_override_enable": true,
             "media_zoom_override": 60,
             "spec_1_metric": "56 MPH",
@@ -173,7 +173,7 @@
             "spec_4_metric": "",
             "spec_4_hint": "",
             "order_button_label": "Order Now",
-            "order_button_link": "shopify://products/2026-rfn-warrior-pro-sx-e15-74v-15-000w-adult-electric-dirt-bike-19-16-wheels-pre-order",
+            "order_button_link": "shopify://products/2026-e15",
             "learn_button_label": "",
             "learn_button_link": ""
           }
