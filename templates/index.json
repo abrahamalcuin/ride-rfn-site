@@ -199,37 +199,13 @@
             "learn_button_label": "",
             "learn_button_link": "shopify://products/e15-plus"
           }
-        },
-        "product_specs_PYTa3g": {
-          "type": "product_specs",
-          "disabled": true,
-          "settings": {
-            "product": "test-sale",
-            "card_link": "",
-            "learn_more_link": "",
-            "media_zoom_override_enable": false,
-            "media_zoom_override": 0,
-            "spec_1_metric": "15,000W",
-            "spec_1_hint": "59 MPH",
-            "spec_2_metric": "74V 2960aH",
-            "spec_2_hint": "50 MILE RANGE",
-            "spec_3_metric": "34.5 IN SEAT",
-            "spec_3_hint": "RIDERS 5FT0-5FT8",
-            "spec_4_metric": "READY TO RIDE",
-            "spec_4_hint": "180 LBS",
-            "order_button_label": "",
-            "order_button_link": "",
-            "learn_button_label": "",
-            "learn_button_link": ""
-          }
         }
       },
       "block_order": [
         "product_specs_VKQBcD",
         "product_specs_hHKmkp",
         "product_specs_xGQjBx",
-        "product_specs_8GjcLt",
-        "product_specs_PYTa3g"
+        "product_specs_8GjcLt"
       ],
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
