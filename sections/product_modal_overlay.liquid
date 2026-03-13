@@ -471,6 +471,26 @@
         if (checkoutButton) checkoutButton.disabled = !variantAvailable;
       };
 
+      const refreshCartIconBubble = () => {
+        const cartIconBubble = document.getElementById('cart-icon-bubble');
+        if (!cartIconBubble) return Promise.resolve();
+
+        return fetch('/cart?section_id=cart-icon-bubble')
+          .then((response) => response.text())
+          .then((responseText) => {
+            const nextBubble = new DOMParser()
+              .parseFromString(responseText, 'text/html')
+              .querySelector('.shopify-section');
+
+            if (nextBubble) {
+              cartIconBubble.innerHTML = nextBubble.innerHTML;
+            }
+          })
+          .catch((error) => {
+            console.error('Failed to refresh cart badge', error);
+          });
+      };
+
       const selectColorButton = (button) => {
         if (!button) return;
         colorButtons.forEach((btn) => {
@@ -551,7 +571,8 @@
             }
             return response.json();
           })
-          .then(() => {
+          .then(async () => {
+            await refreshCartIconBubble();
             if (action === 'checkout') {
               window.location.href = '/checkout';
               return;
