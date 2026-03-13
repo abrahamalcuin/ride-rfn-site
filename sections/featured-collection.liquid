@@ -1021,6 +1021,18 @@
           feedbackEl.style.color = isError ? '#b42318' : '#111111';
         };
 
+        const getCartNotificationState = (item) => {
+          const sectionIds = ['cart-notification-product', 'cart-notification-button', 'cart-icon-bubble'];
+          const requestUrl = `${window.location.pathname}?sections=${sectionIds.join(',')}`;
+
+          return fetch(requestUrl)
+            .then((response) => response.json())
+            .then((sections) => ({
+              ...item,
+              sections,
+            }));
+        };
+
         const refreshCartIconBubble = () => {
           const cartIconBubble = document.getElementById('cart-icon-bubble');
           if (!cartIconBubble) return Promise.resolve();
@@ -1154,6 +1166,7 @@
           const quantity = quantityInput ? clampQuantity(quantityInput.value, min) : min;
           const payload = { id: variant.id, quantity };
           const buttons = [addButton, checkoutButton].filter(Boolean);
+          const activeElement = document.activeElement;
           buttons.forEach((btn) => { btn.disabled = true; });
           setFeedback('Adding to cart...');
 
@@ -1169,12 +1182,22 @@
               if (!response.ok) throw response;
               return response.json();
             })
-            .then(async () => {
-              await refreshCartIconBubble();
+            .then(async (item) => {
               if (action === 'checkout') {
                 window.location.href = '/checkout';
                 return;
               }
+
+              const cartNotification = document.querySelector('cart-notification');
+              if (cartNotification) {
+                const parsedState = await getCartNotificationState(item);
+                hideModal();
+                cartNotification.setActiveElement(activeElement);
+                cartNotification.renderContents(parsedState);
+                return;
+              }
+
+              await refreshCartIconBubble();
               setFeedback('Added to cart!');
             })
             .catch(() => {

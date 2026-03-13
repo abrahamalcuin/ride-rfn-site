@@ -491,6 +491,18 @@
           });
       };
 
+      const getCartNotificationState = (item) => {
+        const sectionIds = ['cart-notification-product', 'cart-notification-button', 'cart-icon-bubble'];
+        const requestUrl = `${window.location.pathname}?sections=${sectionIds.join(',')}`;
+
+        return fetch(requestUrl)
+          .then((response) => response.json())
+          .then((sections) => ({
+            ...item,
+            sections,
+          }));
+      };
+
       const selectColorButton = (button) => {
         if (!button) return;
         colorButtons.forEach((btn) => {
@@ -554,6 +566,7 @@
           quantity
         };
         const buttons = [addButton, checkoutButton].filter(Boolean);
+        const activeElement = document.activeElement;
         buttons.forEach((btn) => btn.disabled = true);
         setFeedback('Adding to cart...');
 
@@ -571,12 +584,22 @@
             }
             return response.json();
           })
-          .then(async () => {
-            await refreshCartIconBubble();
+          .then(async (item) => {
             if (action === 'checkout') {
               window.location.href = '/checkout';
               return;
             }
+
+            const cartNotification = document.querySelector('cart-notification');
+            if (cartNotification) {
+              const parsedState = await getCartNotificationState(item);
+              close();
+              cartNotification.setActiveElement(activeElement);
+              cartNotification.renderContents(parsedState);
+              return;
+            }
+
+            await refreshCartIconBubble();
             setFeedback('Added to cart!');
           })
           .catch(() => {
