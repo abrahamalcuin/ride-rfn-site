@@ -2,6 +2,11 @@
   position: relative;
 }
 
+cart-notification {
+  position: relative;
+  z-index: 12010;
+}
+
 .cart-notification-wrapper .cart-notification {
   display: block;
 }
@@ -61,6 +66,7 @@
   transform: translateY(0);
   transition: transform var(--duration-default) ease, visibility 0s;
   visibility: visible;
+  z-index: 12011;
 }
 
 .cart-notification__header {
