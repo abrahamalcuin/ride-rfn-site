@@ -290,11 +290,33 @@ details[open] .header__icon--search .header__icon-close {
   .header--custom-3col header-drawer .menu-drawer__navigation-container {
     height: 100%;
   }
+  .header--custom-3col header-drawer .menu-drawer__navigation-container {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+  }
   .header--custom-3col header-drawer .menu-drawer__navigation {
-    padding-top: calc(var(--header-height, 0px) + 2rem);
+    padding-top: calc(var(--header-height, 0px) + 0.8rem);
+    padding-bottom: 0;
   }
   .header--custom-3col header-drawer .menu-drawer__utility-links {
-    padding-bottom: clamp(2rem, 5vh, 4rem);
+    margin-top: 1.2rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    background: transparent;
+  }
+  .header--custom-3col header-drawer .menu-drawer__account {
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+  .header--custom-3col header-drawer .menu-drawer__localization {
+    margin-top: 1rem;
+  }
+  .header--custom-3col header-drawer .menu-drawer .list-social {
+    margin-top: 1.2rem;
   }
   .js .header--custom-3col header-drawer details.menu-opening > .menu-drawer,
   .header--custom-3col header-drawer details.menu-opening > .menu-drawer {
@@ -366,10 +388,13 @@ details[open] .header__icon--search .header__icon-close {
     top: 0;
     left: 0;
     right: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
     width: 100%;
     max-width: none;
     min-height: 0;
-    padding: calc(var(--header-height, 0px) + 1.6rem) 1.6rem 1.6rem;
+    padding: calc(var(--header-height, 0px) + 1.6rem) 5.6rem 1.6rem 1.6rem;
     background: rgb(var(--color-background));
   }
   .header--custom-3col .search-modal .modal-overlay {
@@ -378,10 +403,22 @@ details[open] .header__icon--search .header__icon-close {
   }
   .header--custom-3col .search-modal__form {
     max-width: none;
+    width: 100%;
+    margin: 0;
   }
   .header--custom-3col .search-modal__close-button {
-    top: 1rem;
+    position: fixed;
+    top: calc(var(--header-height, 0px) + 0.8rem);
     right: 1rem;
+    z-index: 14021;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    margin: 0;
+    border-radius: 999px;
+    background: rgb(var(--color-background));
   }
   .header--custom-3col .header__center .header__heading-logo {
     width: {{ section.settings.mobile_logo_width | default: 160 }}px !important;
