@@ -48,6 +48,8 @@ class CartNotification extends HTMLElement {
       sectionElement.innerHTML = sectionInnerHTML;
     });
 
+    this.refreshCartIconBubble();
+
     if (this.header) this.header.reveal();
     this.open();
   }
@@ -76,6 +78,23 @@ class CartNotification extends HTMLElement {
     }
 
     return element ? element.innerHTML : null;
+  }
+
+  refreshCartIconBubble() {
+    const cartIconBubble = document.getElementById('cart-icon-bubble');
+    if (!cartIconBubble) return;
+
+    fetch(`${routes.cart_url}?section_id=cart-icon-bubble`)
+      .then((response) => response.text())
+      .then((responseText) => {
+        const section = new DOMParser().parseFromString(responseText, 'text/html').querySelector('.shopify-section');
+        if (!section) return;
+
+        cartIconBubble.innerHTML = section.innerHTML;
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   }
 
   handleBodyClick(evt) {
