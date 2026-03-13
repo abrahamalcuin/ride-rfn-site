@@ -2,6 +2,10 @@ class CartNotification extends HTMLElement {
   constructor() {
     super();
 
+    if (document.body && this.parentElement !== document.body) {
+      document.body.appendChild(this);
+    }
+
     this.notification = document.getElementById('cart-notification');
     this.header = document.querySelector('sticky-header');
     this.onBodyClick = this.handleBodyClick.bind(this);
