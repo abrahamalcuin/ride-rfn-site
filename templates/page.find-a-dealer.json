@@ -20,6 +20,44 @@
     "dealer_map_4ef8bY": {
       "type": "dealer-map",
       "blocks": {
+        "dealer_7TUahq": {
+          "type": "dealer",
+          "settings": {
+            "name": "Golden Spike Powersports",
+            "address_line1": "1352 W Main St, Tremonton, UT 84337",
+            "address_line2": "",
+            "city": "",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "",
+            "email": "",
+            "website_url": "",
+            "latitude": "41.71204018900792",
+            "longitude": "-112.18619193011054",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
+        "dealer_BhxzpL": {
+          "type": "dealer",
+          "settings": {
+            "name": "Sawtooth Powersports",
+            "address_line1": "9801 W Fairview Ave, Boise ID 83704",
+            "address_line2": "",
+            "city": "",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "",
+            "email": "",
+            "website_url": "",
+            "latitude": "43.619374875399586",
+            "longitude": "-116.30470168769112",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
         "dealer_fiKwjR": {
           "type": "dealer",
           "settings": {
@@ -33,7 +71,7 @@
             "phone": "",
             "email": "",
             "website_url": "",
-            "latitude": "38.536050144706614,",
+            "latitude": "38.536050144706614",
             "longitude": "-109.50991830608207",
             "directions_url": "",
             "notes": ""
@@ -269,6 +307,8 @@
         }
       },
       "block_order": [
+        "dealer_7TUahq",
+        "dealer_BhxzpL",
         "dealer_fiKwjR",
         "dealer_Ht4gbw",
         "dealer_xrLPQe",
