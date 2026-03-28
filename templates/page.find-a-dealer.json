@@ -20,6 +20,25 @@
     "dealer_map_4ef8bY": {
       "type": "dealer-map",
       "blocks": {
+        "dealer_fiKwjR": {
+          "type": "dealer",
+          "settings": {
+            "name": "Mad Bro Powersports",
+            "address_line1": "2471 S. HWY 191 MOAB, UT 845322",
+            "address_line2": "",
+            "city": "",
+            "state": "",
+            "postal_code": "",
+            "country": "",
+            "phone": "",
+            "email": "",
+            "website_url": "",
+            "latitude": "38.536050144706614,",
+            "longitude": "-109.50991830608207",
+            "directions_url": "",
+            "notes": ""
+          }
+        },
         "dealer_Ht4gbw": {
           "type": "dealer",
           "settings": {
@@ -250,6 +269,7 @@
         }
       },
       "block_order": [
+        "dealer_fiKwjR",
         "dealer_Ht4gbw",
         "dealer_xrLPQe",
         "dealer_wA8Pmx",
