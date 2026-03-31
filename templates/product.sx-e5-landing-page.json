@@ -9,341 +9,74 @@
  */
 {
   "sections": {
-    "360_image_selection_Tzaz49": {
-      "type": "360_image_selection",
+    "featured_product_gGq86e": {
+      "type": "featured-product",
       "blocks": {
-        "frame_baxrhd": {
-          "type": "frame",
+        "text_zVQYFd": {
+          "type": "text",
           "settings": {
-            "image": "shopify://shop_images/WARRIOR_5009.png"
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
           }
         },
-        "frame_gGE8Lp": {
-          "type": "frame",
+        "title_R8GHTL": {
+          "type": "title",
           "settings": {
-            "image": "shopify://shop_images/WARRIOR_5010.png"
+            "heading_size": "h1"
           }
         },
-        "frame_EEEfqC": {
-          "type": "frame",
+        "price_LtKeUq": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_yn8Lri": {
+          "type": "variant_picker",
           "settings": {
-            "image": "shopify://shop_images/WARRIOR_5011.png"
+            "picker_type": "button",
+            "swatch_shape": "circle"
           }
         },
-        "frame_cjLHwP": {
-          "type": "frame",
+        "quantity_selector_M7qAMy": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_eEwzPg": {
+          "type": "buy_buttons",
           "settings": {
-            "image": "shopify://shop_images/WARRIOR_5012.png"
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
           }
         },
-        "frame_Tip8FQ": {
-          "type": "frame",
+        "share_jePcLk": {
+          "type": "share",
           "settings": {
-            "image": "shopify://shop_images/WARRIOR_5013.png"
-          }
-        },
-        "frame_7BcDPa": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5014.png"
-          }
-        },
-        "frame_me3D4V": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5015.png"
-          }
-        },
-        "frame_YmP8LG": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5016.png"
-          }
-        },
-        "frame_Y9c6xX": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5017.png"
-          }
-        },
-        "frame_BdfidN": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5018.png"
-          }
-        },
-        "frame_88xzKW": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5019.png"
-          }
-        },
-        "frame_QgA3Tc": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5020.png"
-          }
-        },
-        "frame_LNztrK": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5021.png"
-          }
-        },
-        "frame_6CpDFN": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5022.png"
-          }
-        },
-        "frame_yNNN7G": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5023.png"
-          }
-        },
-        "frame_f3zGjB": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5024.png"
-          }
-        },
-        "frame_QMVmHQ": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5025.png"
-          }
-        },
-        "frame_WcDBUw": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5026.png"
-          }
-        },
-        "frame_MWDLAY": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5027.png"
-          }
-        },
-        "frame_KNQnMa": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5028.png"
-          }
-        },
-        "frame_Cy3pxn": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5029.png"
-          }
-        },
-        "frame_wP7aEW": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5030.png"
-          }
-        },
-        "frame_GREiUw": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5031.png"
-          }
-        },
-        "frame_fC3BhH": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5032.png"
-          }
-        },
-        "frame_UGtwCg": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5033.png"
-          }
-        },
-        "frame_hcqGdX": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5034.png"
-          }
-        },
-        "frame_hcg9nz": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5035.png"
-          }
-        },
-        "frame_6X47B8": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5036.png"
-          }
-        },
-        "frame_WUJ8TY": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5037.png"
-          }
-        },
-        "frame_KghJ6y": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5038.png"
-          }
-        },
-        "frame_9rynGC": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5039.png"
-          }
-        },
-        "frame_4imAHN": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5040.png"
-          }
-        },
-        "frame_ggwhhE": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5041.png"
-          }
-        },
-        "frame_T6WVYV": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5042.png"
-          }
-        },
-        "frame_NVdLBm": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5001.png"
-          }
-        },
-        "frame_PYpkLi": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5002.png"
-          }
-        },
-        "frame_c4YXp4": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5003.png"
-          }
-        },
-        "frame_yjX4fU": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5004.png"
-          }
-        },
-        "frame_YcrBJh": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5005.png"
-          }
-        },
-        "frame_pMk3gq": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5006.png"
-          }
-        },
-        "frame_8WeVza": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5007.png"
-          }
-        },
-        "frame_6cGLaC": {
-          "type": "frame",
-          "settings": {
-            "image": "shopify://shop_images/WARRIOR_5008.png"
+            "share_label": "Share"
           }
         }
       },
       "block_order": [
-        "frame_baxrhd",
-        "frame_gGE8Lp",
-        "frame_EEEfqC",
-        "frame_cjLHwP",
-        "frame_Tip8FQ",
-        "frame_7BcDPa",
-        "frame_me3D4V",
-        "frame_YmP8LG",
-        "frame_Y9c6xX",
-        "frame_BdfidN",
-        "frame_88xzKW",
-        "frame_QgA3Tc",
-        "frame_LNztrK",
-        "frame_6CpDFN",
-        "frame_yNNN7G",
-        "frame_f3zGjB",
-        "frame_QMVmHQ",
-        "frame_WcDBUw",
-        "frame_MWDLAY",
-        "frame_KNQnMa",
-        "frame_Cy3pxn",
-        "frame_wP7aEW",
-        "frame_GREiUw",
-        "frame_fC3BhH",
-        "frame_UGtwCg",
-        "frame_hcqGdX",
-        "frame_hcg9nz",
-        "frame_6X47B8",
-        "frame_WUJ8TY",
-        "frame_KghJ6y",
-        "frame_9rynGC",
-        "frame_4imAHN",
-        "frame_ggwhhE",
-        "frame_T6WVYV",
-        "frame_NVdLBm",
-        "frame_PYpkLi",
-        "frame_c4YXp4",
-        "frame_yjX4fU",
-        "frame_YcrBJh",
-        "frame_pMk3gq",
-        "frame_8WeVza",
-        "frame_6cGLaC"
+        "text_zVQYFd",
+        "title_R8GHTL",
+        "price_LtKeUq",
+        "variant_picker_yn8Lri",
+        "quantity_selector_M7qAMy",
+        "buy_buttons_eEwzPg",
+        "share_jePcLk"
       ],
-      "name": "360 Image Viewer",
+      "name": "t:sections.featured-product.presets.name",
       "settings": {
-        "header_text": "DRAG TO ROTATE | FOR OFF-ROAD USE ONLY",
-        "header_size": 28,
-        "header_align": "center",
-        "bg_text": "SX- E5",
-        "bg_text_size": 300,
-        "bg_text_size_mobile": 104,
-        "bg_text_color": "#ffffff",
-        "bg_text_opacity": 100,
-        "show_hint": true,
-        "viewer_background": "",
-        "frame_fit": "contain",
-        "sprite_url": "",
-        "sprite_cols": 12,
-        "sprite_rows": 6,
-        "base_url": "https://cdn.shopify.com/s/files/1/0693/8784/5721/files/Rally-      Pro-360_",
-        "urls_text": "",
-        "query": "",
-        "frame_count": 72,
-        "first_frame_index": "1",
-        "pad": 4,
-        "ext": "png",
-        "frame_width": 800,
-        "frame_height": 1000,
-        "width": "100%",
-        "height": "450px",
-        "height_mobile": "300px",
-        "autoplay": false,
-        "speed": 76,
-        "sensitivity": 11,
-        "reverse": false,
-        "autoplay_direction": "1",
-        "preload": 8,
-        "alt": ""
+        "product": "2026-e5",
+        "color_scheme": "scheme-2",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "specs_board_Pjmf7Y": {
@@ -924,7 +657,7 @@
     }
   },
   "order": [
-    "360_image_selection_Tzaz49",
+    "featured_product_gGq86e",
     "specs_board_Pjmf7Y",
     "fullscreen_autoplay_vid_jkqEMK",
     "main",
