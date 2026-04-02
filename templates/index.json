@@ -327,6 +327,93 @@
     "1771295374a9dcf60d": {
       "type": "_blocks",
       "settings": {}
+    },
+    "17751446566ac8a390": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_28c1007_CAWii9": {
+          "type": "ai_gen_block_28c1007",
+          "settings": {
+            "font_size": 14,
+            "font_weight": "500",
+            "text_transform": "uppercase",
+            "letter_spacing": 1,
+            "menu_spacing": 32,
+            "link_padding_vertical": 8,
+            "link_padding_horizontal": 12,
+            "menu_text_color": "#ffffff",
+            "menu_hover_color": "#e3fc02",
+            "dropdown_min_width": 220,
+            "dropdown_padding": 12,
+            "dropdown_link_padding": 12,
+            "dropdown_font_size": 14,
+            "dropdown_border_radius": 4,
+            "dropdown_border_thickness": 1,
+            "dropdown_bg_color": "#2a2a2c",
+            "dropdown_border_color": "#3a3a3c",
+            "dropdown_text_color": "#ffffff",
+            "dropdown_hover_bg_color": "#3a3a3c",
+            "dropdown_hover_text_color": "#e3fc02",
+            "menu_1_label": "Bikes",
+            "menu_1_link_1_label": "All Bikes",
+            "menu_1_link_1_url": "",
+            "menu_1_link_2_label": "Electric Dirt Bikes",
+            "menu_1_link_2_url": "",
+            "menu_1_link_3_label": "Featured Models",
+            "menu_1_link_3_url": "",
+            "menu_1_link_4_label": "",
+            "menu_1_link_4_url": "",
+            "menu_1_link_5_label": "",
+            "menu_1_link_5_url": "",
+            "menu_1_link_6_label": "",
+            "menu_1_link_6_url": "",
+            "menu_2_label": "Parts",
+            "menu_2_link_1_label": "All Parts",
+            "menu_2_link_1_url": "",
+            "menu_2_link_2_label": "Batteries",
+            "menu_2_link_2_url": "",
+            "menu_2_link_3_label": "Accessories",
+            "menu_2_link_3_url": "",
+            "menu_2_link_4_label": "",
+            "menu_2_link_4_url": "",
+            "menu_2_link_5_label": "",
+            "menu_2_link_5_url": "",
+            "menu_2_link_6_label": "",
+            "menu_2_link_6_url": "",
+            "menu_3_label": "Support",
+            "menu_3_link_1_label": "Help Center",
+            "menu_3_link_1_url": "",
+            "menu_3_link_2_label": "Warranty",
+            "menu_3_link_2_url": "",
+            "menu_3_link_3_label": "Contact Us",
+            "menu_3_link_3_url": "",
+            "menu_3_link_4_label": "",
+            "menu_3_link_4_url": "",
+            "menu_3_link_5_label": "",
+            "menu_3_link_5_url": "",
+            "menu_3_link_6_label": "",
+            "menu_3_link_6_url": "",
+            "menu_4_label": "About",
+            "menu_4_link_1_label": "Our Story",
+            "menu_4_link_1_url": "",
+            "menu_4_link_2_label": "Technology",
+            "menu_4_link_2_url": "",
+            "menu_4_link_3_label": "Sustainability",
+            "menu_4_link_3_url": "",
+            "menu_4_link_4_label": "",
+            "menu_4_link_4_url": "",
+            "menu_4_link_5_label": "",
+            "menu_4_link_5_url": "",
+            "menu_4_link_6_label": "",
+            "menu_4_link_6_url": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_28c1007_CAWii9"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -336,6 +423,7 @@
     "slideshow_6wFyJV",
     "custom_highlight_css_dFMJEG",
     "product_modal_overlay_AtmGhb",
-    "1771295374a9dcf60d"
+    "1771295374a9dcf60d",
+    "17751446566ac8a390"
   ]
 }
