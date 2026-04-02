@@ -1,6 +1,766 @@
+{% doc %}
+  @prompt
+    Create a header navigation block with 4 dropdown menu items on the left side of the header. The logo stays centered and the right side (cart, account icons) remains unchanged. Each of the 4 menu items should show a customizable submenu on hover and click. Each top-level menu item label should be editable in the theme editor, and each submenu should support multiple customizable links (label + URL). Style the dropdowns to match a dark, modern aesthetic with smooth hover transitions.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-header-nav-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-header-nav-container-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+  }
+
+  .ai-header-nav-list-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.menu_spacing }}px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-header-nav-item-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-header-nav-link-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: {{ block.settings.link_padding_vertical }}px {{ block.settings.link_padding_horizontal }}px;
+    color: {{ block.settings.menu_text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: {{ block.settings.text_transform }};
+    transition: color 0.3s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .ai-header-nav-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.menu_hover_color }};
+  }
+
+  .ai-header-nav-icon-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-header-nav-item-{{ ai_gen_id }}.active .ai-header-nav-icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-header-nav-dropdown-{{ ai_gen_id }} {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: {{ block.settings.dropdown_min_width }}px;
+    background-color: {{ block.settings.dropdown_bg_color }};
+    border: {{ block.settings.dropdown_border_thickness }}px solid {{ block.settings.dropdown_border_color }};
+    border-radius: {{ block.settings.dropdown_border_radius }}px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+    padding: {{ block.settings.dropdown_padding }}px 0;
+  }
+
+  .ai-header-nav-item-{{ ai_gen_id }}.active .ai-header-nav-dropdown-{{ ai_gen_id }} {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .ai-header-nav-dropdown-list-{{ ai_gen_id }} {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-header-nav-dropdown-item-{{ ai_gen_id }} {
+    margin: 0;
+  }
+
+  .ai-header-nav-dropdown-link-{{ ai_gen_id }} {
+    display: block;
+    padding: {{ block.settings.dropdown_link_padding }}px {{ block.settings.dropdown_padding }}px;
+    color: {{ block.settings.dropdown_text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.dropdown_font_size }}px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .ai-header-nav-dropdown-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.dropdown_hover_bg_color }};
+    color: {{ block.settings.dropdown_hover_text_color }};
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-header-nav-{{ ai_gen_id }} {
+      display: none;
+    }
+  }
+{% endstyle %}
+
+<header-navigation-{{ ai_gen_id }} class="ai-header-nav-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <nav class="ai-header-nav-container-{{ ai_gen_id }}">
+    <ul class="ai-header-nav-list-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign menu_label_key = 'menu_' | append: i | append: '_label'
+          assign menu_label = block.settings[menu_label_key]
+        %}
+        
+        {% if menu_label != blank %}
+          <li class="ai-header-nav-item-{{ ai_gen_id }}" data-menu-id="{{ i }}">
+            <button
+              class="ai-header-nav-link-{{ ai_gen_id }}"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              {{ menu_label }}
+              <svg class="ai-header-nav-icon-{{ ai_gen_id }}" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <div class="ai-header-nav-dropdown-{{ ai_gen_id }}">
+              <ul class="ai-header-nav-dropdown-list-{{ ai_gen_id }}">
+                {% for j in (1..6) %}
+                  {% liquid
+                    assign link_label_key = 'menu_' | append: i | append: '_link_' | append: j | append: '_label'
+                    assign link_url_key = 'menu_' | append: i | append: '_link_' | append: j | append: '_url'
+                    assign link_label = block.settings[link_label_key]
+                    assign link_url = block.settings[link_url_key]
+                  %}
+                  
+                  {% if link_label != blank %}
+                    <li class="ai-header-nav-dropdown-item-{{ ai_gen_id }}">
+                      <a
+                        href="{{ link_url | default: '#' }}"
+                        class="ai-header-nav-dropdown-link-{{ ai_gen_id }}"
+                      >
+                        {{ link_label }}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+</header-navigation-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class HeaderNavigation{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.menuItems = this.querySelectorAll('.ai-header-nav-item-{{ ai_gen_id }}');
+        this.activeMenu = null;
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.menuItems.forEach((item) => {
+          const button = item.querySelector('.ai-header-nav-link-{{ ai_gen_id }}');
+          const dropdown = item.querySelector('.ai-header-nav-dropdown-{{ ai_gen_id }}');
+
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.toggleMenu(item, button);
+          });
+
+          item.addEventListener('mouseenter', () => {
+            this.openMenu(item, button);
+          });
+
+          item.addEventListener('mouseleave', () => {
+            this.closeMenu(item, button);
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.ai-header-nav-item-{{ ai_gen_id }}')) {
+            this.closeAllMenus();
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            this.closeAllMenus();
+          }
+        });
+      }
+
+      toggleMenu(item, button) {
+        const isActive = item.classList.contains('active');
+        
+        this.closeAllMenus();
+        
+        if (!isActive) {
+          this.openMenu(item, button);
+        }
+      }
+
+      openMenu(item, button) {
+        this.closeAllMenus();
+        item.classList.add('active');
+        button.setAttribute('aria-expanded', 'true');
+        this.activeMenu = item;
+      }
+
+      closeMenu(item, button) {
+        item.classList.remove('active');
+        button.setAttribute('aria-expanded', 'false');
+        if (this.activeMenu === item) {
+          this.activeMenu = null;
+        }
+      }
+
+      closeAllMenus() {
+        this.menuItems.forEach((item) => {
+          const button = item.querySelector('.ai-header-nav-link-{{ ai_gen_id }}');
+          item.classList.remove('active');
+          button.setAttribute('aria-expanded', 'false');
+        });
+        this.activeMenu = null;
+      }
+    }
+
+    customElements.define('header-navigation-{{ ai_gen_id }}', HeaderNavigation{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Header navigation",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Menu style"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "menu_spacing",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Space between items",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "link_padding_vertical",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "link_padding_horizontal",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "menu_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "menu_hover_color",
+      "label": "Hover color",
+      "default": "#e3fc02"
+    },
+    {
+      "type": "header",
+      "content": "Dropdown style"
+    },
+    {
+      "type": "range",
+      "id": "dropdown_min_width",
+      "min": 180,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum width",
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "dropdown_padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "dropdown_link_padding",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Link padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "dropdown_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "dropdown_border_radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "dropdown_border_thickness",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border thickness",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "dropdown_bg_color",
+      "label": "Background color",
+      "default": "#2a2a2c"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_border_color",
+      "label": "Border color",
+      "default": "#3a3a3c"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_hover_bg_color",
+      "label": "Hover background",
+      "default": "#3a3a3c"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_hover_text_color",
+      "label": "Hover text color",
+      "default": "#e3fc02"
+    },
+    {
+      "type": "header",
+      "content": "Menu 1"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_label",
+      "label": "Menu label",
+      "default": "Bikes"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_link_1_label",
+      "label": "Link 1 label",
+      "default": "All Bikes"
+    },
+    {
+      "type": "url",
+      "id": "menu_1_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_link_2_label",
+      "label": "Link 2 label",
+      "default": "Electric Dirt Bikes"
+    },
+    {
+      "type": "url",
+      "id": "menu_1_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_link_3_label",
+      "label": "Link 3 label",
+      "default": "Featured Models"
+    },
+    {
+      "type": "url",
+      "id": "menu_1_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_link_4_label",
+      "label": "Link 4 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_1_link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_link_5_label",
+      "label": "Link 5 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_1_link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_link_6_label",
+      "label": "Link 6 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_1_link_6_url",
+      "label": "Link 6 URL"
+    },
+    {
+      "type": "header",
+      "content": "Menu 2"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_label",
+      "label": "Menu label",
+      "default": "Parts"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_link_1_label",
+      "label": "Link 1 label",
+      "default": "All Parts"
+    },
+    {
+      "type": "url",
+      "id": "menu_2_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_link_2_label",
+      "label": "Link 2 label",
+      "default": "Batteries"
+    },
+    {
+      "type": "url",
+      "id": "menu_2_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_link_3_label",
+      "label": "Link 3 label",
+      "default": "Accessories"
+    },
+    {
+      "type": "url",
+      "id": "menu_2_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_link_4_label",
+      "label": "Link 4 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_2_link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_link_5_label",
+      "label": "Link 5 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_2_link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_link_6_label",
+      "label": "Link 6 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_2_link_6_url",
+      "label": "Link 6 URL"
+    },
+    {
+      "type": "header",
+      "content": "Menu 3"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_label",
+      "label": "Menu label",
+      "default": "Support"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_link_1_label",
+      "label": "Link 1 label",
+      "default": "Help Center"
+    },
+    {
+      "type": "url",
+      "id": "menu_3_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_link_2_label",
+      "label": "Link 2 label",
+      "default": "Warranty"
+    },
+    {
+      "type": "url",
+      "id": "menu_3_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_link_3_label",
+      "label": "Link 3 label",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "menu_3_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_link_4_label",
+      "label": "Link 4 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_3_link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_link_5_label",
+      "label": "Link 5 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_3_link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_link_6_label",
+      "label": "Link 6 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_3_link_6_url",
+      "label": "Link 6 URL"
+    },
+    {
+      "type": "header",
+      "content": "Menu 4"
+    },
+    {
+      "type": "text",
+      "id": "menu_4_label",
+      "label": "Menu label",
+      "default": "About"
+    },
+    {
+      "type": "text",
+      "id": "menu_4_link_1_label",
+      "label": "Link 1 label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "menu_4_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_4_link_2_label",
+      "label": "Link 2 label",
+      "default": "Technology"
+    },
+    {
+      "type": "url",
+      "id": "menu_4_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_4_link_3_label",
+      "label": "Link 3 label",
+      "default": "Sustainability"
+    },
+    {
+      "type": "url",
+      "id": "menu_4_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_4_link_4_label",
+      "label": "Link 4 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_4_link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_4_link_5_label",
+      "label": "Link 5 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_4_link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "text",
+      "id": "menu_4_link_6_label",
+      "label": "Link 6 label"
+    },
+    {
+      "type": "url",
+      "id": "menu_4_link_6_url",
+      "label": "Link 6 URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header navigation"
+    }
+  ]
+}
 {% endschema %}
